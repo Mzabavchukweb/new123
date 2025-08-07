@@ -1,21 +1,47 @@
-// DOM Content Loaded
+// Enhanced DOM Content Loaded with Better Performance
 document.addEventListener('DOMContentLoaded', function() {
+    // Critical functionality first
     loadHeaderComponent();
+    loadMainHeaderComponent();
     loadFooterComponent();
     initializeMobileMenu();
-    initializeExpandableServices();
-    initializeContactForm();
     setActiveNavigation();
-    initializeScrollAnimations();
-    initializeRippleEffects();
-    initializeParticleBackground();
-    initializeCounterAnimations();
-    initializeCalculator();
-    initializeFAQ();
-    initializeSmoothSections();
-    initializeServicesTabs();
-    initializeCookieConsent();
+    
+    // Performance-optimized animations
+    requestIdleCallback(() => {
+        initializeScrollAnimations();
+        initializeSmoothSections();
+    });
+    
+    // Interactive components
+    requestIdleCallback(() => {
+        initializeExpandableServices();
+        initializeContactForm();
+        initializeCalculator();
+        initializeFAQ();
+        initializeServicesTabs();
+    });
+    
+    // Visual enhancements (lowest priority)
+    requestIdleCallback(() => {
+        initializeRippleEffects();
+        initializeParticleBackground();
+        initializeCounterAnimations();
+        initializeCookieConsent();
+    });
 });
+
+// Performance optimization: RequestIdleCallback polyfill
+if (!window.requestIdleCallback) {
+    window.requestIdleCallback = function(callback) {
+        return setTimeout(() => {
+            callback({
+                didTimeout: false,
+                timeRemaining: () => Math.max(0, 50.0 - (Date.now() - performance.now()))
+            });
+        }, 1);
+    };
+}
 
 // Load Header Component
 function loadHeaderComponent() {
@@ -27,51 +53,93 @@ function loadHeaderComponent() {
         const pagesPrefix = isInPages ? '' : 'pages/';
         
         headerElement.innerHTML = `
-            <div class="container">
-                <div class="header-content">
-                                            <a href="${homeLink}" class="logo">
-                        <div class="logo-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z"/>
-                                <path d="M8 12l2 2 4-4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
+            <!-- Top Header -->
+            <div class="top-header">
+                <div class="container">
+                    <div class="top-header-content">
+                        <div class="top-header-left">
+                            <div class="contact-info-top">
+                                <a href="tel:+48600494868" class="contact-link-top">
+                                    <i class="fas fa-phone"></i>
+                                    +48 600 494 868
+                                </a>
+                                <a href="mailto:biuro@elitecapitalmanagement.pl" class="contact-link-top">
+                                    <i class="fas fa-envelope"></i>
+                                    biuro@elitecapitalmanagement.pl
+                                </a>
+                            </div>
                         </div>
-                        <div class="logo-text">
-                            <span class="logo-main">Elite Capital</span>
-                            <span class="logo-sub">Management</span>
+                        <div class="top-header-right">
+                            <div class="opening-hours">
+                                <i class="fas fa-clock"></i>
+                                <span>Pon-Pt: 9:00-17:00</span>
+                            </div>
                         </div>
-                    </a>
-                    <div class="header-right">
-                        <div class="contact-info">
-                            <a href="tel:+48600494868">+48 600 494 868</a>
-                            <a href="mailto:biuro@elitecapitalmanagement.pl">biuro@elitecapitalmanagement.pl</a>
-                        </div>
-                        <nav>
-                            <ul class="nav-menu">
-                                <li><a href="${homeLink}">Home</a></li>
-                                <li><a href="${pagesPrefix}o-nas.html">O nas</a></li>
-                                <li><a href="${pagesPrefix}uslugi.html">Usługi</a></li>
-                                <li><a href="${pagesPrefix}kontakt.html">Kontakt</a></li>
-                            </ul>
-                        </nav>
-                        <button class="mobile-menu-toggle" id="mobileMenuToggle">
-                            <i class="fas fa-bars"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="mobile-menu" id="mobileMenu">
-                    <ul class="mobile-nav-menu">
-                        <li><a href="${homeLink}">Home</a></li>
-                        <li><a href="${pagesPrefix}o-nas.html">O nas</a></li>
-                        <li><a href="${pagesPrefix}uslugi.html">Usługi</a></li>
-                        <li><a href="${pagesPrefix}kontakt.html">Kontakt</a></li>
-                    </ul>
-                    <div class="mobile-contact-info">
-                        <a href="tel:+48600494868">+48 600 494 868</a>
-                        <a href="mailto:biuro@elitecapitalmanagement.pl">biuro@elitecapitalmanagement.pl</a>
                     </div>
                 </div>
             </div>
+        `;
+    }
+}
+
+// Load Main Header Component
+function loadMainHeaderComponent() {
+    const mainHeaderElement = document.getElementById('main-header-component');
+    if (mainHeaderElement) {
+        // Check if we're in pages directory
+        const isInPages = window.location.pathname.includes('/pages/');
+        const homeLink = isInPages ? '../index.html' : 'index.html';
+        const pagesPrefix = isInPages ? '' : 'pages/';
+        
+        mainHeaderElement.innerHTML = `
+            <!-- Main Header -->
+            <header class="header">
+                <div class="container">
+                    <div class="header-content">
+                        <a href="${homeLink}" class="logo">
+                            <div class="logo-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img">
+                                    <path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z"/>
+                                    <path d="M8 12l2 2 4-4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <div class="logo-text">
+                                <span class="logo-main">ELITE CAPITAL</span>
+                                <span class="logo-sub">MANAGEMENT</span>
+                            </div>
+                        </a>
+                        <div class="header-right">
+                            <nav>
+                                <ul class="nav-menu">
+                                    <li><a href="${homeLink}">HOME</a></li>
+                                    <li><a href="${pagesPrefix}o-nas.html">O NAS</a></li>
+                                    <li><a href="${pagesPrefix}uslugi.html">USŁUGI</a></li>
+                                    <li><a href="${pagesPrefix}kontakt.html">KONTAKT</a></li>
+                                </ul>
+                            </nav>
+                            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                                <i class="fas fa-bars"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mobile-menu" id="mobileMenu">
+                        <ul class="mobile-nav-menu">
+                            <li><a href="${homeLink}">HOME</a></li>
+                            <li><a href="${pagesPrefix}o-nas.html">O NAS</a></li>
+                            <li><a href="${pagesPrefix}uslugi.html">USŁUGI</a></li>
+                            <li><a href="${pagesPrefix}kontakt.html">KONTAKT</a></li>
+                        </ul>
+                        <div class="mobile-contact-info">
+                            <a href="tel:+48600494868">+48 600 494 868</a>
+                            <a href="mailto:biuro@elitecapitalmanagement.pl">biuro@elitecapitalmanagement.pl</a>
+                            <div class="mobile-opening-hours">
+                                <i class="fas fa-clock"></i>
+                                <span>Pon-Pt: 9:00-17:00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
         `;
     }
 }
@@ -101,6 +169,7 @@ function loadFooterComponent() {
                         <h3>Kontakt</h3>
                         <p><a href="tel:+48600494868">+48 600 494 868</a></p>
                         <p><a href="mailto:biuro@elitecapitalmanagement.pl">biuro@elitecapitalmanagement.pl</a></p>
+                        <p>Pon-Pt: 9:00-17:00</p>
                     </div>
                     <div class="footer-separator"></div>
                     <div class="footer-section">
@@ -124,34 +193,63 @@ function loadFooterComponent() {
                     </div>
                 </div>
                 <div class="footer-bottom">
-                    <p>&copy; ${new Date().getFullYear()} Elite Capital Management SP. Z O.O. Wszystkie prawa zastrzeżone.</p>
-                    <p class="gdpr-notice">
-                        <i class="fas fa-shield-alt"></i>
-                        Przetwarzanie danych zgodnie z RODO. 
-                        <a href="${pagesPrefix}polityka-prywatnosci.html">Polityka Prywatności</a> | 
-                        <a href="${pagesPrefix}regulamin.html">Regulamin</a>
-                    </p>
+                    <div class="footer-bottom-content">
+                        <p>&copy; ${new Date().getFullYear()} Elite Capital Management Sp. z o.o. Wszystkie prawa zastrzeżone.</p>
+                        <p>Profesjonalne doradztwo finansowe w Szczecinie</p>
+                    </div>
+                    <div class="footer-bottom-legal">
+                        <p class="gdpr-notice">
+                            <i class="fas fa-shield-alt"></i>
+                            Przetwarzanie danych zgodnie z RODO. 
+                            <a href="${pagesPrefix}polityka-prywatnosci.html">Polityka Prywatności</a> | 
+                            <a href="${pagesPrefix}regulamin.html">Regulamin</a>
+                        </p>
+                    </div>
                 </div>
             </div>
         `;
     }
 }
 
-// Initialize Mobile Menu
+// Enhanced Mobile Menu with Better Accessibility
 function initializeMobileMenu() {
     const mobileMenuToggle = document.getElementById('mobileMenuToggle');
     const mobileMenu = document.getElementById('mobileMenu');
     
     if (mobileMenuToggle && mobileMenu) {
-        mobileMenuToggle.addEventListener('click', function() {
-            mobileMenu.classList.toggle('active');
-            const icon = this.querySelector('i');
-            if (mobileMenu.classList.contains('active')) {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times');
+        // Enhanced accessibility
+        mobileMenuToggle.setAttribute('aria-expanded', 'false');
+        mobileMenuToggle.setAttribute('aria-controls', 'mobileMenu');
+        mobileMenuToggle.setAttribute('aria-label', 'Toggle navigation menu');
+        
+        mobileMenu.setAttribute('aria-hidden', 'true');
+        mobileMenu.setAttribute('role', 'navigation');
+        mobileMenu.setAttribute('aria-label', 'Mobile navigation');
+        
+        mobileMenuToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const isExpanded = mobileMenu.classList.contains('active');
+            
+            if (isExpanded) {
+                closeMobileMenu();
             } else {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
+                openMobileMenu();
+            }
+        });
+
+        // Enhanced keyboard navigation
+        mobileMenuToggle.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                const isExpanded = mobileMenu.classList.contains('active');
+                
+                if (isExpanded) {
+                    closeMobileMenu();
+                } else {
+                    openMobileMenu();
+                }
             }
         });
 
@@ -159,22 +257,65 @@ function initializeMobileMenu() {
         const mobileNavLinks = mobileMenu.querySelectorAll('a');
         mobileNavLinks.forEach(link => {
             link.addEventListener('click', function() {
-                mobileMenu.classList.remove('active');
-                const icon = mobileMenuToggle.querySelector('i');
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
+                closeMobileMenu();
             });
         });
 
         // Close mobile menu when clicking outside
         document.addEventListener('click', function(e) {
             if (!mobileMenuToggle.contains(e.target) && !mobileMenu.contains(e.target)) {
-                mobileMenu.classList.remove('active');
-                const icon = mobileMenuToggle.querySelector('i');
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
+                closeMobileMenu();
             }
         });
+        
+        // Close mobile menu on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+                closeMobileMenu();
+            }
+        });
+        
+        // Close mobile menu on resize (if screen becomes larger)
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768 && mobileMenu.classList.contains('active')) {
+                closeMobileMenu();
+            }
+        });
+    }
+    
+    function openMobileMenu() {
+        mobileMenu.classList.add('active');
+        mobileMenuToggle.setAttribute('aria-expanded', 'true');
+        mobileMenu.setAttribute('aria-hidden', 'false');
+        
+        const icon = mobileMenuToggle.querySelector('i');
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+        
+        // Focus management
+        const firstLink = mobileMenu.querySelector('a');
+        if (firstLink) {
+            setTimeout(() => firstLink.focus(), 100);
+        }
+        
+        // Prevent body scroll
+        document.body.style.overflow = 'hidden';
+    }
+    
+    function closeMobileMenu() {
+        mobileMenu.classList.remove('active');
+        mobileMenuToggle.setAttribute('aria-expanded', 'false');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+        
+        const icon = mobileMenuToggle.querySelector('i');
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+        
+        // Restore body scroll
+        document.body.style.overflow = '';
+        
+        // Return focus to toggle button
+        mobileMenuToggle.focus();
     }
 }
 
@@ -211,10 +352,20 @@ function initializeExpandableServices() {
     });
 }
 
-// Initialize Contact Form
+// Enhanced Contact Form with Better Validation and Accessibility
 function initializeContactForm() {
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
+        // Enhanced form accessibility
+        contactForm.setAttribute('novalidate', 'true');
+        
+        // Real-time validation
+        const inputs = contactForm.querySelectorAll('input, select, textarea');
+        inputs.forEach(input => {
+            input.addEventListener('blur', () => validateField(input));
+            input.addEventListener('input', () => clearFieldError(input));
+        });
+        
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -225,46 +376,241 @@ function initializeContactForm() {
                 formObject[key] = value;
             });
             
-            // Simple validation
+            // Enhanced validation
             const requiredFields = ['name', 'email', 'phone', 'product', 'privacy-policy', 'data-sharing'];
             let isValid = true;
+            let firstErrorField = null;
             
+            // Clear previous errors
+            clearAllErrors();
+            
+            // Validate required fields
             requiredFields.forEach(field => {
                 const input = this.querySelector(`[name="${field}"]`);
+                if (!input) return;
+                
                 if (!formObject[field] || formObject[field].trim() === '') {
-                    input.style.borderColor = '#ff6b6b';
+                    showFieldError(input, 'To pole jest wymagane');
                     isValid = false;
-                } else {
-                    input.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+                    if (!firstErrorField) firstErrorField = input;
                 }
             });
             
-            // Email validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            // Enhanced email validation
             const emailInput = this.querySelector('[name="email"]');
-            if (formObject.email && !emailRegex.test(formObject.email)) {
-                emailInput.style.borderColor = '#ff6b6b';
-                isValid = false;
+            if (emailInput && formObject.email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(formObject.email)) {
+                    showFieldError(emailInput, 'Proszę wprowadzić poprawny adres email');
+                    isValid = false;
+                    if (!firstErrorField) firstErrorField = emailInput;
+                }
+            }
+            
+            // Phone validation
+            const phoneInput = this.querySelector('[name="phone"]');
+            if (phoneInput && formObject.phone) {
+                const phoneRegex = /^[\+]?[0-9\s\-\(\)]{9,}$/;
+                if (!phoneRegex.test(formObject.phone)) {
+                    showFieldError(phoneInput, 'Proszę wprowadzić poprawny numer telefonu');
+                    isValid = false;
+                    if (!firstErrorField) firstErrorField = phoneInput;
+                }
             }
             
             if (isValid) {
-                // Simulate form submission
+                // Enhanced form submission
                 const submitButton = this.querySelector('.submit-button');
                 const originalText = submitButton.textContent;
+                const originalDisabled = submitButton.disabled;
+                
                 submitButton.textContent = 'Wysyłanie...';
                 submitButton.disabled = true;
+                submitButton.setAttribute('aria-busy', 'true');
                 
+                // Simulate form submission with better UX
                 setTimeout(() => {
-                    alert('Dziękujemy za przesłanie formularza! Skontaktujemy się z Państwem w najbliższym czasie.');
+                    showSuccessMessage('Dziękujemy za przesłanie formularza! Skontaktujemy się z Państwem w najbliższym czasie.');
                     this.reset();
                     submitButton.textContent = originalText;
-                    submitButton.disabled = false;
+                    submitButton.disabled = originalDisabled;
+                    submitButton.removeAttribute('aria-busy');
+                    
+                    // Focus on first field after reset
+                    const firstInput = this.querySelector('input, select, textarea');
+                    if (firstInput) {
+                        firstInput.focus();
+                    }
                 }, 1500);
             } else {
-                alert('Proszę wypełnić wszystkie wymagane pola poprawnie.');
+                // Focus on first error field
+                if (firstErrorField) {
+                    firstErrorField.focus();
+                }
+                showErrorMessage('Proszę poprawić błędy w formularzu');
             }
         });
     }
+}
+
+// Enhanced validation functions
+function validateField(field) {
+    const value = field.value.trim();
+    const fieldName = field.name;
+    
+    // Clear previous error
+    clearFieldError(field);
+    
+    // Required field validation
+    if (field.hasAttribute('required') && !value) {
+        showFieldError(field, 'To pole jest wymagane');
+        return false;
+    }
+    
+    // Email validation
+    if (fieldName === 'email' && value) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(value)) {
+            showFieldError(field, 'Proszę wprowadzić poprawny adres email');
+            return false;
+        }
+    }
+    
+    // Phone validation
+    if (fieldName === 'phone' && value) {
+        const phoneRegex = /^[\+]?[0-9\s\-\(\)]{9,}$/;
+        if (!phoneRegex.test(value)) {
+            showFieldError(field, 'Proszę wprowadzić poprawny numer telefonu');
+            return false;
+        }
+    }
+    
+    return true;
+}
+
+function showFieldError(field, message) {
+    field.classList.add('error');
+    field.setAttribute('aria-invalid', 'true');
+    
+    // Get or create error element
+    let errorElement = field.parentNode.querySelector('.field-error');
+    if (!errorElement) {
+        errorElement = document.createElement('div');
+        errorElement.className = 'field-error';
+        errorElement.setAttribute('role', 'alert');
+        errorElement.setAttribute('aria-live', 'polite');
+        field.parentNode.appendChild(errorElement);
+    }
+    
+    errorElement.textContent = message;
+    errorElement.style.display = 'block';
+}
+
+function clearFieldError(field) {
+    field.classList.remove('error');
+    field.removeAttribute('aria-invalid');
+    
+    const errorElement = field.parentNode.querySelector('.field-error');
+    if (errorElement) {
+        errorElement.style.display = 'none';
+        errorElement.textContent = '';
+    }
+}
+
+function clearAllErrors() {
+    const errorElements = document.querySelectorAll('.field-error');
+    errorElements.forEach(error => {
+        error.style.display = 'none';
+        error.textContent = '';
+    });
+    
+    const errorFields = document.querySelectorAll('.error');
+    errorFields.forEach(field => {
+        field.classList.remove('error');
+        field.removeAttribute('aria-invalid');
+    });
+}
+
+function showSuccessMessage(message) {
+    showNotification(message, 'success');
+}
+
+function showErrorMessage(message) {
+    showNotification(message, 'error');
+}
+
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.textContent = message;
+    notification.setAttribute('role', 'alert');
+    notification.setAttribute('aria-live', 'polite');
+    
+    // Add close button
+    const closeButton = document.createElement('button');
+    closeButton.innerHTML = '&times;';
+    closeButton.className = 'notification-close';
+    closeButton.setAttribute('aria-label', 'Zamknij powiadomienie');
+    closeButton.addEventListener('click', () => notification.remove());
+    
+    notification.appendChild(closeButton);
+    
+    // Add styles
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${type === 'success' ? '#27AE60' : type === 'error' ? '#E74C3C' : '#3498DB'};
+        color: white;
+        padding: 15px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        z-index: 10000;
+        animation: slideIn 0.3s ease;
+        max-width: 400px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+    `;
+    
+    closeButton.style.cssText = `
+        background: none;
+        border: none;
+        color: white;
+        font-size: 18px;
+        cursor: pointer;
+        padding: 0;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: background-color 0.3s;
+    `;
+    
+    closeButton.addEventListener('mouseenter', () => {
+        closeButton.style.backgroundColor = 'rgba(255,255,255,0.2)';
+    });
+    
+    closeButton.addEventListener('mouseleave', () => {
+        closeButton.style.backgroundColor = 'transparent';
+    });
+    
+    document.body.appendChild(notification);
+    
+    // Auto-remove after 5 seconds
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.style.animation = 'slideOut 0.3s ease';
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 300);
+        }
+    }, 5000);
 }
 
 // Set Active Navigation
@@ -518,10 +864,37 @@ function initializeCalculator() {
     const totalCostDisplay = document.getElementById('total-cost');
     const totalInterestDisplay = document.getElementById('total-interest');
     
+    const loanTypeRadios = document.querySelectorAll('input[name="loan-type"]');
+    
     if (!loanAmountSlider || !loanPeriodSlider || !interestRateSlider) return;
     
     function formatNumber(num) {
         return new Intl.NumberFormat('pl-PL').format(Math.round(num));
+    }
+    
+    function updateInterestRateRange() {
+        const selectedType = document.querySelector('input[name="loan-type"]:checked');
+        if (!selectedType) return;
+        
+        if (selectedType.value === 'cash') {
+            interestRateSlider.min = 7;
+            interestRateSlider.max = 16;
+            if (parseFloat(interestRateSlider.value) < 7) {
+                interestRateSlider.value = 7;
+            } else if (parseFloat(interestRateSlider.value) > 16) {
+                interestRateSlider.value = 16;
+            }
+        } else {
+            interestRateSlider.min = 2;
+            interestRateSlider.max = 8;
+            if (parseFloat(interestRateSlider.value) < 2) {
+                interestRateSlider.value = 2;
+            } else if (parseFloat(interestRateSlider.value) > 8) {
+                interestRateSlider.value = 8;
+            }
+        }
+        
+        calculateLoan();
     }
     
     function calculateLoan() {
@@ -549,7 +922,7 @@ function initializeCalculator() {
         // Update displays
         loanAmountValue.textContent = formatNumber(loanAmount);
         loanPeriodValue.textContent = loanPeriod;
-        interestRateValue.textContent = interestRate.toFixed(1);
+        interestRateValue.textContent = (interestRate * 100).toFixed(1);
         
         monthlyPaymentDisplay.textContent = formatNumber(monthlyPayment) + ' zł';
         totalCostDisplay.textContent = formatNumber(totalCost) + ' zł';
@@ -560,6 +933,11 @@ function initializeCalculator() {
     loanAmountSlider.addEventListener('input', calculateLoan);
     loanPeriodSlider.addEventListener('input', calculateLoan);
     interestRateSlider.addEventListener('input', calculateLoan);
+    
+    // Add event listeners for loan type selection
+    loanTypeRadios.forEach(radio => {
+        radio.addEventListener('change', updateInterestRateRange);
+    });
     
     // Initial calculation
     calculateLoan();
@@ -722,6 +1100,9 @@ function initializeServicesTabs() {
 
 // GDPR Compliance Functions
 function showCookieConsent() {
+    const isInPages = window.location.pathname.includes('/pages/');
+    const pagesPrefix = isInPages ? '' : 'pages/';
+    
     const consentHtml = `
         <div id="cookieConsentModal" class="gdpr-modal">
             <div class="gdpr-modal-content">
@@ -772,6 +1153,9 @@ function showCookieConsent() {
 }
 
 function showGDPRInfo() {
+    const isInPages = window.location.pathname.includes('/pages/');
+    const pagesPrefix = isInPages ? '' : 'pages/';
+    
     const gdprHtml = `
         <div id="gdprInfoModal" class="gdpr-modal">
             <div class="gdpr-modal-content">
@@ -1060,6 +1444,9 @@ function initializeCookieConsent() {
 }
 
 function showCookieConsentBanner() {
+    const isInPages = window.location.pathname.includes('/pages/');
+    const pagesPrefix = isInPages ? '' : 'pages/';
+    
     const bannerHtml = `
         <div id="cookieConsentBanner" class="cookie-banner">
             <div class="cookie-banner-content">

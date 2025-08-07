@@ -3,26 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Usługi finansowe - Elite Capital Management - kompleksowe rozwiązania finansowe</title>
-    <meta name="description" content="Profesjonalne usługi finansowe dla firm i osób prywatnych. Kredyty, leasing, faktoring, finansowanie projektów. Indywidualne podejście i konkurencyjne warunki.">
+    <title>Usługi | Elite Capital Management</title>
+    <meta name="description" content="Kompleksowe usługi finansowe: kredyty, leasing, finansowanie bez BIK, kredyty dla firm i rolników. Profesjonalne doradztwo i indywidualne podejście.">
     <link rel="stylesheet" href="../styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body>
+<body class="subpage">
     <!-- Premium Particle Background -->
     <div class="particles-background" id="particles"></div>
-
     <header id="header-component"></header>
+    <header id="main-header-component"></header>
 
     <main>
-        <section class="services-hero">
+        <!-- Hero Section -->
+        <section class="hero">
             <div class="container">
-                <div class="services-hero-content">
-                    <h1>Kompleksowe rozwiązania finansowe</h1>
-                    <p class="hero-subtitle">Ponad 50 produktów finansowych dostosowanych do Państwa potrzeb</p>
+                <div class="hero-content">
+                    <h1>Nasze usługi</h1>
+                    <p class="hero-subtitle">Kompleksowe rozwiązania finansowe</p>
                 </div>
             </div>
         </section>
@@ -30,376 +31,176 @@
         <!-- Floating Divider -->
         <div class="floating-divider"></div>
 
-        <section class="services-categories">
+        <!-- Services Section -->
+        <section class="services-section">
             <div class="container">
-                <h2>Nasze specjalizacje</h2>
-                <div class="categories-grid">
-                    <div class="category-card">
-                        <div class="category-icon">
+                <div class="services-grid">
+                    <!-- Service 1 -->
+                    <div class="service-card expandable" data-service="1">
+                        <div class="service-icon">
                             <i class="fas fa-building"></i>
                         </div>
-                        <h3>Finansowanie korporacyjne</h3>
-                        <p>Kredyty i pożyczki dla dużych przedsiębiorstw i korporacji na rozwój i inwestycje</p>
-                        <div class="category-features">
-                            <span>Kwoty: 500k - 170mln zł</span>
-                            <span>Czas: 5-30 dni</span>
+                        <h3>Kredyt dla spółki z o.o. bez BIK zarządu</h3>
+                        <p>Masz spółkę z o.o. i potrzebujesz finansowania, ale nie chcesz, by bank analizował historię kredytową zarządu? 💼</p>
+                        <a href="#" class="service-more">Więcej</a>
+                        <div class="service-expanded">
+                            <p>Mamy rozwiązanie – kredyt w banku spółdzielczym, wymagane jedynie obroty i raport BIK spółki. 📊</p>
+                            <a href="kontakt.html" class="qualify-button">Sprawdź, czy się kwalifikujesz</a>
                         </div>
                     </div>
-                    
-                    <div class="category-card">
-                        <div class="category-icon">
-                            <i class="fas fa-store"></i>
+
+                    <!-- Service 2 -->
+                    <div class="service-card expandable" data-service="2">
+                        <div class="service-icon">
+                            <i class="fas fa-car-side"></i>
                         </div>
-                        <h3>Finansowanie SME</h3>
-                        <p>Rozwiązania dla małych i średnich przedsiębiorstw, w tym finansowanie obrotowe</p>
-                        <div class="category-features">
-                            <span>Kwoty: 50k - 5mln zł</span>
-                            <span>Czas: 2-14 dni</span>
-                        </div>
-                    </div>
-                    
-                    <div class="category-card">
-                        <div class="category-icon">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <h3>Kredyty osobiste</h3>
-                        <p>Finansowanie dla osób prywatnych, w tym pracujących za granicą</p>
-                        <div class="category-features">
-                            <span>Kwoty: 10k - 500k zł</span>
-                            <span>Czas: 1-7 dni</span>
+                        <h3>Leasing bez BIK, KRD i BAZ – konsumencki i operacyjny</h3>
+                        <p>Masz wpisy w bazach? Nic nie szkodzi. Pomagamy uzyskać leasing nawet bez weryfikacji w BIK, KRD czy BAZ.</p>
+                        <a href="#" class="service-more">Więcej</a>
+                        <div class="service-expanded">
+                            <p>Dotyczy zarówno leasingu operacyjnego, jak i konsumenckiego. 🔑 Dostępność, elastyczność, skuteczność.</p>
+                            <a href="kontakt.html" class="qualify-button">Sprawdź, czy się kwalifikujesz</a>
                         </div>
                     </div>
-                    
-                    <div class="category-card">
-                        <div class="category-icon">
+
+                    <!-- Service 3 -->
+                    <div class="service-card expandable" data-service="3">
+                        <div class="service-icon">
+                            <i class="fas fa-globe-europe"></i>
+                        </div>
+                        <h3>Kredyt dla osób pracujących za granicą – do 440 000 zł</h3>
+                        <p>Pracujesz poza Polską i chcesz kredyt? Nie musisz znać się na formalnościach – tłumaczymy wszystkie dokumenty! 💶</p>
+                        <a href="#" class="service-more">Więcej</a>
+                        <div class="service-expanded">
+                            <p>Możliwość finansowania nawet do 440 000 zł.</p>
+                            <a href="kontakt.html" class="qualify-button">Sprawdź, czy się kwalifikujesz</a>
+                        </div>
+                    </div>
+
+                    <!-- Service 4 -->
+                    <div class="service-card expandable" data-service="4">
+                        <div class="service-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <h3>Masz wpis w ERIF? Nadal możesz dostać kredyt – nawet do 240 000 zł</h3>
+                        <p>Nie zamykaj sobie drogi do finansowania. Współpracujemy z instytucjami, które udzielają kredytów pomimo wpisu w ERIF.</p>
+                        <a href="#" class="service-more">Więcej</a>
+                        <div class="service-expanded">
+                            <p>➡️ Do 240 000 zł możliwe!</p>
+                            <a href="kontakt.html" class="qualify-button">Sprawdź, czy się kwalifikujesz</a>
+                        </div>
+                    </div>
+
+                    <!-- Service 5 -->
+                    <div class="service-card expandable" data-service="5">
+                        <div class="service-icon">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <h3>Banki spółdzielcze – finansowanie od 500 tys. zł do 170 mln zł</h3>
+                        <p>Obrotowe, inwestycyjne, celowe, pod kontrakty, sprzęt, maszyny i inne.</p>
+                        <a href="#" class="service-more">Więcej</a>
+                        <div class="service-expanded">
+                            <p>📌 Możliwość łączenia finansowań (np. obrotowe + kontraktowe). ✔️ Dużo plusów. ⚠️ Jedna wada - czas operacyjny (ale warto!).</p>
+                            <a href="kontakt.html" class="qualify-button">Sprawdź, czy się kwalifikujesz</a>
+                        </div>
+                    </div>
+
+                    <!-- Service 6 -->
+                    <div class="service-card expandable" data-service="6">
+                        <div class="service-icon">
+                            <i class="fas fa-landmark"></i>
+                        </div>
+                        <h3>Banki komercyjne – finansowanie dla JDG, spółek, mikro, SME i korpo</h3>
+                        <p>Alior, Millennium, PKO, mBank, Pekao, Santander, BNP, ING, Nest i inne.</p>
+                        <a href="#" class="service-more">Więcej</a>
+                        <div class="service-expanded">
+                            <p>📈 Finansowania do 50–70 mln zł. 🗺️ Cała Polska, a niektóre oferty regionalne (np. Kujawsko-Pomorskie, Pomorskie, Dolny Śląsk). Dopasowujemy rozwiązanie do Twojej sytuacji.</p>
+                            <a href="kontakt.html" class="qualify-button">Sprawdź, czy się kwalifikujesz</a>
+                        </div>
+                    </div>
+
+                    <!-- Service 7 -->
+                    <div class="service-card expandable" data-service="7">
+                        <div class="service-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <h3>Pozabanki – elastyczne finansowanie z minimum formalności</h3>
+                        <p>Współpracujemy z: Noviti, Novalend, Bizlend, Erbeo, Smeo, AsaBiznes, Avior, Wealthon i innymi.</p>
+                        <a href="#" class="service-more">Więcej</a>
+                        <div class="service-expanded">
+                            <p>Dostępne: pożyczki, leasing, faktoring. ➡️ Często szybciej i łatwiej niż w banku.</p>
+                            <a href="kontakt.html" class="qualify-button">Sprawdź, czy się kwalifikujesz</a>
+                        </div>
+                    </div>
+
+                    <!-- Service 8 -->
+                    <div class="service-card expandable" data-service="8">
+                        <div class="service-icon">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                        </div>
+                        <h3>Leasing i faktoring – szybkie narzędzia do rozwoju firmy</h3>
+                        <p>Szukasz finansowania sprzętu, pojazdów lub potrzebujesz uwolnić środki z faktur?</p>
+                        <a href="#" class="service-more">Więcej</a>
+                        <div class="service-expanded">
+                            <p>⚙️ Działamy sprawnie, dopasowując oferty do Twojego profilu.</p>
+                            <a href="kontakt.html" class="qualify-button">Sprawdź, czy się kwalifikujesz</a>
+                        </div>
+                    </div>
+
+                    <!-- Service 9 -->
+                    <div class="service-card expandable" data-service="9">
+                        <div class="service-icon">
+                            <i class="fas fa-city"></i>
+                        </div>
+                        <h3>Finansowanie dla deweloperów – banki spółdzielcze i pozabanki</h3>
+                        <p>Rozwijasz inwestycję deweloperską? Oferujemy finansowanie dedykowane – zarówno bankowe, jak i pozabankowe.</p>
+                        <a href="#" class="service-more">Więcej</a>
+                        <div class="service-expanded">
+                            <p>📊 Oferta dopasowana do branży, etapów budowy i modelu sprzedaży.</p>
+                            <a href="kontakt.html" class="qualify-button">Sprawdź, czy się kwalifikujesz</a>
+                        </div>
+                    </div>
+
+                    <!-- Service 10 -->
+                    <div class="service-card expandable" data-service="10">
+                        <div class="service-icon">
+                            <i class="fas fa-tractor"></i>
+                        </div>
+                        <h3>Finansowanie dla rolników – bankowe i pozabankowe</h3>
+                        <p>Obsługujemy rolników – zarówno indywidualnych, jak i gospodarstwa rolne.</p>
+                        <a href="#" class="service-more">Więcej</a>
+                        <div class="service-expanded">
+                            <p>Współpracujemy m.in. z InSoil oraz innymi instytucjami branżowymi. 💰 Kredyty, leasingi, pożyczki pod sprzęt lub ziemię.</p>
+                            <a href="kontakt.html" class="qualify-button">Sprawdź, czy się kwalifikujesz</a>
+                        </div>
+                    </div>
+
+                    <!-- Service 11 -->
+                    <div class="service-card expandable" data-service="11">
+                        <div class="service-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <h3>Prywatni inwestorzy – pożyczki pod zastaw nieruchomości</h3>
+                        <p>Potrzebujesz środków, a bank mówi NIE?</p>
+                        <a href="#" class="service-more">Więcej</a>
+                        <div class="service-expanded">
+                            <p>💡 Z nami masz dostęp do bazy prywatnych inwestorów. Finansowanie pod zabezpieczenie nieruchomości – dla firm i rolników. Czasem to właśnie prywatny kapitał jest najlepszym rozwiązaniem.</p>
+                            <a href="kontakt.html" class="qualify-button">Sprawdź, czy się kwalifikujesz</a>
+                        </div>
+                    </div>
+
+                    <!-- Service 12 -->
+                    <div class="service-card expandable" data-service="12">
+                        <div class="service-icon">
                             <i class="fas fa-car"></i>
                         </div>
-                        <h3>Leasing i faktoring</h3>
-                        <p>Nowoczesne narzędzia finansowe dla rozwoju biznesu i zarządzania płynnością</p>
-                        <div class="category-features">
-                            <span>Flexible solutions</span>
-                            <span>Fast approval</span>
+                        <h3>Leasing z cashbackiem – rozwiązanie tylko dla firm!</h3>
+                        <p>Prowadzisz firmę i potrzebujesz auta oraz dodatkowej gotówki?</p>
+                        <a href="#" class="service-more">Więcej</a>
+                        <div class="service-expanded">
+                            <p>Weź samochód w leasing i otrzymaj zwrot nawet do 20% wartości pojazdu na konto firmowe 💸 Sprytne finansowanie, które daje więcej niż tylko auto.</p>
+                            <a href="kontakt.html" class="qualify-button">Sprawdź, czy się kwalifikujesz</a>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Floating Divider -->
-        <div class="floating-divider"></div>
-
-        <section class="detailed-services">
-            <div class="container">
-                <h2>Szczegółowe usługi</h2>
-                
-                <div class="services-tabs">
-                    <button class="tab-button active" data-tab="corporate">Finansowanie korporacyjne</button>
-                    <button class="tab-button" data-tab="sme">SME & JDG</button>
-                    <button class="tab-button" data-tab="personal">Kredyty osobiste</button>
-                    <button class="tab-button" data-tab="specialized">Produkty specjalistyczne</button>
-                </div>
-
-                <!-- Corporate Tab -->
-                <div class="tab-content active" id="corporate">
-                    <div class="services-grid">
-                        <div class="service-detail-card">
-                            <div class="service-icon">
-                                <i class="fas fa-university"></i>
-                            </div>
-                            <h3>Kredyty bankowe korporacyjne</h3>
-                            <div class="service-params">
-                                <div class="param">
-                                    <span class="param-label">Kwota:</span>
-                                    <span class="param-value">1-170 mln zł</span>
-                                </div>
-                                <div class="param">
-                                    <span class="param-label">Okres:</span>
-                                    <span class="param-value">1-10 lat</span>
-                                </div>
-                                <div class="param">
-                                    <span class="param-label">Oprocentowanie:</span>
-                                    <span class="param-value">od 5%</span>
-                                </div>
-                            </div>
-                            <p>Długoterminowe finansowanie dla dużych projektów inwestycyjnych, rozwoju infrastruktury i ekspansji zagranicznej.</p>
-                            <ul class="service-benefits">
-                                <li>Indywidualne negocjacje warunków</li>
-                                <li>Możliwość karencji w spłacie kapitału</li>
-                                <li>Elastyczne zabezpieczenia</li>
-                            </ul>
-                            <a href="kontakt.html" class="service-cta">Sprawdź warunki</a>
-                        </div>
-
-                        <div class="service-detail-card">
-                            <div class="service-icon">
-                                <i class="fas fa-handshake"></i>
-                            </div>
-                            <h3>Banki spółdzielcze</h3>
-                            <div class="service-params">
-                                <div class="param">
-                                    <span class="param-label">Kwota:</span>
-                                    <span class="param-value">500k-170 mln zł</span>
-                                </div>
-                                <div class="param">
-                                    <span class="param-label">Okres:</span>
-                                    <span class="param-value">2-15 lat</span>
-                                </div>
-                                <div class="param">
-                                    <span class="param-label">Oprocentowanie:</span>
-                                    <span class="param-value">od 6%</span>
-                                </div>
-                            </div>
-                            <p>Finansowanie przez sieć banków spółdzielczych z bardziej elastycznym podejściem do oceny zdolności kredytowej.</p>
-                            <ul class="service-benefits">
-                                <li>Łagodniejsze kryteria oceny</li>
-                                <li>Szybsze procesy decyzyjne</li>
-                                <li>Lokalne podejście do biznesu</li>
-                            </ul>
-                            <a href="kontakt.html" class="service-cta">Sprawdź warunki</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- SME Tab -->
-                <div class="tab-content" id="sme">
-                    <div class="services-grid">
-                        <div class="service-detail-card">
-                            <div class="service-icon">
-                                <i class="fas fa-building"></i>
-                            </div>
-                            <h3>Kredyt dla spółki z o.o. bez BIK zarządu</h3>
-                            <div class="service-params">
-                                <div class="param">
-                                    <span class="param-label">Kwota:</span>
-                                    <span class="param-value">50k-5 mln zł</span>
-                                </div>
-                                <div class="param">
-                                    <span class="param-label">Okres:</span>
-                                    <span class="param-value">1-7 lat</span>
-                                </div>
-                                <div class="param">
-                                    <span class="param-label">Wymagania:</span>
-                                    <span class="param-value">Tylko obroty spółki</span>
-                                </div>
-                            </div>
-                            <p>Finansowanie dla spółek z ograniczoną odpowiedzialnością bez konieczności sprawdzania historii kredytowej zarządu.</p>
-                            <ul class="service-benefits">
-                                <li>Bez weryfikacji BIK członków zarządu</li>
-                                <li>Ocena tylko na podstawie sytuacji spółki</li>
-                                <li>Szybki proces decyzyjny</li>
-                            </ul>
-                            <a href="kontakt.html" class="service-cta">Sprawdź warunki</a>
-                        </div>
-
-                        <div class="service-detail-card">
-                            <div class="service-icon">
-                                <i class="fas fa-coins"></i>
-                            </div>
-                            <h3>Finansowanie pozabankowe</h3>
-                            <div class="service-params">
-                                <div class="param">
-                                    <span class="param-label">Kwota:</span>
-                                    <span class="param-value">10k-2 mln zł</span>
-                                </div>
-                                <div class="param">
-                                    <span class="param-label">Okres:</span>
-                                    <span class="param-value">3m-5 lat</span>
-                                </div>
-                                <div class="param">
-                                    <span class="param-label">Decyzja:</span>
-                                    <span class="param-value">24-48h</span>
-                                </div>
-                            </div>
-                            <p>Elastyczne rozwiązania od instytucji pozabankowych z minimum formalności i szybkim procesem decyzyjnym.</p>
-                            <ul class="service-benefits">
-                                <li>Minimalne wymagania formalne</li>
-                                <li>Bardzo szybka decyzja</li>
-                                <li>Elastyczne warunki spłaty</li>
-                            </ul>
-                            <a href="kontakt.html" class="service-cta">Sprawdź warunki</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Personal Tab -->
-                <div class="tab-content" id="personal">
-                    <div class="services-grid">
-                        <div class="service-detail-card">
-                            <div class="service-icon">
-                                <i class="fas fa-globe-europe"></i>
-                            </div>
-                            <h3>Kredyt dla osób zatrudnionych za granicą</h3>
-                            <div class="service-params">
-                                <div class="param">
-                                    <span class="param-label">Kwota:</span>
-                                    <span class="param-value">10k-440k zł</span>
-                                </div>
-                                <div class="param">
-                                    <span class="param-label">Okres:</span>
-                                    <span class="param-value">1-10 lat</span>
-                                </div>
-                                <div class="param">
-                                    <span class="param-label">Usługa:</span>
-                                    <span class="param-value">Tłumaczenie dokumentów</span>
-                                </div>
-                            </div>
-                            <p>Specjalistyczne finansowanie dla Polaków pracujących w krajach UE i poza nią, z pełną obsługą dokumentacji.</p>
-                            <ul class="service-benefits">
-                                <li>Przyjmujemy dochody zagraniczne</li>
-                                <li>Tłumaczymy dokumenty</li>
-                                <li>Obsługa w języku polskim</li>
-                            </ul>
-                            <a href="kontakt.html" class="service-cta">Sprawdź warunki</a>
-                        </div>
-
-                        <div class="service-detail-card">
-                            <div class="service-icon">
-                                <i class="fas fa-exclamation-triangle"></i>
-                            </div>
-                            <h3>Kredyt z wpisem w ERIF</h3>
-                            <div class="service-params">
-                                <div class="param">
-                                    <span class="param-label">Kwota:</span>
-                                    <span class="param-value">5k-240k zł</span>
-                                </div>
-                                <div class="param">
-                                    <span class="param-label">Okres:</span>
-                                    <span class="param-value">6m-7 lat</span>
-                                </div>
-                                <div class="param">
-                                    <span class="param-label">Specjalność:</span>
-                                    <span class="param-value">Trudne przypadki</span>
-                                </div>
-                            </div>
-                            <p>Finansowanie dla osób z problemami kredytowymi, w tym z aktywnym wpisem w Rejestrze Dłużników ERIF.</p>
-                            <ul class="service-benefits">
-                                <li>Akceptujemy wpisy w ERIF</li>
-                                <li>Indywidualna ocena sytuacji</li>
-                                <li>Możliwość konsolidacji zadłużenia</li>
-                            </ul>
-                            <a href="kontakt.html" class="service-cta">Sprawdź warunki</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Specialized Tab -->
-                <div class="tab-content" id="specialized">
-                    <div class="services-grid">
-                        <div class="service-detail-card">
-                            <div class="service-icon">
-                                <i class="fas fa-car-side"></i>
-                            </div>
-                            <h3>Leasing bez BIK, KRD i BAZ</h3>
-                            <div class="service-params">
-                                <div class="param">
-                                    <span class="param-label">Rodzaje:</span>
-                                    <span class="param-value">Operacyjny & konsumencki</span>
-                                </div>
-                                <div class="param">
-                                    <span class="param-label">Okres:</span>
-                                    <span class="param-value">2-7 lat</span>
-                                </div>
-                                <div class="param">
-                                    <span class="param-label">Wpłata:</span>
-                                    <span class="param-value">od 0%</span>
-                                </div>
-                            </div>
-                            <p>Leasing samochodów, maszyn i urządzeń bez weryfikacji w bazach dłużników dla firm i osób prywatnych.</p>
-                            <ul class="service-benefits">
-                                <li>Bez sprawdzania BIK, KRD, BAZ</li>
-                                <li>Dla firm i osób prywatnych</li>
-                                <li>Możliwość wykupu po leasingu</li>
-                            </ul>
-                            <a href="kontakt.html" class="service-cta">Sprawdź warunki</a>
-                        </div>
-
-                        <div class="service-detail-card">
-                            <div class="service-icon">
-                                <i class="fas fa-money-bill-wave"></i>
-                            </div>
-                            <h3>Leasing z cashbackiem</h3>
-                            <div class="service-params">
-                                <div class="param">
-                                    <span class="param-label">Dedykowany:</span>
-                                    <span class="param-value">Tylko dla firm</span>
-                                </div>
-                                <div class="param">
-                                    <span class="param-label">Cashback:</span>
-                                    <span class="param-value">do 15%</span>
-                                </div>
-                                <div class="param">
-                                    <span class="param-label">Korzyść:</span>
-                                    <span class="param-value">Poprawa płynności</span>
-                                </div>
-                            </div>
-                            <p>Innowacyjny produkt leasingowy z możliwością zwrotu części wpłaconych środków po spełnieniu warunków umowy.</p>
-                            <ul class="service-benefits">
-                                <li>Zwrot części wpłaconych rat</li>
-                                <li>Poprawa cash flow firmy</li>
-                                <li>Elastyczne warunki cashbacku</li>
-                            </ul>
-                            <a href="kontakt.html" class="service-cta">Sprawdź warunki</a>
-                        </div>
-
-                        <div class="service-detail-card">
-                            <div class="service-icon">
-                                <i class="fas fa-key"></i>
-                            </div>
-                            <h3>Pożyczki prywatne pod hipotekę</h3>
-                            <div class="service-params">
-                                <div class="param">
-                                    <span class="param-label">Kwota:</span>
-                                    <span class="param-value">50k-5 mln zł</span>
-                                </div>
-                                <div class="param">
-                                    <span class="param-label">LTV:</span>
-                                    <span class="param-value">do 70%</span>
-                                </div>
-                                <div class="param">
-                                    <span class="param-label">Okres:</span>
-                                    <span class="param-value">3m-5 lat</span>
-                                </div>
-                            </div>
-                            <p>Finansowanie od prywatnych inwestorów zabezpieczone hipoteką na nieruchomości z elastycznymi warunkami.</p>
-                            <ul class="service-benefits">
-                                <li>Szybka procedura (7-14 dni)</li>
-                                <li>Elastyczne warunki spłaty</li>
-                                <li>Akceptujemy trudne przypadki</li>
-                            </ul>
-                            <a href="kontakt.html" class="service-cta">Sprawdź warunki</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Floating Divider -->
-        <div class="floating-divider"></div>
-
-        <section class="services-process">
-            <div class="container">
-                <h2>Jak przebiega współpraca?</h2>
-                <div class="process-steps">
-                    <div class="process-step">
-                        <div class="step-number">1</div>
-                        <h3>Konsultacja</h3>
-                        <p>Bezpłatna analiza Państwa potrzeb finansowych i dobór optymalnego produktu</p>
-                    </div>
-                    <div class="process-arrow">
-                        <i class="fas fa-arrow-right"></i>
-                    </div>
-                    <div class="process-step">
-                        <div class="step-number">2</div>
-                        <h3>Przygotowanie wniosku</h3>
-                        <p>Kompleksowe przygotowanie dokumentacji i złożenie wniosku do wybranej instytucji</p>
-                    </div>
-                    <div class="process-arrow">
-                        <i class="fas fa-arrow-right"></i>
-                    </div>
-                    <div class="process-step">
-                        <div class="step-number">3</div>
-                        <h3>Decyzja i finalizacja</h3>
-                        <p>Otrzymanie decyzji kredytowej i podpisanie umowy z naszym pełnym wsparciem</p>
                     </div>
                 </div>
             </div>

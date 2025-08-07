@@ -1,0 +1,32 @@
+{
+    "name": "Elite Capital Management",
+    "short_name": "Elite Capital",
+    "description": "Profesjonalne doradztwo finansowe - kredyt bez BIK, leasing, doradztwo finansowe w Szczecinie",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#0D1B2A",
+    "theme_color": "#D4AF37",
+    "orientation": "portrait-primary",
+    "scope": "/",
+    "lang": "pl",
+    "dir": "ltr",
+    "categories": ["finance", "business"],
+    "icons": [
+        {
+            "src": "/favicon-16x16.png",
+            "sizes": "16x16",
+            "type": "image/png"
+        },
+        {
+            "src": "/favicon-32x32.png",
+            "sizes": "32x32",
+            "type": "image/png"
+        },
+        {
+            "src": "/apple-touch-icon.png",
+            "sizes": "180x180",
+            "type": "image/png"
+        }
+    ],
+    "screenshots": []
+} 
