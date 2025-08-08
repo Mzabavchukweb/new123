@@ -49,6 +49,39 @@
     <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
     
     <!-- Stylesheets -->
+    <!-- NUCLEAR MOBILE SCROLL FIX - INLINE CSS -->
+    <style>
+        /* ULTIMATE MOBILE SCROLL FIX */
+        @media (max-width: 768px) {
+            html, body {
+                overflow: scroll !important;
+                overflow-y: scroll !important;
+                overflow-x: hidden !important;
+                -webkit-overflow-scrolling: touch !important;
+                touch-action: pan-y !important;
+                height: auto !important;
+                min-height: 200vh !important;
+                position: static !important;
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+            
+            /* Kill ALL problematic elements */
+            .particles-background { display: none !important; }
+            .hero { min-height: 40vh !important; height: auto !important; }
+            
+            /* Force scroll on EVERY element */
+            * {
+                overflow-x: hidden !important;
+                max-width: 100% !important;
+                box-sizing: border-box !important;
+            }
+            
+            /* NUCLEAR: Remove any positioning that might interfere */
+            *[style*="position: fixed"] { position: static !important; }
+            *[style*="position:fixed"] { position: static !important; }
+        }
+    </style>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -145,7 +178,7 @@
     }
     </script>
 </head>
-    <body>
+    <body style="overflow-y: scroll !important; -webkit-overflow-scrolling: touch !important; touch-action: pan-y !important; height: auto !important; min-height: 200vh !important;">
         <!-- Premium Particle Background -->
         <div class="particles-background" id="particles"></div>
 
@@ -431,28 +464,6 @@
                             <p>Tak, cały proces od złożenia wniosku po podpisanie umowy może odbyć się zdalnie. Wykorzystujemy bezpieczne platformy do przesyłania dokumentów i podpisu elektronicznego. Spotkania osobiste organizujemy tylko gdy jest taka potrzeba.</p>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- MOBILE SCROLL TEST SECTION -->
-        <section style="background: #1A3A52; padding: 50px 0; min-height: 100vh;">
-            <div class="container">
-                <h2 style="color: #D4AF37; text-align: center; margin-bottom: 30px;">MOBILE SCROLL TEST</h2>
-                <div style="height: 200px; background: rgba(255,255,255,0.1); margin: 20px 0; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white;">
-                    Test Box 1 - Jeśli widzisz to, scroll działa!
-                </div>
-                <div style="height: 200px; background: rgba(255,255,255,0.1); margin: 20px 0; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white;">
-                    Test Box 2 - Sprawdź czy możesz scrollować!
-                </div>
-                <div style="height: 200px; background: rgba(255,255,255,0.1); margin: 20px 0; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white;">
-                    Test Box 3 - Scroll test content
-                </div>
-                <div style="height: 200px; background: rgba(255,255,255,0.1); margin: 20px 0; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white;">
-                    Test Box 4 - More scroll content
-                </div>
-                <div style="height: 200px; background: rgba(255,255,255,0.1); margin: 20px 0; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white;">
-                    Test Box 5 - Final test box
                 </div>
             </div>
         </section>

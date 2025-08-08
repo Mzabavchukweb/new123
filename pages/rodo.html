@@ -10,8 +10,42 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- NUCLEAR MOBILE SCROLL FIX - INLINE CSS -->
+    <style>
+        /* ULTIMATE MOBILE SCROLL FIX */
+        @media (max-width: 768px) {
+            html, body {
+                overflow: scroll !important;
+                overflow-y: scroll !important;
+                overflow-x: hidden !important;
+                -webkit-overflow-scrolling: touch !important;
+                touch-action: pan-y !important;
+                height: auto !important;
+                min-height: 200vh !important;
+                position: static !important;
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+            
+            /* Kill ALL problematic elements */
+            .particles-background { display: none !important; }
+            .hero { min-height: 40vh !important; height: auto !important; }
+            
+            /* Force scroll on EVERY element */
+            * {
+                overflow-x: hidden !important;
+                max-width: 100% !important;
+                box-sizing: border-box !important;
+            }
+            
+            /* NUCLEAR: Remove any positioning that might interfere */
+            *[style*="position: fixed"] { position: static !important; }
+            *[style*="position:fixed"] { position: static !important; }
+        }
+    </style>
+
 </head>
-<body class="subpage">
+<body class="subpage" style="overflow-y: scroll !important; -webkit-overflow-scrolling: touch !important; touch-action: pan-y !important; height: auto !important; min-height: 200vh !important;">
     <div class="particles-background" id="particles"></div>
 
     <div id="header-component"></div>
