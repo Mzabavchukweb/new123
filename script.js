@@ -1137,10 +1137,7 @@ function showCookieConsent() {
     }
     document.getElementById('cookieConsentModal').style.display = 'flex';
     
-    // Prevent body scroll on mobile when modal opens
-    if (window.innerWidth <= 768) {
-        document.body.style.overflow = 'hidden';
-    }
+    // NEVER BLOCK SCROLL ON MOBILE - ALWAYS ALLOW SCROLLING
 }
 
 function showGDPRInfo() {
@@ -1196,19 +1193,17 @@ function showGDPRInfo() {
     }
     document.getElementById('gdprInfoModal').style.display = 'flex';
     
-    // Prevent body scroll on mobile when modal opens
-    if (window.innerWidth <= 768) {
-        document.body.style.overflow = 'hidden';
-    }
+    // NEVER BLOCK SCROLL ON MOBILE - ALWAYS ALLOW SCROLLING
 }
 
 function closeGDPRModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
         modal.style.display = 'none';
-        // Restore body scroll on mobile
+        // Always restore scroll - force enable scrolling on mobile
+        document.body.style.overflow = '';
         if (window.innerWidth <= 768) {
-            document.body.style.overflow = '';
+            document.body.style.overflowY = 'auto';
         }
     }
 }

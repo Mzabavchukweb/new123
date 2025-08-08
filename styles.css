@@ -1,14 +1,22 @@
-/* Mobile-first safe improvements (desktop unaffected) */
+/* NUCLEAR MOBILE FIX - FORCE SCROLL TO WORK */
 @media (max-width: 480px) {
   html, body { 
-    overflow-x: hidden !important; 
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
     width: 100% !important; 
-    max-width: 100% !important; 
+    max-width: 100% !important;
+    height: auto !important;
+    position: relative !important;
   }
   
   * { 
     max-width: 100% !important; 
     box-sizing: border-box !important; 
+  }
+  
+  /* Force disable ANY overflow hidden on body */
+  body[style*="overflow: hidden"] {
+    overflow-y: auto !important;
   }
 
   /* Header: oszczędność miejsca bez zmiany desktopu */
@@ -368,6 +376,18 @@ body.subpage section { opacity: 1; transform: none; }
 
 @media (max-width: 768px) {
   .particles-background { display: none !important; }
+  
+  /* FORCE MOBILE SCROLL - OVERRIDE EVERYTHING */
+  body, html {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  
+  /* Kill any fixed positioning that might interfere */
+  .gdpr-modal, .cookie-modal, #cookieConsentModal, #gdprInfoModal {
+    position: absolute !important;
+    top: 0 !important;
+  }
 }
 
 .particle {
@@ -4822,14 +4842,22 @@ body.subpage .stats-section.section-with-image .section-image-overlay {
 /* Mobile adjustments */
 @media (max-width: 768px) {
     html, body { 
-      overflow-x: hidden !important; 
+      overflow-x: hidden !important;
+      overflow-y: auto !important;
       width: 100% !important; 
-      max-width: 100% !important; 
+      max-width: 100% !important;
+      height: auto !important;
+      position: relative !important;
     }
     
     * { 
       max-width: 100% !important; 
       box-sizing: border-box !important; 
+    }
+    
+    /* NUCLEAR: Override ANY JavaScript that tries to set overflow hidden */
+    body[style*="overflow"] {
+      overflow-y: auto !important;
     }
     
     .section-image-overlay {
