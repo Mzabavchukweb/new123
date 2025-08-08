@@ -6240,14 +6240,10 @@ body {
     }
     
     .geometric-bg::before,
-    .geometric-bg::after {
-        display: none;
-    }
+    .geometric-bg::after { display: none; }
     
-    .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: var(--space-md);
-    }
+    /* Force single-column stats on mobile */
+    .stats-grid { grid-template-columns: 1fr; gap: var(--space-md); }
     
     .stat-item {
         padding: var(--space-md);
