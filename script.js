@@ -158,10 +158,8 @@ function loadFooterComponent() {
                 <div class="footer-content">
                     <div class="footer-section">
                         <h3>Elite Capital Management</h3>
-                        <p>SP. Z O.O.</p>
                         <p>Sienna 9, 70-542 Szczecin</p>
-                        <p>NIP: 7561989101</p>
-                        <p>REGON: 385302808</p>
+                        <p>NIP: 7561989101 | REGON: 385302808</p>
                         <p>KRS: 0000823510</p>
                     </div>
                     <div class="footer-separator"></div>
@@ -173,22 +171,12 @@ function loadFooterComponent() {
                     </div>
                     <div class="footer-separator"></div>
                     <div class="footer-section">
-                        <h3>Nawigacja</h3>
+                        <h3>Menu</h3>
                         <nav class="footer-nav">
-                            <a href="${homeLink}">Home</a>
+                            <a href="${homeLink}">Strona główna</a>
                             <a href="${pagesPrefix}o-nas.html">O nas</a>
                             <a href="${pagesPrefix}uslugi.html">Usługi</a>
                             <a href="${pagesPrefix}kontakt.html">Kontakt</a>
-                        </nav>
-                    </div>
-                    <div class="footer-separator"></div>
-                    <div class="footer-section">
-                        <h3>Dokumenty prawne</h3>
-                        <nav class="footer-nav">
-                            <a href="${pagesPrefix}polityka-prywatnosci.html">Polityka prywatności</a>
-                            <a href="${pagesPrefix}regulamin.html">Regulamin usług</a>
-                            <a href="#" onclick="showCookieConsent()">Ustawienia cookies</a>
-                            <a href="#" onclick="showGDPRInfo()">Informacje RODO</a>
                         </nav>
                     </div>
                 </div>
@@ -199,8 +187,6 @@ function loadFooterComponent() {
                     </div>
                     <div class="footer-bottom-legal">
                         <p class="gdpr-notice">
-                            <i class="fas fa-shield-alt"></i>
-                            Przetwarzanie danych zgodnie z RODO. 
                             <a href="${pagesPrefix}polityka-prywatnosci.html">Polityka Prywatności</a> | 
                             <a href="${pagesPrefix}regulamin.html">Regulamin</a>
                         </p>
