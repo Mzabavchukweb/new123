@@ -1,11 +1,12 @@
-/* NUCLEAR MOBILE FIX - FORCE SCROLL TO WORK */
+/* ULTIMATE MOBILE SCROLL FIX - NUCLEAR OPTION */
 @media (max-width: 480px) {
   html, body { 
     overflow-x: hidden !important;
-    overflow-y: auto !important;
+    overflow-y: scroll !important;
     width: 100% !important; 
     max-width: 100% !important;
     height: auto !important;
+    min-height: 100vh !important;
     position: relative !important;
     -webkit-overflow-scrolling: touch !important;
     touch-action: pan-y !important;
@@ -16,34 +17,35 @@
     box-sizing: border-box !important; 
   }
   
-  /* Force disable ANY overflow hidden on body */
+  /* NUCLEAR: Force disable ANY overflow hidden ANYWHERE */
+  *[style*="overflow: hidden"],
+  *[style*="overflow:hidden"],
   body[style*="overflow: hidden"],
-  body[style*="overflow:hidden"] {
-    overflow-y: auto !important;
+  body[style*="overflow:hidden"],
+  html[style*="overflow: hidden"],
+  html[style*="overflow:hidden"] {
+    overflow-y: scroll !important;
   }
   
-  /* Fix problematic positioning but keep some elements */
+  /* Kill ALL fixed positioning on mobile */
   .particles-background {
-    position: absolute !important;
-    height: 100% !important;
+    display: none !important;
   }
   
-  /* Force header to be static on mobile */
-  header {
-    position: static !important;
-    top: auto !important;
-  }
-  
-  /* Force hero to have reasonable height on mobile */
+  /* Force hero to be smaller on mobile */
   .hero {
-    min-height: 60vh !important;
+    min-height: 50vh !important;
     height: auto !important;
   }
   
-  /* Other sections get auto height */
-  .section-with-image, section:not(.hero) {
-    min-height: auto !important;
-    height: auto !important;
+  /* Make sure body has enough content to scroll */
+  body {
+    min-height: 150vh !important;
+  }
+  
+  /* Kill any problematic positioning */
+  .gdpr-modal, .cookie-banner, .notification {
+    position: absolute !important;
   }
 
   /* Header: oszczędność miejsca bez zmiany desktopu */
@@ -4872,10 +4874,11 @@ body.subpage .stats-section.section-with-image .section-image-overlay {
 @media (max-width: 768px) {
     html, body { 
       overflow-x: hidden !important;
-      overflow-y: auto !important;
+      overflow-y: scroll !important;
       width: 100% !important; 
       max-width: 100% !important;
       height: auto !important;
+      min-height: 100vh !important;
       position: relative !important;
       -webkit-overflow-scrolling: touch !important;
       touch-action: pan-y !important;
@@ -4887,34 +4890,30 @@ body.subpage .stats-section.section-with-image .section-image-overlay {
     }
     
     /* NUCLEAR: Override ANY JavaScript that tries to set overflow hidden */
+    *[style*="overflow: hidden"],
+    *[style*="overflow:hidden"],
     body[style*="overflow"],
     body[style*="overflow: hidden"],
-    body[style*="overflow:hidden"] {
-      overflow-y: auto !important;
+    body[style*="overflow:hidden"],
+    html[style*="overflow: hidden"],
+    html[style*="overflow:hidden"] {
+      overflow-y: scroll !important;
     }
     
-    /* Fix problematic elements but keep some visual appeal */
+    /* Kill particles on tablets too */
     .particles-background {
-      position: absolute !important;
-      height: 100% !important;
+      display: none !important;
     }
     
-    /* Force header to be static on tablets too */
-    header {
-      position: static !important;
-      top: auto !important;
-    }
-    
-    /* Force hero to have reasonable height */
+    /* Force hero to be reasonable */
     .hero {
-      min-height: 50vh !important;
+      min-height: 60vh !important;
       height: auto !important;
     }
     
-    /* Other sections get auto height */
-    .section-with-image, section:not(.hero) {
-      min-height: auto !important;
-      height: auto !important;
+    /* Ensure body has content to scroll */
+    body {
+      min-height: 120vh !important;
     }
     
     .section-image-overlay {
