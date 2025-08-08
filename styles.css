@@ -345,6 +345,7 @@ body.subpage section { opacity: 1; transform: none; }
 /* Cursor removed for better UX */
 
 /* Premium Particle Background */
+/* Particle background: fixed on desktop, absolute on mobile to avoid scroll issues */
 .particles-background {
     position: fixed;
     top: 0;
@@ -354,6 +355,10 @@ body.subpage section { opacity: 1; transform: none; }
     pointer-events: none;
     z-index: -1;
     overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .particles-background { position: absolute; height: 100%; }
 }
 
 .particle {
@@ -5765,7 +5770,7 @@ footer.fade-in {
         padding: var(--space-lg);
     }
     
-    /* Enhanced Mobile Stats */
+/* Enhanced Mobile Stats */
     .stats-grid { grid-template-columns: 1fr; gap: var(--space-md); }
     
     .stat-item {
