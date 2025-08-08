@@ -1,6 +1,15 @@
 /* Mobile-first safe improvements (desktop unaffected) */
 @media (max-width: 480px) {
-  html, body { overflow-x: hidden; }
+  html, body { 
+    overflow-x: hidden !important; 
+    width: 100% !important; 
+    max-width: 100% !important; 
+  }
+  
+  * { 
+    max-width: 100% !important; 
+    box-sizing: border-box !important; 
+  }
 
   /* Header: oszczędność miejsca bez zmiany desktopu */
   .opening-hours { display: none; }
@@ -358,7 +367,7 @@ body.subpage section { opacity: 1; transform: none; }
 }
 
 @media (max-width: 768px) {
-  .particles-background { position: absolute; height: 100%; }
+  .particles-background { display: none !important; }
 }
 
 .particle {
@@ -4812,7 +4821,17 @@ body.subpage .stats-section.section-with-image .section-image-overlay {
 
 /* Mobile adjustments */
 @media (max-width: 768px) {
-    html, body { overflow-x: hidden; }
+    html, body { 
+      overflow-x: hidden !important; 
+      width: 100% !important; 
+      max-width: 100% !important; 
+    }
+    
+    * { 
+      max-width: 100% !important; 
+      box-sizing: border-box !important; 
+    }
+    
     .section-image-overlay {
         left: 0;
         right: 0;
