@@ -914,7 +914,7 @@ body:not(.subpage) .hero {
             rgba(26, 35, 50, 0.85) 25%,
             rgba(15, 26, 42, 0.9) 50%,
             rgba(10, 22, 32, 0.95) 100%),
-        url('../zdjecia_szymon/podpis.jpg') center center / cover no-repeat;
+        url('zdjecia_szymon/podpis.jpg') center center / cover no-repeat;
 }
 
 .hero::before {
