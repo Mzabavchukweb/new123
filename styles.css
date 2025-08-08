@@ -4616,7 +4616,7 @@ body:not(.subpage) .hero {
     bottom: 0;
     width: 100%;
     height: 100%;
-    opacity: 0.08;
+    opacity: 0.15;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -4634,10 +4634,10 @@ body:not(.subpage) .hero {
     right: 0;
     bottom: 0;
     background: linear-gradient(135deg, 
-        var(--dark-navy) 0%, 
-        rgba(13, 27, 42, 0.9) 30%,
-        rgba(13, 27, 42, 0.7) 70%,
-        rgba(13, 27, 42, 0.8) 100%);
+        rgba(13, 27, 42, 0.6) 0%, 
+        rgba(13, 27, 42, 0.4) 30%,
+        rgba(13, 27, 42, 0.3) 70%,
+        rgba(13, 27, 42, 0.5) 100%);
     z-index: 2;
 }
 
@@ -4666,11 +4666,11 @@ body:not(.subpage) .faq-section.section-with-image .section-image-overlay {
 
 /* Hover effects for sections with images */
 .section-with-image:hover .section-image-overlay {
-    opacity: 0.15;
+    opacity: 0.25;
 }
 
 .section-with-image:hover .section-image-overlay::before {
-    background: linear-gradient(90deg, var(--dark-navy) 0%, transparent 60%);
+    background: linear-gradient(90deg, rgba(13, 27, 42, 0.4) 0%, transparent 60%);
 }
 
 /* Mobile adjustments */
@@ -4679,16 +4679,16 @@ body:not(.subpage) .faq-section.section-with-image .section-image-overlay {
         left: 0;
         right: auto;
         width: 200px;
-        opacity: 0.05;
+        opacity: 0.1;
         background-attachment: scroll;
     }
     
     .section-image-overlay::before {
-        background: linear-gradient(90deg, transparent 0%, var(--dark-navy) 30%);
+        background: linear-gradient(90deg, transparent 0%, rgba(13, 27, 42, 0.3) 30%);
     }
     
     .section-with-image:hover .section-image-overlay::before {
-        background: linear-gradient(90deg, transparent 0%, var(--dark-navy) 40%);
+        background: linear-gradient(90deg, transparent 0%, rgba(13, 27, 42, 0.4) 40%);
     }
 }
 
