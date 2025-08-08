@@ -295,8 +295,10 @@ function initializeMobileMenu() {
             setTimeout(() => firstLink.focus(), 100);
         }
         
-        // Prevent body scroll
-        document.body.style.overflow = 'hidden';
+        // Prevent body scroll on desktop only
+        if (window.innerWidth > 768) {
+            document.body.style.overflow = 'hidden';
+        }
     }
     
     function closeMobileMenu() {
@@ -1134,6 +1136,11 @@ function showCookieConsent() {
         document.body.insertAdjacentHTML('beforeend', consentHtml);
     }
     document.getElementById('cookieConsentModal').style.display = 'flex';
+    
+    // Prevent body scroll on mobile when modal opens
+    if (window.innerWidth <= 768) {
+        document.body.style.overflow = 'hidden';
+    }
 }
 
 function showGDPRInfo() {
@@ -1188,12 +1195,21 @@ function showGDPRInfo() {
         document.body.insertAdjacentHTML('beforeend', gdprHtml);
     }
     document.getElementById('gdprInfoModal').style.display = 'flex';
+    
+    // Prevent body scroll on mobile when modal opens
+    if (window.innerWidth <= 768) {
+        document.body.style.overflow = 'hidden';
+    }
 }
 
 function closeGDPRModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
         modal.style.display = 'none';
+        // Restore body scroll on mobile
+        if (window.innerWidth <= 768) {
+            document.body.style.overflow = '';
+        }
     }
 }
 
