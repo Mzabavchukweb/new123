@@ -55,11 +55,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+    <link rel="manifest" href="../site.webmanifest">
     
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -109,12 +109,13 @@
 <body class="subpage">
     <!-- Premium Particle Background -->
     <div class="particles-background" id="particles"></div>
-    <header id="header-component"></header>
-    <header id="main-header-component"></header>
+    <div id="header-component"></div>
+    <div id="main-header-component"></div>
 
     <main>
         <!-- Hero Section -->
-        <section class="hero">
+        <section class="hero section-with-image">
+            <div class="section-image-overlay" style="background-image: url('../zdjecia_szymon/kontakt1.jpg');"></div>
             <div class="container">
                 <div class="hero-content">
                     <h1>Kontakt</h1>
@@ -127,12 +128,13 @@
         <div class="floating-divider"></div>
 
         <!-- Contact Section -->
-        <section class="contact-section">
+        <section class="contact-section section-with-image">
+            <div class="section-image-overlay" style="background-image: url('../zdjecia_szymon/kontakt2.jpg');"></div>
             <div class="container">
                 <div class="contact-content">
                     <div class="contact-form">
                         <h2>Formularz kontaktowy</h2>
-                        <form id="contact-form" novalidate>
+                        <form id="contactForm" novalidate>
                             <div class="form-group">
                                 <input type="text" id="name" name="name" required aria-describedby="name-error" autocomplete="name">
                                 <label for="name">Imię i nazwisko *</label>

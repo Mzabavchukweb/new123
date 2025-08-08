@@ -76,7 +76,6 @@ function loadHeaderComponent() {
                             </div>
                         </div>
                     </div>
-                </div>
             </div>
         `;
     }
@@ -157,39 +156,51 @@ function loadFooterComponent() {
             <div class="container">
                 <div class="footer-content">
                     <div class="footer-section">
-                        <h3>Elite Capital Management</h3>
-                        <p>Sienna 9, 70-542 Szczecin</p>
-                        <p>NIP: 7561989101 | REGON: 385302808</p>
-                        <p>KRS: 0000823510</p>
+                        <div class="footer-logo">
+                            <div class="footer-logo-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="footer-logo-text">
+                                <h3>Elite Capital Management</h3>
+                                <p>Profesjonalne doradztwo finansowe</p>
+                            </div>
+                        </div>
+                        <div class="footer-company-info">
+                            <p><i class="fas fa-map-marker-alt"></i> Sienna 9, 70-542 Szczecin</p>
+                            <p><i class="fas fa-id-card"></i> NIP: 7561989101</p>
+                            <p><i class="fas fa-building"></i> REGON: 385302808</p>
+                            <p><i class="fas fa-balance-scale"></i> KRS: 0000823510</p>
+                        </div>
                     </div>
                     <div class="footer-separator"></div>
                     <div class="footer-section">
-                        <h3>Kontakt</h3>
-                        <p><a href="tel:+48600494868">+48 600 494 868</a></p>
-                        <p><a href="mailto:biuro@elitecapitalmanagement.pl">biuro@elitecapitalmanagement.pl</a></p>
-                        <p>Pon-Pt: 9:00-17:00</p>
+                        <h3><i class="fas fa-phone"></i> Kontakt</h3>
+                        <div class="footer-contact-info">
+                            <p><a href="tel:+48600494868"><i class="fas fa-phone-alt"></i> +48 600 494 868</a></p>
+                            <p><a href="mailto:biuro@elitecapitalmanagement.pl"><i class="fas fa-envelope"></i> biuro@elitecapitalmanagement.pl</a></p>
+                            <p><i class="fas fa-clock"></i> Pon-Pt: 9:00-17:00</p>
+                        </div>
                     </div>
                     <div class="footer-separator"></div>
                     <div class="footer-section">
-                        <h3>Menu</h3>
+                        <h3><i class="fas fa-bars"></i> Menu</h3>
                         <nav class="footer-nav">
-                            <a href="${homeLink}">Strona główna</a>
-                            <a href="${pagesPrefix}o-nas.html">O nas</a>
-                            <a href="${pagesPrefix}uslugi.html">Usługi</a>
-                            <a href="${pagesPrefix}kontakt.html">Kontakt</a>
+                            <a href="${homeLink}"><i class="fas fa-home"></i> Strona główna</a>
+                            <a href="${pagesPrefix}o-nas.html"><i class="fas fa-users"></i> O nas</a>
+                            <a href="${pagesPrefix}uslugi.html"><i class="fas fa-briefcase"></i> Usługi</a>
+                            <a href="${pagesPrefix}kontakt.html"><i class="fas fa-envelope-open"></i> Kontakt</a>
                         </nav>
                     </div>
                 </div>
                 <div class="footer-bottom">
-                    <div class="footer-bottom-content">
-                        <p>&copy; ${new Date().getFullYear()} Elite Capital Management Sp. z o.o. Wszystkie prawa zastrzeżone.</p>
-                        <p>Profesjonalne doradztwo finansowe w Szczecinie</p>
-                    </div>
                     <div class="footer-bottom-legal">
+                        <div class="legal-title">Noty prawne</div>
                         <p class="gdpr-notice">
                             <a href="${pagesPrefix}polityka-prywatnosci.html">Polityka Prywatności</a> | 
-                            <a href="${pagesPrefix}regulamin.html">Regulamin</a>
+                            <a href="${pagesPrefix}regulamin.html">Regulamin</a> | 
+                            <a href="${pagesPrefix}rodo.html">RODO</a>
                         </p>
+                        <p class="footer-copyright-centered">&copy; 2025 Elite Capital Management Sp. z o.o. Wszystkie prawa zastrzeżone. Profesjonalne doradztwo finansowe w Szczecinie</p>
                     </div>
                 </div>
             </div>
@@ -612,20 +623,7 @@ function setActiveNavigation() {
     });
 }
 
-// Smooth scrolling for anchor links
-document.addEventListener('click', function(e) {
-    if (e.target.tagName === 'A' && e.target.getAttribute('href')?.startsWith('#')) {
-        e.preventDefault();
-        const targetId = e.target.getAttribute('href').substring(1);
-        const targetElement = document.getElementById(targetId);
-        if (targetElement) {
-            targetElement.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    }
-});
+// (duplicate smooth-scroll handler removed; enhanced version kept below)
 
 // Add scroll effect to header
 window.addEventListener('scroll', function() {
@@ -1210,7 +1208,8 @@ function saveCookieSettings() {
     }));
     
     closeGDPRModal('cookieConsentModal');
-    showNotification('Ustawienia cookies zostały zapisane.');
+    showCookieBannerNotification('Ustawienia cookies zostały zapisane.');
+    applyConsentPreferences();
 }
 
 function acceptAllCookies() {
@@ -1221,10 +1220,11 @@ function acceptAllCookies() {
     }));
     
     closeGDPRModal('cookieConsentModal');
-    showNotification('Wszystkie cookies zostały zaakceptowane.');
+    showCookieBannerNotification('Wszystkie cookies zostały zaakceptowane.');
+    applyConsentPreferences();
 }
 
-function showNotification(message) {
+function showCookieBannerNotification(message) {
     const notification = document.createElement('div');
     notification.className = 'gdpr-notification';
     notification.textContent = message;
@@ -1464,7 +1464,8 @@ function acceptAllCookiesBanner() {
     }));
     
     hideCookieBanner();
-    showNotification('Dziękujemy! Cookies zostały zaakceptowane.');
+    showCookieBannerNotification('Dziękujemy! Cookies zostały zaakceptowane.');
+    applyConsentPreferences();
 }
 
 function rejectCookies() {
@@ -1475,7 +1476,8 @@ function rejectCookies() {
     }));
     
     hideCookieBanner();
-    showNotification('Cookies zostały odrzucone. Niektóre funkcje mogą być ograniczone.');
+    showCookieBannerNotification('Cookies zostały odrzucone. Niektóre funkcje mogą być ograniczone.');
+    applyConsentPreferences();
 }
 
 function hideCookieBanner() {
@@ -1624,3 +1626,60 @@ cookieBannerStyles.textContent = `
     }
 `;
 document.head.appendChild(cookieBannerStyles);
+
+// Consent utilities – egzekwowanie zgód (ładowanie skryptów dopiero po zgodzie)
+function getCookieSettings() {
+    try {
+        return JSON.parse(localStorage.getItem('cookieSettings')) || { analytics: false, marketing: false };
+    } catch (_) {
+        return { analytics: false, marketing: false };
+    }
+}
+
+function hasConsent(category) {
+    const settings = getCookieSettings();
+    if (category === 'analytics') return !!settings.analytics;
+    if (category === 'marketing') return !!settings.marketing;
+    return false;
+}
+
+// Zamienia skrypty typu text/plain na działające, gdy użytkownik wyraził zgodę
+function applyConsentPreferences() {
+    // 1) Skrypty wymagające zgody (data-requires-consent="analytics|marketing")
+    const pendingScripts = document.querySelectorAll('script[type="text/plain"][data-requires-consent]');
+    pendingScripts.forEach((placeholder) => {
+        const category = placeholder.getAttribute('data-requires-consent');
+        if (!category) return;
+        if (!hasConsent(category)) return; // brak zgody – nic nie robimy
+
+        const src = placeholder.getAttribute('data-src');
+        const newScript = document.createElement('script');
+        newScript.type = 'text/javascript';
+        if (src) {
+            newScript.src = src;
+        } else {
+            newScript.text = placeholder.textContent || '';
+        }
+        // przenosimy atrybuty async/defer, jeśli istnieją
+        if (placeholder.hasAttribute('data-async')) newScript.async = true;
+        if (placeholder.hasAttribute('data-defer')) newScript.defer = true;
+
+        placeholder.parentNode.replaceChild(newScript, placeholder);
+    });
+
+    // 2) Elementy marketingowe/analityczne (np. iframy) oznaczone data-consent-category
+    const gatedElements = document.querySelectorAll('[data-consent-category]');
+    gatedElements.forEach((el) => {
+        const category = el.getAttribute('data-consent-category');
+        const allowed = hasConsent(category);
+        el.style.display = allowed ? '' : 'none';
+    });
+}
+
+// Zastosuj preferencje przy starcie strony
+document.addEventListener('DOMContentLoaded', () => {
+    try {
+        initializeCookieConsent();
+    } catch (_) {}
+    applyConsentPreferences();
+});

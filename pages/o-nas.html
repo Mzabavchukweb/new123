@@ -55,11 +55,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+    <link rel="manifest" href="../site.webmanifest">
     
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -103,12 +103,13 @@
 <body class="subpage">
     <!-- Premium Particle Background -->
     <div class="particles-background" id="particles"></div>
-    <header id="header-component"></header>
-    <header id="main-header-component"></header>
+    <div id="header-component"></div>
+    <div id="main-header-component"></div>
 
     <main>
         <!-- Hero Section -->
-        <section class="hero">
+        <section class="hero section-with-image">
+            <div class="section-image-overlay" style="background-image: url('../zdjecia_szymon/onas.jpg');"></div>
             <div class="container">
                 <div class="hero-content">
                     <h1>O nas</h1>
@@ -121,7 +122,8 @@
         <div class="floating-divider"></div>
 
         <!-- About Section -->
-        <section class="about-section">
+        <section class="about-section section-with-image">
+            <div class="section-image-overlay" style="background-image: url('../zdjecia_szymon/naszewartosci.jpg');"></div>
             <div class="container">
                 <!-- Mission Statement -->
                 <div class="mission-statement">
@@ -141,7 +143,8 @@
         <div class="floating-divider"></div>
 
         <!-- Stats Section -->
-        <section class="stats-section">
+        <section class="stats-section section-with-image">
+            <div class="section-image-overlay" style="background-image: url('../zdjecia_szymon/kafelkiz.jpg');"></div>
             <div class="container">
                 <div class="stats-grid">
                         <div class="stat-item">
@@ -168,13 +171,7 @@
                             <div class="stat-label">Partnerów biznesowych</div>
                         </div>
                         
-                        <div class="stat-item">
-                            <div class="stat-icon">
-                                <i class="fas fa-chart-line"></i>
-                            </div>
-                            <div class="stat-number" data-target="98">0</div>
-                            <div class="stat-label">% skuteczności</div>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -184,7 +181,8 @@
         <div class="floating-divider"></div>
 
         <!-- Values Section -->
-        <section class="values-section">
+        <section class="values-section section-with-image">
+            <div class="section-image-overlay" style="background-image: url('../zdjecia_szymon/naszamisja.jpg');"></div>
             <div class="container">
                 <h2>Nasze Wartości</h2>
                 <div class="values-grid">
@@ -224,44 +222,7 @@
             </div>
         </section>
 
-        <!-- Floating Divider -->
-        <div class="floating-divider"></div>
-
-        <!-- Team Section -->
-        <section class="team-section">
-            <div class="container">
-                <h2>Nasz Zespół Ekspertów</h2>
-                <div class="team-grid">
-                        <div class="team-member">
-                            <div class="team-avatar">
-                                <i class="fas fa-user-tie"></i>
-                            </div>
-                            <h3>Joanna Kaczorkiewicz</h3>
-                            <p class="team-role">Prezes Zarządu</p>
-                            <p class="team-description">15 lat doświadczenia w sektorze finansowym. Specjalizuje się w strategiach finansowych dla firm.</p>
-                        </div>
-
-                        <div class="team-member">
-                            <div class="team-avatar">
-                                <i class="fas fa-user-tie"></i>
-                            </div>
-                            <h3>Marcin Nowak</h3>
-                            <p class="team-role">Dyrektor ds. Kredytów</p>
-                            <p class="team-description">Ekspert w dziedzinie kredytów bez BIK i finansowania dla firm. 12 lat praktyki.</p>
-                        </div>
-
-                        <div class="team-member">
-                            <div class="team-avatar">
-                                <i class="fas fa-user-tie"></i>
-                            </div>
-                            <h3>Anna Kowalska</h3>
-                            <p class="team-role">Dyrektor ds. Leasingu</p>
-                            <p class="team-description">Specjalistka w dziedzinie leasingu operacyjnego i finansowego. 10 lat doświadczenia.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        
     </main>
 
     <footer id="footer-component"></footer>
