@@ -22,10 +22,21 @@
     overflow-y: auto !important;
   }
   
-  /* Disable any fixed positioning that might interfere */
+  /* KILL ALL PROBLEMATIC POSITIONING */
   .particles-background {
-    position: absolute !important;
-    height: 200vh !important;
+    display: none !important;
+  }
+  
+  /* Force header to be static on mobile */
+  header {
+    position: static !important;
+    top: auto !important;
+  }
+  
+  /* Force all sections to have normal height on mobile */
+  .hero, .section-with-image, section {
+    min-height: auto !important;
+    height: auto !important;
   }
 
   /* Header: oszczędność miejsca bez zmiany desktopu */
@@ -4875,10 +4886,21 @@ body.subpage .stats-section.section-with-image .section-image-overlay {
       overflow-y: auto !important;
     }
     
-    /* Ensure particles don't interfere with scroll */
+    /* KILL ALL PROBLEMATIC ELEMENTS ON MOBILE */
     .particles-background {
-      position: absolute !important;
-      height: 200vh !important;
+      display: none !important;
+    }
+    
+    /* Force header to be static on tablets too */
+    header {
+      position: static !important;
+      top: auto !important;
+    }
+    
+    /* Force all sections to have normal height */
+    .hero, .section-with-image, section {
+      min-height: auto !important;
+      height: auto !important;
     }
     
     .section-image-overlay {

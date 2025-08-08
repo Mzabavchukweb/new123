@@ -1,14 +1,43 @@
-// MOBILE SCROLL FIX - ENSURE SCROLL ALWAYS WORKS
+// NUCLEAR MOBILE SCROLL FIX - ENSURE SCROLL ALWAYS WORKS
 function forceMobileScroll() {
     if (window.innerWidth <= 768) {
+        // Force scroll on html and body
         document.documentElement.style.overflow = 'auto';
         document.documentElement.style.overflowY = 'auto';
+        document.documentElement.style.overflowX = 'hidden';
+        document.documentElement.style.webkitOverflowScrolling = 'touch';
+        document.documentElement.style.touchAction = 'pan-y';
+        document.documentElement.style.position = 'relative';
+        document.documentElement.style.height = 'auto';
+        
         document.body.style.overflow = 'auto';
         document.body.style.overflowY = 'auto';
+        document.body.style.overflowX = 'hidden';
         document.body.style.webkitOverflowScrolling = 'touch';
         document.body.style.touchAction = 'pan-y';
         document.body.style.position = 'relative';
         document.body.style.height = 'auto';
+        document.body.style.minHeight = 'auto';
+        
+        // Kill any problematic elements
+        const particles = document.querySelector('.particles-background');
+        if (particles) {
+            particles.style.display = 'none';
+        }
+        
+        // Force header to be static
+        const header = document.querySelector('header');
+        if (header) {
+            header.style.position = 'static';
+            header.style.top = 'auto';
+        }
+        
+        // Force all sections to have auto height
+        const sections = document.querySelectorAll('.hero, .section-with-image, section');
+        sections.forEach(section => {
+            section.style.minHeight = 'auto';
+            section.style.height = 'auto';
+        });
     }
 }
 
@@ -47,15 +76,25 @@ document.addEventListener('DOMContentLoaded', function() {
         initializeCookieConsent();
     });
     
-    // Continuously ensure mobile scroll works
-    setInterval(forceMobileScroll, 1000);
+    // Continuously ensure mobile scroll works - more frequently
+    setInterval(forceMobileScroll, 500);
 });
 
-// Force mobile scroll on window resize
+// Force mobile scroll on multiple events
 window.addEventListener('resize', forceMobileScroll);
+window.addEventListener('orientationchange', forceMobileScroll);
+window.addEventListener('load', forceMobileScroll);
+window.addEventListener('scroll', forceMobileScroll);
+document.addEventListener('touchstart', forceMobileScroll);
+document.addEventListener('touchmove', forceMobileScroll);
 
 // Force mobile scroll immediately when page loads
 forceMobileScroll();
+
+// Also force it after a short delay
+setTimeout(forceMobileScroll, 100);
+setTimeout(forceMobileScroll, 500);
+setTimeout(forceMobileScroll, 1000);
 
 // Performance optimization: RequestIdleCallback polyfill
 if (!window.requestIdleCallback) {
