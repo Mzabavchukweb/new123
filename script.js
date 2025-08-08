@@ -1,5 +1,22 @@
+// MOBILE SCROLL FIX - ENSURE SCROLL ALWAYS WORKS
+function forceMobileScroll() {
+    if (window.innerWidth <= 768) {
+        document.documentElement.style.overflow = 'auto';
+        document.documentElement.style.overflowY = 'auto';
+        document.body.style.overflow = 'auto';
+        document.body.style.overflowY = 'auto';
+        document.body.style.webkitOverflowScrolling = 'touch';
+        document.body.style.touchAction = 'pan-y';
+        document.body.style.position = 'relative';
+        document.body.style.height = 'auto';
+    }
+}
+
 // Enhanced DOM Content Loaded with Better Performance
 document.addEventListener('DOMContentLoaded', function() {
+    // FIRST: Force mobile scroll to work
+    forceMobileScroll();
+    
     // Critical functionality first
     loadHeaderComponent();
     loadMainHeaderComponent();
@@ -29,7 +46,16 @@ document.addEventListener('DOMContentLoaded', function() {
         initializeCounterAnimations();
         initializeCookieConsent();
     });
+    
+    // Continuously ensure mobile scroll works
+    setInterval(forceMobileScroll, 1000);
 });
+
+// Force mobile scroll on window resize
+window.addEventListener('resize', forceMobileScroll);
+
+// Force mobile scroll immediately when page loads
+forceMobileScroll();
 
 // Performance optimization: RequestIdleCallback polyfill
 if (!window.requestIdleCallback) {
@@ -295,8 +321,9 @@ function initializeMobileMenu() {
             setTimeout(() => firstLink.focus(), 100);
         }
         
-        // Prevent body scroll on desktop only
-        if (window.innerWidth > 768) {
+        // NEVER prevent body scroll on mobile - always allow scrolling
+        // Only prevent on desktop if needed
+        if (window.innerWidth > 1024) {
             document.body.style.overflow = 'hidden';
         }
     }
@@ -1138,6 +1165,13 @@ function showCookieConsent() {
     document.getElementById('cookieConsentModal').style.display = 'flex';
     
     // NEVER BLOCK SCROLL ON MOBILE - ALWAYS ALLOW SCROLLING
+    // Force enable scrolling on mobile
+    if (window.innerWidth <= 768) {
+        document.body.style.overflow = 'auto';
+        document.body.style.overflowY = 'auto';
+        document.body.style.webkitOverflowScrolling = 'touch';
+        document.body.style.touchAction = 'pan-y';
+    }
 }
 
 function showGDPRInfo() {
@@ -1194,6 +1228,13 @@ function showGDPRInfo() {
     document.getElementById('gdprInfoModal').style.display = 'flex';
     
     // NEVER BLOCK SCROLL ON MOBILE - ALWAYS ALLOW SCROLLING
+    // Force enable scrolling on mobile
+    if (window.innerWidth <= 768) {
+        document.body.style.overflow = 'auto';
+        document.body.style.overflowY = 'auto';
+        document.body.style.webkitOverflowScrolling = 'touch';
+        document.body.style.touchAction = 'pan-y';
+    }
 }
 
 function closeGDPRModal(modalId) {
@@ -1203,7 +1244,10 @@ function closeGDPRModal(modalId) {
         // Always restore scroll - force enable scrolling on mobile
         document.body.style.overflow = '';
         if (window.innerWidth <= 768) {
+            document.body.style.overflow = 'auto';
             document.body.style.overflowY = 'auto';
+            document.body.style.webkitOverflowScrolling = 'touch';
+            document.body.style.touchAction = 'pan-y';
         }
     }
 }

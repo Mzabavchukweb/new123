@@ -7,6 +7,8 @@
     max-width: 100% !important;
     height: auto !important;
     position: relative !important;
+    -webkit-overflow-scrolling: touch !important;
+    touch-action: pan-y !important;
   }
   
   * { 
@@ -15,8 +17,15 @@
   }
   
   /* Force disable ANY overflow hidden on body */
-  body[style*="overflow: hidden"] {
+  body[style*="overflow: hidden"],
+  body[style*="overflow:hidden"] {
     overflow-y: auto !important;
+  }
+  
+  /* Disable any fixed positioning that might interfere */
+  .particles-background {
+    position: absolute !important;
+    height: 200vh !important;
   }
 
   /* Header: oszczędność miejsca bez zmiany desktopu */
@@ -1469,11 +1478,13 @@ body:not(.subpage) .hero {
     background: rgba(255, 255, 255, 0.1);
     outline: none;
     -webkit-appearance: none;
+    appearance: none;
     margin-bottom: var(--space-sm);
 }
 
 .input-group input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
+    appearance: none;
     width: 24px;
     height: 24px;
     border-radius: 50%;
@@ -4848,6 +4859,8 @@ body.subpage .stats-section.section-with-image .section-image-overlay {
       max-width: 100% !important;
       height: auto !important;
       position: relative !important;
+      -webkit-overflow-scrolling: touch !important;
+      touch-action: pan-y !important;
     }
     
     * { 
@@ -4856,8 +4869,16 @@ body.subpage .stats-section.section-with-image .section-image-overlay {
     }
     
     /* NUCLEAR: Override ANY JavaScript that tries to set overflow hidden */
-    body[style*="overflow"] {
+    body[style*="overflow"],
+    body[style*="overflow: hidden"],
+    body[style*="overflow:hidden"] {
       overflow-y: auto !important;
+    }
+    
+    /* Ensure particles don't interfere with scroll */
+    .particles-background {
+      position: absolute !important;
+      height: 200vh !important;
     }
     
     .section-image-overlay {
