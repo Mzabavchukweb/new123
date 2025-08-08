@@ -4807,6 +4807,7 @@ body.subpage .stats-section.section-with-image .section-image-overlay {
 
 /* Mobile adjustments */
 @media (max-width: 768px) {
+    html, body { overflow-x: hidden; }
     .section-image-overlay {
         left: 0;
         right: 0;
@@ -5765,10 +5766,7 @@ footer.fade-in {
     }
     
     /* Enhanced Mobile Stats */
-    .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: var(--space-md);
-    }
+    .stats-grid { grid-template-columns: 1fr; gap: var(--space-md); }
     
     .stat-item {
         padding: var(--space-md);
