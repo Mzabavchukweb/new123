@@ -19,10 +19,11 @@ function forceMobileScroll() {
         document.body.style.height = 'auto';
         document.body.style.minHeight = 'auto';
         
-        // Kill any problematic elements
+        // Fix particles positioning instead of killing them
         const particles = document.querySelector('.particles-background');
         if (particles) {
-            particles.style.display = 'none';
+            particles.style.position = 'absolute';
+            particles.style.height = '100%';
         }
         
         // Force header to be static
@@ -32,9 +33,16 @@ function forceMobileScroll() {
             header.style.top = 'auto';
         }
         
-        // Force all sections to have auto height
-        const sections = document.querySelectorAll('.hero, .section-with-image, section');
-        sections.forEach(section => {
+        // Force hero to have reasonable height
+        const hero = document.querySelector('.hero');
+        if (hero) {
+            hero.style.minHeight = '60vh';
+            hero.style.height = 'auto';
+        }
+        
+        // Other sections get auto height
+        const otherSections = document.querySelectorAll('.section-with-image, section:not(.hero)');
+        otherSections.forEach(section => {
             section.style.minHeight = 'auto';
             section.style.height = 'auto';
         });

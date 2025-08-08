@@ -22,9 +22,10 @@
     overflow-y: auto !important;
   }
   
-  /* KILL ALL PROBLEMATIC POSITIONING */
+  /* Fix problematic positioning but keep some elements */
   .particles-background {
-    display: none !important;
+    position: absolute !important;
+    height: 100% !important;
   }
   
   /* Force header to be static on mobile */
@@ -33,8 +34,14 @@
     top: auto !important;
   }
   
-  /* Force all sections to have normal height on mobile */
-  .hero, .section-with-image, section {
+  /* Force hero to have reasonable height on mobile */
+  .hero {
+    min-height: 60vh !important;
+    height: auto !important;
+  }
+  
+  /* Other sections get auto height */
+  .section-with-image, section:not(.hero) {
     min-height: auto !important;
     height: auto !important;
   }
@@ -4886,9 +4893,10 @@ body.subpage .stats-section.section-with-image .section-image-overlay {
       overflow-y: auto !important;
     }
     
-    /* KILL ALL PROBLEMATIC ELEMENTS ON MOBILE */
+    /* Fix problematic elements but keep some visual appeal */
     .particles-background {
-      display: none !important;
+      position: absolute !important;
+      height: 100% !important;
     }
     
     /* Force header to be static on tablets too */
@@ -4897,8 +4905,14 @@ body.subpage .stats-section.section-with-image .section-image-overlay {
       top: auto !important;
     }
     
-    /* Force all sections to have normal height */
-    .hero, .section-with-image, section {
+    /* Force hero to have reasonable height */
+    .hero {
+      min-height: 50vh !important;
+      height: auto !important;
+    }
+    
+    /* Other sections get auto height */
+    .section-with-image, section:not(.hero) {
       min-height: auto !important;
       height: auto !important;
     }
