@@ -17,29 +17,14 @@
     <style>
         /* ULTIMATE MOBILE SCROLL FIX */
         @media (max-width: 768px) {
-            html, body {
-                overflow: scroll !important;
-                overflow-y: scroll !important;
-                overflow-x: hidden !important;
-                -webkit-overflow-scrolling: touch !important;
-                touch-action: pan-y !important;
-                height: auto !important;
-                min-height: 200vh !important;
-                position: static !important;
-                width: 100% !important;
-                max-width: 100% !important;
-            }
+            html, body { overflow-y: auto !important; overflow-x: hidden !important; -webkit-overflow-scrolling: touch !important; touch-action: pan-y !important; height: auto !important; min-height: 100dvh !important; position: static !important; width: 100% !important; max-width: 100% !important; }
             
             /* Kill ALL problematic elements */
             .particles-background { display: none !important; }
             .hero { min-height: 40vh !important; height: auto !important; }
             
             /* Force scroll on EVERY element */
-            * {
-                overflow-x: hidden !important;
-                max-width: 100% !important;
-                box-sizing: border-box !important;
-            }
+            * { overflow-x: hidden !important; max-width: 100% !important; box-sizing: border-box !important; }
             
             /* NUCLEAR: Remove any positioning that might interfere */
             *[style*="position: fixed"] { position: static !important; }
@@ -135,7 +120,7 @@
             <div class="container">
                 <div class="properties-intro" style="text-align: center; max-width: 900px; margin: 0 auto;">
                     <h2>Oferty Off-Market</h2>
-                    <p>Nasza oferta obejmuje wyselekcjonowane nieruchomości premium, niedostępne w otwartej sprzedaży. Ze względu na poufny charakter transakcji i podpisane umowy NDA, szczegółowe informacje udostępniamy wyłącznie podczas indywidualnych spotkań.</p>
+                    <p style="text-align: center;">Nasza oferta obejmuje wyselekcjonowane nieruchomości premium, niedostępne w otwartej sprzedaży. Ze względu na poufny charakter transakcji i podpisane umowy NDA, szczegółowe informacje udostępniamy wyłącznie podczas indywidualnych spotkań.</p>
                 </div>
 
                 <div class="properties-grid">

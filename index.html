@@ -61,29 +61,14 @@
     <style>
         /* ULTIMATE MOBILE SCROLL FIX */
         @media (max-width: 768px) {
-            html, body {
-                overflow: scroll !important;
-                overflow-y: scroll !important;
-                overflow-x: hidden !important;
-                -webkit-overflow-scrolling: touch !important;
-                touch-action: pan-y !important;
-                height: auto !important;
-                min-height: 200vh !important;
-                position: static !important;
-                width: 100% !important;
-                max-width: 100% !important;
-            }
+            html, body { overflow-y: auto !important; overflow-x: hidden !important; height: auto !important; min-height: 100dvh !important; position: static !important; -webkit-overflow-scrolling: touch !important; touch-action: pan-y !important; width: 100% !important; max-width: 100% !important; }
             
             /* Kill ALL problematic elements */
             .particles-background { display: none !important; }
             .hero { min-height: 40vh !important; height: auto !important; }
             
             /* Force scroll on EVERY element */
-            * {
-                overflow-x: hidden !important;
-                max-width: 100% !important;
-                box-sizing: border-box !important;
-            }
+            * { overflow-x: hidden !important; max-width: 100% !important; box-sizing: border-box !important; }
             
             /* NUCLEAR: Remove any positioning that might interfere */
             *[style*="position: fixed"] { position: static !important; }
@@ -363,7 +348,7 @@
                         <div class="stat-icon">
                             <i class="fas fa-calendar-alt"></i>
                         </div>
-                        <div class="stat-number" data-target="15">0</div>
+                        <div class="stat-number" data-target="8">0</div>
                         <div class="stat-label">Lat doświadczenia</div>
                     </div>
                     <div class="stat-item">

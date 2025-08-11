@@ -17,29 +17,14 @@
     <style>
         /* ULTIMATE MOBILE SCROLL FIX */
         @media (max-width: 768px) {
-            html, body {
-                overflow: scroll !important;
-                overflow-y: scroll !important;
-                overflow-x: hidden !important;
-                -webkit-overflow-scrolling: touch !important;
-                touch-action: pan-y !important;
-                height: auto !important;
-                min-height: 200vh !important;
-                position: static !important;
-                width: 100% !important;
-                max-width: 100% !important;
-            }
+            html, body { overflow-y: auto !important; overflow-x: hidden !important; -webkit-overflow-scrolling: touch !important; touch-action: pan-y !important; height: auto !important; min-height: 100dvh !important; position: static !important; width: 100% !important; max-width: 100% !important; }
             
             /* Kill ALL problematic elements */
             .particles-background { display: none !important; }
             .hero { min-height: 40vh !important; height: auto !important; }
             
             /* Force scroll on EVERY element */
-            * {
-                overflow-x: hidden !important;
-                max-width: 100% !important;
-                box-sizing: border-box !important;
-            }
+            * { overflow-x: hidden !important; max-width: 100% !important; box-sizing: border-box !important; }
             
             /* NUCLEAR: Remove any positioning that might interfere */
             *[style*="position: fixed"] { position: static !important; }
@@ -179,7 +164,7 @@
                     <div class="legal-section">
                         <p><strong>1.</strong> Wynagrodzenie Usługodawcy składa się z prowizji od instytucji finansowej oraz wynagrodzenia od Klienta.</p>
                         <p><strong>2.</strong> Po pozytywnym rozpatrzeniu wniosku i uzyskaniu finansowania, Klient zobowiązany jest do zapłaty wynagrodzenia Usługodawcy w wysokości uzgodnionej indywidualnie, nie niższej niż 1% kwoty uzyskanego finansowania.</p>
-                        <p><strong>3.</strong> Wynagrodzenie od Klienta płatne jest w terminie 14 dni od daty uruchomienia środków finansowych lub podpisania umowy finansowania.</p>
+                        <p><strong>3.</strong> Wynagrodzenie od Klienta płatne jest na podstawie faktury wystawianej przez Usługodawcę z terminem płatności 2 dni od daty jej wystawienia.</p>
                         <p><strong>4.</strong> Koszty związane z uzyskaniem dokumentów, opłaty notarialne, sądowe i inne opłaty związane z procedurą finansowania ponosi Klient i nie są one wliczane w wynagrodzenie Usługodawcy.</p>
                         <p><strong>5.</strong> W przypadku rezygnacji Klienta z oferty finansowania po jej akceptacji przez instytucję finansową, Klient zobowiązany jest do pokrycia kosztów poniesionych przez Usługodawcę.</p>
                         <p><strong>6.</strong> Wynagrodzenie należne jest niezależnie od źródła finansowania i rodzaju produktu finansowego.</p>
