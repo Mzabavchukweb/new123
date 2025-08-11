@@ -65,6 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
             };
             toggle.addEventListener('click', () => {
                 const isOpen = nav.classList.toggle('open');
+                toggle.classList.toggle('active', isOpen);
                 toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
             });
             // close on link click
