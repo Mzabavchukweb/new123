@@ -54,6 +54,23 @@ document.addEventListener('DOMContentLoaded', function() {
         initializeCounterAnimations();
         initializeCookieConsent();
     });
+    // Mobile menu toggle
+    try {
+        const toggle = document.querySelector('.menu-toggle');
+        const nav = document.getElementById('main-nav');
+        if (toggle && nav) {
+            const closeMenu = () => {
+                nav.classList.remove('open');
+                toggle.setAttribute('aria-expanded', 'false');
+            };
+            toggle.addEventListener('click', () => {
+                const isOpen = nav.classList.toggle('open');
+                toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            });
+            // close on link click
+            nav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+        }
+    } catch (_) {}
     // Typewriter effect for hero title (homepage only)
     const heroTitle = document.getElementById('hero-title');
     if (heroTitle) {
