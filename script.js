@@ -69,6 +69,14 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             // close on link click
             nav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+            // close on outside click
+            document.addEventListener('click', (e) => {
+                if (!nav.contains(e.target) && !toggle.contains(e.target)) closeMenu();
+            });
+
+            // close on Esc
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
         }
     } catch (_) {}
     // Typewriter effect for hero title (homepage only)
