@@ -56,29 +56,36 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     // Mobile menu toggle
     try {
-        const toggle = document.querySelector('.menu-toggle');
-        const nav = document.getElementById('main-nav');
-        if (toggle && nav) {
+        const toggles = document.querySelectorAll('.menu-toggle');
+        toggles.forEach((toggle) => {
+            const navId = toggle.getAttribute('aria-controls') || 'main-nav';
+            const nav = document.getElementById(navId);
+            if (!nav) return;
+
             const closeMenu = () => {
                 nav.classList.remove('open');
+                toggle.classList.remove('active');
                 toggle.setAttribute('aria-expanded', 'false');
             };
-            toggle.addEventListener('click', () => {
-                const isOpen = nav.classList.toggle('open');
-                toggle.classList.toggle('active', isOpen);
-                toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-            });
-            // close on link click
-            nav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+            const openMenu = () => {
+                nav.classList.add('open');
+                toggle.classList.add('active');
+                toggle.setAttribute('aria-expanded', 'true');
+            };
+            const toggleMenu = (e) => {
+                if (e) e.preventDefault();
+                const isOpen = nav.classList.contains('open');
+                isOpen ? closeMenu() : openMenu();
+            };
 
-            // close on outside click
+            ['click','touchstart','pointerup'].forEach(evt => toggle.addEventListener(evt, toggleMenu, {passive:false}));
+
+            nav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
             document.addEventListener('click', (e) => {
                 if (!nav.contains(e.target) && !toggle.contains(e.target)) closeMenu();
             });
-
-            // close on Esc
             document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
-        }
+        });
     } catch (_) {}
     // Typewriter effect for hero title (homepage only)
     const heroTitle = document.getElementById('hero-title');
