@@ -1,64 +1,36 @@
-// ULTIMATE MOBILE SCROLL FIX - NUCLEAR OPTION
-function forceMobileScroll() {
+// Mobile optimizations - simplified
+function initMobileOptimizations() {
     if (window.innerWidth <= 768) {
-        // Force scroll on html and body - NUCLEAR OPTION
-        document.documentElement.style.overflow = 'scroll';
-        document.documentElement.style.overflowY = 'scroll';
-        document.documentElement.style.overflowX = 'hidden';
-        document.documentElement.style.webkitOverflowScrolling = 'touch';
-        document.documentElement.style.touchAction = 'pan-y';
-        document.documentElement.style.position = 'relative';
-        document.documentElement.style.height = 'auto';
-        document.documentElement.style.minHeight = '100vh';
-        
-        document.body.style.overflow = 'scroll';
-        document.body.style.overflowY = 'scroll';
-        document.body.style.overflowX = 'hidden';
-        document.body.style.webkitOverflowScrolling = 'touch';
-        document.body.style.touchAction = 'pan-y';
-        document.body.style.position = 'relative';
-        document.body.style.height = 'auto';
-        document.body.style.minHeight = '150vh';
-        
-        // Kill particles on mobile
+        // Hide particles on mobile for performance
         const particles = document.querySelector('.particles-background');
         if (particles) {
             particles.style.display = 'none';
         }
         
-        // Force hero to be smaller
-        const hero = document.querySelector('.hero');
-        if (hero) {
-            hero.style.minHeight = '50vh';
-            hero.style.height = 'auto';
-        }
-        
-        // Remove any overflow hidden from any element
-        const allElements = document.querySelectorAll('*');
-        allElements.forEach(el => {
-            if (el.style.overflow === 'hidden') {
-                el.style.overflow = 'visible';
-            }
-            if (el.style.overflowY === 'hidden') {
-                el.style.overflowY = 'auto';
-            }
-        });
-        
-        console.log('MOBILE SCROLL FORCED!');
+        // Mobile optimizations applied
+    }
+}
+
+// Fast page loading - no preloader needed
+
+// Smooth scrolling for anchor links only
+function initSmoothTransitions() {
+    // Respect prefers-reduced-motion
+    const noReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
+    if (noReducedMotion) {
+        document.documentElement.style.scrollBehavior = 'smooth';
     }
 }
 
 // Enhanced DOM Content Loaded with Better Performance
 document.addEventListener('DOMContentLoaded', function() {
-    // FIRST: Force mobile scroll to work
-    forceMobileScroll();
+    // Initialize mobile optimizations
+    initMobileOptimizations();
     
-    // Critical functionality first
-    loadHeaderComponent();
-    loadMainHeaderComponent();
-    loadFooterComponent();
-    initializeMobileMenu();
-    setActiveNavigation();
+    // Initialize smooth page transitions
+    initSmoothTransitions();
+    
+
     
     // Performance-optimized animations
     requestIdleCallback(() => {
@@ -82,328 +54,72 @@ document.addEventListener('DOMContentLoaded', function() {
         initializeCounterAnimations();
         initializeCookieConsent();
     });
+    // Typewriter effect for hero title (homepage only)
+    const heroTitle = document.getElementById('hero-title');
+    if (heroTitle) {
+        const fullText = heroTitle.textContent.trim();
+        heroTitle.textContent = '';
+        let index = 0;
+
+        const base = 42; // szybsza baza
+        const jitter = 95; // losowe wahania
+        const extraDelayFor = (ch) => {
+            if (ch === ' ') return 120 + Math.random() * 180; // pauza między słowami
+            if (/[.,!?-]/.test(ch)) return 180 + Math.random() * 240; // pauza na interpunkcji
+            return 0;
+        };
+
+        const type = () => {
+            if (index >= fullText.length) return;
+
+            // Czasem wpisuj 2 znaki naraz, jak naturalny „flow”
+            const chunkSize = Math.random() < 0.25 ? 2 : 1;
+            const nextIndex = Math.min(index + chunkSize, fullText.length);
+            const chunk = fullText.slice(index, nextIndex);
+            heroTitle.textContent += chunk;
+            index = nextIndex;
+
+            const lastChar = chunk.charAt(chunk.length - 1) || ' ';
+            const delay = base + Math.random() * jitter + extraDelayFor(lastChar);
+            setTimeout(type, delay);
+        };
+
+        setTimeout(type, 250);
+    }
     
-    // Continuously ensure mobile scroll works - VERY FREQUENTLY
-    setInterval(forceMobileScroll, 100);
 });
 
-// Force mobile scroll on EVERY possible event
-window.addEventListener('resize', forceMobileScroll);
-window.addEventListener('orientationchange', forceMobileScroll);
-window.addEventListener('load', forceMobileScroll);
-window.addEventListener('DOMContentLoaded', forceMobileScroll);
-document.addEventListener('touchstart', forceMobileScroll);
-document.addEventListener('touchmove', forceMobileScroll);
-document.addEventListener('scroll', forceMobileScroll);
+// Mobile optimization - cleaned up
 
-// Force mobile scroll immediately when page loads
-forceMobileScroll();
-
-// Also force it multiple times with delays
-setTimeout(forceMobileScroll, 50);
-setTimeout(forceMobileScroll, 100);
-setTimeout(forceMobileScroll, 500);
-setTimeout(forceMobileScroll, 1000);
-setTimeout(forceMobileScroll, 2000);
-
-// Performance optimization: RequestIdleCallback polyfill
+// Performance optimization: RequestIdleCallback polyfill (single)
 if (!window.requestIdleCallback) {
     window.requestIdleCallback = function(callback) {
         return setTimeout(() => {
-            callback({
-                didTimeout: false,
-                timeRemaining: () => Math.max(0, 50.0 - (Date.now() - performance.now()))
-            });
+            callback({ didTimeout: false, timeRemaining: () => 0 });
         }, 1);
     };
 }
 
-// Load Header Component
-function loadHeaderComponent() {
-    const headerElement = document.getElementById('header-component');
-    if (headerElement) {
-        // Check if we're in pages directory
-        const isInPages = window.location.pathname.includes('/pages/');
-        const homeLink = isInPages ? '../index.html' : 'index.html';
-        const pagesPrefix = isInPages ? '' : 'pages/';
-        
-        headerElement.innerHTML = `
-            <!-- Top Header -->
-            <div class="top-header">
-                <div class="container">
-                    <div class="top-header-content">
-                        <div class="top-header-left">
-                            <div class="contact-info-top">
-                                <a href="tel:+48600494868" class="contact-link-top">
-                                    <i class="fas fa-phone"></i>
-                                    +48 600 494 868
-                                </a>
-                                <a href="mailto:biuro@elitecapitalmanagement.pl" class="contact-link-top">
-                                    <i class="fas fa-envelope"></i>
-                                    biuro@elitecapitalmanagement.pl
-                                </a>
-                            </div>
-                        </div>
-                        <div class="top-header-right">
-                            <div class="opening-hours">
-                                <i class="fas fa-clock"></i>
-                                <span>Pon-Pt: 9:00-17:00</span>
-                            </div>
-                        </div>
-                    </div>
-            </div>
-        `;
-    }
-}
 
-// Load Main Header Component
-function loadMainHeaderComponent() {
-    const mainHeaderElement = document.getElementById('main-header-component');
-    if (mainHeaderElement) {
-        // Check if we're in pages directory
-        const isInPages = window.location.pathname.includes('/pages/');
-        const homeLink = isInPages ? '../index.html' : 'index.html';
-        const pagesPrefix = isInPages ? '' : 'pages/';
-        
-        mainHeaderElement.innerHTML = `
-            <!-- Main Header -->
-            <header class="header">
-                <div class="container">
-                    <div class="header-content">
-                        <a href="${homeLink}" class="logo">
-                            <div class="logo-icon">
-                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img">
-                                    <path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z"/>
-                                    <path d="M8 12l2 2 4-4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </div>
-                            <div class="logo-text">
-                                <span class="logo-main">ELITE CAPITAL</span>
-                                <span class="logo-sub">MANAGEMENT</span>
-                            </div>
-                        </a>
-                        <div class="header-right">
-                            <nav>
-                                <ul class="nav-menu">
-                                    <li><a href="${homeLink}">HOME</a></li>
-                                    <li><a href="${pagesPrefix}o-nas.html">O NAS</a></li>
-                                    <li><a href="${pagesPrefix}uslugi.html">USŁUGI</a></li>
-                                    <li><a href="${pagesPrefix}kontakt.html">KONTAKT</a></li>
-                                </ul>
-                            </nav>
-                            <button class="mobile-menu-toggle" id="mobileMenuToggle">
-                                <i class="fas fa-bars"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="mobile-menu" id="mobileMenu">
-                        <ul class="mobile-nav-menu">
-                            <li><a href="${homeLink}">HOME</a></li>
-                            <li><a href="${pagesPrefix}o-nas.html">O NAS</a></li>
-                            <li><a href="${pagesPrefix}uslugi.html">USŁUGI</a></li>
-                            <li><a href="${pagesPrefix}kontakt.html">KONTAKT</a></li>
-                        </ul>
-                        <div class="mobile-contact-info">
-                            <a href="tel:+48600494868">+48 600 494 868</a>
-                            <a href="mailto:biuro@elitecapitalmanagement.pl">biuro@elitecapitalmanagement.pl</a>
-                            <div class="mobile-opening-hours">
-                                <i class="fas fa-clock"></i>
-                                <span>Pon-Pt: 9:00-17:00</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </header>
-        `;
-    }
-}
 
-// Load Footer Component
-function loadFooterComponent() {
-    const footerElement = document.getElementById('footer-component');
-    if (footerElement) {
-        // Check if we're in pages directory
-        const isInPages = window.location.pathname.includes('/pages/');
-        const homeLink = isInPages ? '../index.html' : 'index.html';
-        const pagesPrefix = isInPages ? '' : 'pages/';
-        
-        footerElement.innerHTML = `
-            <div class="container">
-                <div class="footer-content">
-                    <div class="footer-section">
-                        <div class="footer-logo">
-                            <div class="footer-logo-icon">
-                                <i class="fas fa-chart-line"></i>
-                            </div>
-                            <div class="footer-logo-text">
-                                <h3>Elite Capital Management</h3>
-                                <p>Profesjonalne doradztwo finansowe</p>
-                            </div>
-                        </div>
-                        <div class="footer-company-info">
-                            <p><i class="fas fa-map-marker-alt"></i> Sienna 9, 70-542 Szczecin</p>
-                            <p><i class="fas fa-id-card"></i> NIP: 7561989101</p>
-                            <p><i class="fas fa-building"></i> REGON: 385302808</p>
-                            <p><i class="fas fa-balance-scale"></i> KRS: 0000823510</p>
-                        </div>
-                    </div>
-                    <div class="footer-separator"></div>
-                    <div class="footer-section">
-                        <h3><i class="fas fa-phone"></i> Kontakt</h3>
-                        <div class="footer-contact-info">
-                            <p><a href="tel:+48600494868"><i class="fas fa-phone-alt"></i> +48 600 494 868</a></p>
-                            <p><a href="mailto:biuro@elitecapitalmanagement.pl"><i class="fas fa-envelope"></i> biuro@elitecapitalmanagement.pl</a></p>
-                            <p><i class="fas fa-clock"></i> Pon-Pt: 9:00-17:00</p>
-                        </div>
-                    </div>
-                    <div class="footer-separator"></div>
-                    <div class="footer-section">
-                        <h3><i class="fas fa-bars"></i> Menu</h3>
-                        <nav class="footer-nav">
-                            <a href="${homeLink}"><i class="fas fa-home"></i> Strona główna</a>
-                            <a href="${pagesPrefix}o-nas.html"><i class="fas fa-users"></i> O nas</a>
-                            <a href="${pagesPrefix}uslugi.html"><i class="fas fa-briefcase"></i> Usługi</a>
-                            <a href="${pagesPrefix}kontakt.html"><i class="fas fa-envelope-open"></i> Kontakt</a>
-                        </nav>
-                    </div>
-                </div>
-                <div class="footer-bottom">
-                    <div class="footer-bottom-legal">
-                        <div class="legal-title">Noty prawne</div>
-                        <p class="gdpr-notice">
-                            <a href="${pagesPrefix}polityka-prywatnosci.html">Polityka Prywatności</a> | 
-                            <a href="${pagesPrefix}regulamin.html">Regulamin</a> | 
-                            <a href="${pagesPrefix}rodo.html">RODO</a>
-                        </p>
-                        <p class="footer-copyright-centered">&copy; 2025 Elite Capital Management Sp. z o.o. Wszystkie prawa zastrzeżone. Profesjonalne doradztwo finansowe w Szczecinie</p>
-                    </div>
-                </div>
-            </div>
-        `;
-    }
-}
 
-// Enhanced Mobile Menu with Better Accessibility
-function initializeMobileMenu() {
-    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-    const mobileMenu = document.getElementById('mobileMenu');
-    
-    if (mobileMenuToggle && mobileMenu) {
-        // Enhanced accessibility
-        mobileMenuToggle.setAttribute('aria-expanded', 'false');
-        mobileMenuToggle.setAttribute('aria-controls', 'mobileMenu');
-        mobileMenuToggle.setAttribute('aria-label', 'Toggle navigation menu');
-        
-        mobileMenu.setAttribute('aria-hidden', 'true');
-        mobileMenu.setAttribute('role', 'navigation');
-        mobileMenu.setAttribute('aria-label', 'Mobile navigation');
-        
-        mobileMenuToggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            const isExpanded = mobileMenu.classList.contains('active');
-            
-            if (isExpanded) {
-                closeMobileMenu();
-            } else {
-                openMobileMenu();
-            }
-        });
-
-        // Enhanced keyboard navigation
-        mobileMenuToggle.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                const isExpanded = mobileMenu.classList.contains('active');
-                
-                if (isExpanded) {
-                    closeMobileMenu();
-                } else {
-                    openMobileMenu();
-                }
-            }
-        });
-
-        // Close mobile menu when clicking on a link
-        const mobileNavLinks = mobileMenu.querySelectorAll('a');
-        mobileNavLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                closeMobileMenu();
-            });
-        });
-
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!mobileMenuToggle.contains(e.target) && !mobileMenu.contains(e.target)) {
-                closeMobileMenu();
-            }
-        });
-        
-        // Close mobile menu on escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
-                closeMobileMenu();
-            }
-        });
-        
-        // Close mobile menu on resize (if screen becomes larger)
-        window.addEventListener('resize', function() {
-            if (window.innerWidth > 768 && mobileMenu.classList.contains('active')) {
-                closeMobileMenu();
-            }
-        });
-    }
-    
-    function openMobileMenu() {
-        mobileMenu.classList.add('active');
-        mobileMenuToggle.setAttribute('aria-expanded', 'true');
-        mobileMenu.setAttribute('aria-hidden', 'false');
-        
-        const icon = mobileMenuToggle.querySelector('i');
-        icon.classList.remove('fa-bars');
-        icon.classList.add('fa-times');
-        
-        // Focus management
-        const firstLink = mobileMenu.querySelector('a');
-        if (firstLink) {
-            setTimeout(() => firstLink.focus(), 100);
-        }
-        
-        // NEVER EVER prevent body scroll on mobile - NUCLEAR OPTION
-        // Only prevent on desktop if needed
-        if (window.innerWidth > 1024) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            // Force scroll on mobile
-            forceMobileScroll();
-        }
-    }
-    
-    function closeMobileMenu() {
-        mobileMenu.classList.remove('active');
-        mobileMenuToggle.setAttribute('aria-expanded', 'false');
-        mobileMenu.setAttribute('aria-hidden', 'true');
-        
-        const icon = mobileMenuToggle.querySelector('i');
-        icon.classList.remove('fa-times');
-        icon.classList.add('fa-bars');
-        
-        // Restore body scroll
-        document.body.style.overflow = '';
-        
-        // Return focus to toggle button
-        mobileMenuToggle.focus();
-    }
-}
 
 // Initialize Expandable Services
 function initializeExpandableServices() {
     const expandableCards = document.querySelectorAll('.expandable');
     
-    expandableCards.forEach(card => {
+    expandableCards.forEach((card, index) => {
         const moreLink = card.querySelector('.service-more');
+        const expanded = card.querySelector('.service-expanded');
+        if (expanded && !expanded.id) {
+            expanded.id = `service-expanded-${index + 1}`;
+        }
         if (moreLink) {
+            moreLink.setAttribute('role', 'button');
+            moreLink.setAttribute('aria-expanded', 'false');
+            if (expanded) {
+                moreLink.setAttribute('aria-controls', expanded.id);
+            }
             moreLink.addEventListener('click', function(e) {
                 e.preventDefault();
                 
@@ -414,17 +130,16 @@ function initializeExpandableServices() {
                         const otherMoreLink = otherCard.querySelector('.service-more');
                         if (otherMoreLink) {
                             otherMoreLink.textContent = 'Więcej';
+                            otherMoreLink.setAttribute('aria-expanded', 'false');
                         }
                     }
                 });
                 
                 // Toggle current card
                 card.classList.toggle('expanded');
-                if (card.classList.contains('expanded')) {
-                    this.textContent = 'Mniej';
-                } else {
-                    this.textContent = 'Więcej';
-                }
+                const isExpanded = card.classList.contains('expanded');
+                this.textContent = isExpanded ? 'Mniej' : 'Więcej';
+                this.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
             });
         }
     });
@@ -691,18 +406,7 @@ function showNotification(message, type = 'info') {
     }, 5000);
 }
 
-// Set Active Navigation
-function setActiveNavigation() {
-    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-    const navLinks = document.querySelectorAll('.nav-menu a, .mobile-nav-menu a');
-    
-    navLinks.forEach(link => {
-        const href = link.getAttribute('href');
-        if (href === currentPage || (currentPage === '' && href === 'index.html')) {
-            link.classList.add('active');
-        }
-    });
-}
+
 
 // (duplicate smooth-scroll handler removed; enhanced version kept below)
 
@@ -1012,32 +716,52 @@ function initializeCalculator() {
 function initializeFAQ() {
     const faqItems = document.querySelectorAll('.faq-item');
     
-    faqItems.forEach(item => {
+    faqItems.forEach((item, index) => {
         const question = item.querySelector('.faq-question');
         const answer = item.querySelector('.faq-answer');
         
         if (question && answer) {
-            question.addEventListener('click', function() {
+            // Accessibility attributes
+            if (!answer.id) answer.id = `faq-answer-${index + 1}`;
+            question.setAttribute('role', 'button');
+            question.setAttribute('tabindex', '0');
+            question.setAttribute('aria-controls', answer.id);
+            question.setAttribute('aria-expanded', 'false');
+            
+            const toggleItem = () => {
                 // Close other open items
-                faqItems.forEach(otherItem => {
-                    if (otherItem !== item && otherItem.classList.contains('active')) {
+                faqItems.forEach((otherItem, i) => {
+                    if (otherItem !== item) {
                         otherItem.classList.remove('active');
+                        const otherQuestion = otherItem.querySelector('.faq-question');
+                        if (otherQuestion) otherQuestion.setAttribute('aria-expanded', 'false');
                     }
                 });
                 
                 // Toggle current item
                 item.classList.toggle('active');
+                const isOpen = item.classList.contains('active');
+                question.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
                 
                 // Smooth scroll to item if opening
-                if (item.classList.contains('active')) {
+                if (isOpen) {
                     setTimeout(() => {
                         const rect = item.getBoundingClientRect();
                         const offset = window.pageYOffset + rect.top - 100;
+                        const noReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
                         window.scrollTo({
                             top: offset,
-                            behavior: 'smooth'
+                            behavior: noReducedMotion ? 'smooth' : 'auto'
                         });
                     }, 300);
+                }
+            };
+            
+            question.addEventListener('click', toggleItem);
+            question.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleItem();
                 }
             });
         }
@@ -1091,40 +815,7 @@ function initializeSmoothSections() {
     });
 }
 
-// Enhanced Smooth Scrolling for anchor links
-document.addEventListener('click', function(e) {
-    if (e.target.tagName === 'A' && e.target.getAttribute('href')?.startsWith('#')) {
-        e.preventDefault();
-        const targetId = e.target.getAttribute('href').substring(1);
-        const targetElement = document.getElementById(targetId);
-        if (targetElement) {
-            // Add smooth easing
-            const start = window.pageYOffset;
-            const target = targetElement.getBoundingClientRect().top + start - 100;
-            const distance = target - start;
-            const duration = Math.min(Math.abs(distance) / 2, 1000); // Max 1 second
-            
-            let startTime = null;
-            
-            function animation(currentTime) {
-                if (startTime === null) startTime = currentTime;
-                const timeElapsed = currentTime - startTime;
-                const run = easeInOutCubic(timeElapsed, start, distance, duration);
-                window.scrollTo(0, run);
-                if (timeElapsed < duration) requestAnimationFrame(animation);
-            }
-            
-            function easeInOutCubic(t, b, c, d) {
-                t /= d/2;
-                if (t < 1) return c/2*t*t*t + b;
-                t -= 2;
-                return c/2*(t*t*t + 2) + b;
-            }
-            
-            requestAnimationFrame(animation);
-        }
-    }
-});
+
 
 // Initialize Services Tabs
 function initializeServicesTabs() {
@@ -1293,11 +984,8 @@ function closeGDPRModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
         modal.style.display = 'none';
-        // Always restore scroll - NUCLEAR force enable scrolling on mobile
+        // Always restore scroll
         document.body.style.overflow = '';
-        if (window.innerWidth <= 768) {
-            forceMobileScroll();
-        }
     }
 }
 

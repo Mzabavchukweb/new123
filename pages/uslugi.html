@@ -4,52 +4,86 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Usługi | Elite Capital Management</title>
+    <meta property="og:image" content="https://elitecapitalmanagement.pl/og-image.jpg">
+    <meta name="twitter:image" content="https://elitecapitalmanagement.pl/og-image.jpg">
     <meta name="description" content="Kompleksowe usługi finansowe: kredyty, leasing, finansowanie bez BIK, kredyty dla firm i rolników. Profesjonalne doradztwo i indywidualne podejście.">
-    <link rel="stylesheet" href="../styles.css">
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="../styles.css?v=20250811" as="style">
+    <link rel="preload" href="../script.js?v=20250811" as="script">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" as="style">
+    
+    <link rel="stylesheet" href="../styles.css?v=20250811">
+    <link rel="canonical" href="https://elitecapitalmanagement.pl/pages/uslugi.html">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- NUCLEAR MOBILE SCROLL FIX - INLINE CSS -->
-    <style>
-        /* ULTIMATE MOBILE SCROLL FIX */
-        @media (max-width: 768px) {
-            html, body {
-                overflow: scroll !important;
-                overflow-y: scroll !important;
-                overflow-x: hidden !important;
-                -webkit-overflow-scrolling: touch !important;
-                touch-action: pan-y !important;
-                height: auto !important;
-                min-height: 200vh !important;
-                position: static !important;
-                width: 100% !important;
-                max-width: 100% !important;
-            }
-            
-            /* Kill ALL problematic elements */
-            .particles-background { display: none !important; }
-            .hero { min-height: 40vh !important; height: auto !important; }
-            
-            /* Force scroll on EVERY element */
-            * {
-                overflow-x: hidden !important;
-                max-width: 100% !important;
-                box-sizing: border-box !important;
-            }
-            
-            /* NUCLEAR: Remove any positioning that might interfere */
-            *[style*="position: fixed"] { position: static !important; }
-            *[style*="position:fixed"] { position: static !important; }
-        }
-    </style>
+
+
+
 
 </head>
-<body class="subpage" style="overflow-y: scroll !important; -webkit-overflow-scrolling: touch !important; touch-action: pan-y !important; height: auto !important; min-height: 200vh !important;">
+<body class="subpage">
+
     <!-- Premium Particle Background -->
     <div class="particles-background" id="particles"></div>
-    <div id="header-component"></div>
-    <div id="main-header-component"></div>
+    <!-- Top Header -->
+    <div class="top-header">
+        <div class="container">
+            <div class="top-header-content">
+                <div class="top-header-left">
+                    <div class="contact-info-top">
+                        <a href="tel:+48600494868" class="contact-link-top">
+                            <i class="fas fa-phone"></i>
+                            +48 600 494 868
+                        </a>
+                        <a href="mailto:biuro@elitecapitalmanagement.pl" class="contact-link-top">
+                            <i class="fas fa-envelope"></i>
+                            biuro@elitecapitalmanagement.pl
+                        </a>
+                    </div>
+                </div>
+                <div class="top-header-right">
+                    <div class="opening-hours">
+                        <i class="fas fa-clock"></i>
+                        <span>Pon-Pt: 9:00-17:00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="../index.html" class="logo" aria-label="Elite Capital Management - Strona główna">
+                    <div class="logo-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z"/>
+                            <path d="M8 12l2 2 4-4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="logo-text">
+                        <span class="logo-main">ELITE CAPITAL</span>
+                        <span class="logo-sub">MANAGEMENT</span>
+                    </div>
+                </a>
+                                <div class="header-right">
+                    <nav class="main-nav">
+                        <ul class="nav-list">
+                            <li><a href="../index.html" class="nav-link">HOME</a></li>
+                            <li><a href="o-nas.html" class="nav-link">O NAS</a></li>
+                            <li><a href="uslugi.html" class="nav-link active">USŁUGI</a></li>
+                            <li><a href="nieruchomosci.html" class="nav-link">NIERUCHOMOŚCI</a></li>
+                            <li><a href="kontakt.html" class="nav-link">KONTAKT</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+        </div>
+    </header>
 
     <main>
         <!-- Hero Section -->
@@ -70,6 +104,96 @@
         <section class="services-section section-with-image">
             <div class="section-image-overlay" style="background-image: url('../zdjecia_szymon/2.jpg');"></div>
             <div class="container">
+                <!-- Premium Consolidation Banner -->
+                <div class="consolidation-banner-premium">
+                    <div class="banner-glow"></div>
+                    <div class="banner-content-premium">
+                        <!-- Header Section -->
+                        <div class="banner-header">
+                            <div class="banner-icon">
+                                <i class="fas fa-coins"></i>
+                            </div>
+                            <h2 class="banner-title">
+                                <span class="title-highlight">KONSOLIDUJEMY</span>
+                                <span class="title-main">TWOJE CHWILÓWKI!</span>
+                            </h2>
+                            <p class="banner-subtitle">Masz dość spłacania wielu pożyczek naraz?<br>
+                            <strong>Spłacimy je za Ciebie i połączymy w jedną, wygodną ratę!</strong></p>
+                        </div>
+
+                        <!-- Features Grid -->
+                        <div class="banner-features-grid">
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <i class="fas fa-handshake"></i>
+                                </div>
+                                <div class="feature-content">
+                                    <h4>Konsolidujemy wszystko</h4>
+                                    <p>Chwilówki i pożyczki pozabankowe – szybko i bez ukrytych kosztów</p>
+                                </div>
+                            </div>
+                            
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <i class="fas fa-calculator"></i>
+                                </div>
+                                <div class="feature-content">
+                                    <h4>Jedna wygodna rata</h4>
+                                    <p>Spłacamy zobowiązania i układamy nową, realną do spłaty ratę</p>
+                                </div>
+                            </div>
+                            
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <div class="feature-content">
+                                    <h4>Pomoc zadłużonym</h4>
+                                    <p>Bez komornika, bez zaległości bankowych – profesjonalne wsparcie</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Requirements Section -->
+                        <div class="banner-requirements-premium">
+                            <div class="requirements-header">
+                                <i class="fas fa-clipboard-check"></i>
+                                <h3>WYMAGANIA</h3>
+                            </div>
+                            <div class="requirements-grid">
+                                <div class="requirement-card">
+                                    <i class="fas fa-wallet"></i>
+                                    <span>Stały wpływ na konto<br><strong>min. 3 500 zł netto</strong></span>
+                                </div>
+                                <div class="requirement-card">
+                                    <i class="fas fa-chart-line"></i>
+                                    <span>Minimum<br><strong>56 punktów w BIK</strong></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CTA Section -->
+                        <div class="banner-cta-premium">
+                            <a href="kontakt.html" class="consolidation-button-premium">
+                                <span class="button-icon">
+                                    <i class="fas fa-paper-plane"></i>
+                                </span>
+                                <span class="button-text">
+                                    <strong>Skontaktuj się z nami</strong>
+                                    <small>Bezpłatna konsultacja</small>
+                                </span>
+                            </a>
+                            <p class="banner-footer-premium">
+                                <i class="fas fa-star"></i>
+                                Sprawdzimy Twoją zdolność i przygotujemy indywidualną ofertę!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Floating Divider -->
+                <div class="floating-divider"></div>
+
                 <div class="services-grid">
                     <!-- Service 1 -->
                     <div class="service-card expandable" data-service="1">
@@ -243,8 +367,61 @@
         </section>
     </main>
 
-    <footer id="footer-component"></footer>
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <div class="footer-logo-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="footer-logo-text">
+                            <h3>Elite Capital Management</h3>
+                            <p>Profesjonalne doradztwo finansowe</p>
+                        </div>
+                    </div>
+                    <div class="footer-company-info">
+                        <p><i class="fas fa-map-marker-alt"></i> Sienna 9, 70-542 Szczecin</p>
+                        <p><i class="fas fa-id-card"></i> NIP: 7561989101</p>
+                        <p><i class="fas fa-building"></i> REGON: 385302808</p>
+                        <p><i class="fas fa-balance-scale"></i> KRS: 0000823510</p>
+                    </div>
+                </div>
+                <div class="footer-separator"></div>
+                <div class="footer-section">
+                    <h3><i class="fas fa-phone"></i> Kontakt</h3>
+                    <div class="footer-contact-info">
+                        <p><a href="tel:+48600494868"><i class="fas fa-phone-alt"></i> +48 600 494 868</a></p>
+                        <p><a href="mailto:biuro@elitecapitalmanagement.pl"><i class="fas fa-envelope"></i> biuro@elitecapitalmanagement.pl</a></p>
+                        <p><i class="fas fa-clock"></i> Pon-Pt: 9:00-17:00</p>
+                    </div>
+                </div>
+                <div class="footer-separator"></div>
+                <div class="footer-section">
+                    <h3><i class="fas fa-bars"></i> Menu</h3>
+                    <nav class="footer-nav">
+                        <a href="../index.html"><i class="fas fa-home"></i> Strona główna</a>
+                        <a href="o-nas.html"><i class="fas fa-users"></i> O nas</a>
+                        <a href="uslugi.html"><i class="fas fa-briefcase"></i> Usługi</a>
+                        <a href="nieruchomosci.html"><i class="fas fa-building"></i> Nieruchomości</a>
+                        <a href="kontakt.html"><i class="fas fa-envelope-open"></i> Kontakt</a>
+                    </nav>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-bottom-legal">
+                    <div class="legal-title">Noty prawne</div>
+                    <p class="gdpr-notice">
+                        <a href="polityka-prywatnosci.html">Polityka Prywatności</a> | 
+                        <a href="regulamin.html">Regulamin</a> | 
+                        <a href="rodo.html">RODO</a>
+                    </p>
+                    <p class="footer-copyright-centered">&copy; 2025 Elite Capital Management Sp. z o.o. Wszystkie prawa zastrzeżone. Profesjonalne doradztwo finansowe w Szczecinie</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-    <script src="../script.js"></script>
+    <script src="../script.js?v=20250811"></script>
 </body>
 </html>
