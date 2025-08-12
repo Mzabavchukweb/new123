@@ -59,8 +59,13 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateHeaderHeight() {
         try {
             const header = document.querySelector('header');
+            const topHeader = document.querySelector('.top-header');
             if (header) {
-                const h = header.offsetHeight || 56;
+                let h = header.offsetHeight || 56;
+                // On mobile, include top header height if visible
+                if (window.innerWidth <= 768 && topHeader && topHeader.offsetHeight > 0) {
+                    h += topHeader.offsetHeight;
+                }
                 document.documentElement.style.setProperty('--header-h', `${h}px`);
             }
         } catch (_) {}

@@ -4840,8 +4840,32 @@ body.subpage .stats-section.section-with-image .section-image-overlay {
 @media (max-width: 768px) {
   .menu-toggle { display: inline-block; }
   header { position: sticky; top: 0; z-index: 100000; background: var(--dark-navy-95); border-bottom: 1px solid rgba(255,255,255,0.06); }
-  .top-header { display: none; }
-  .header-content { padding: 10px 16px; }
+  .top-header { 
+    display: block !important; 
+    padding: 8px 0;
+    font-size: 12px;
+  }
+  .top-header-content {
+    flex-direction: column;
+    gap: 4px;
+    text-align: center;
+  }
+  .top-header-left, .top-header-right {
+    width: 100%;
+    justify-content: center;
+  }
+  .contact-info-top {
+    flex-direction: column;
+    gap: 4px;
+  }
+  .contact-link-top {
+    font-size: 11px;
+    padding: 2px 0;
+  }
+  .opening-hours {
+    font-size: 11px;
+  }
+  .header-content { padding: 8px 16px; }
   .header-right { gap: 8px; }
   /* Simple full-screen mobile menu */
   .main-nav {
@@ -4888,7 +4912,6 @@ body.subpage .stats-section.section-with-image .section-image-overlay {
     background: rgba(255,255,255,0.1);
     transform: translateY(-2px);
   }
-  body.nav-open { overflow: hidden; }
   /* Close button for mobile menu */
   .mobile-close {
     position: absolute;
@@ -4910,6 +4933,28 @@ body.subpage .stats-section.section-with-image .section-image-overlay {
   .mobile-close:hover {
     background: rgba(255,255,255,0.2);
     transform: scale(1.1);
+  }
+  body.nav-open { overflow: hidden; }
+  
+  /* Fix hero section scrolling */
+  .hero {
+    min-height: 60vh !important;
+    height: auto !important;
+    overflow: visible !important;
+    position: relative !important;
+  }
+  .hero-content {
+    padding: 40px 20px;
+    text-align: center;
+  }
+  .hero h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+  .hero-subtitle {
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    margin-bottom: 30px;
   }
 }
 
