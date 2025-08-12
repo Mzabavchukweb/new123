@@ -23,20 +23,29 @@ function ensureScrollEnabled() {
     try {
         const isMobile = window.innerWidth <= 768;
         if (!isMobile) return;
-        // Do not override when mobile nav is intentionally open
-        if (document.body.classList.contains('nav-open')) return;
+        
         const docEl = document.documentElement;
-        // Remove any accidental locks
-        [docEl, document.body].forEach((el) => {
+        const body = document.body;
+        
+        // ALWAYS ensure horizontal scroll is enabled, even when nav is open
+        [docEl, body].forEach((el) => {
             if (!el) return;
-            // Force with !important to beat accidental CSS rules
-            el.style.setProperty('overflow', 'auto', 'important');
-            el.style.setProperty('overflow-y', 'auto', 'important');
+            // Force horizontal scroll always
             el.style.setProperty('overflow-x', 'auto', 'important');
-            el.style.setProperty('position', 'static');
+            el.style.setProperty('position', 'static', 'important');
             el.style.setProperty('-webkit-overflow-scrolling', 'touch');
             el.style.setProperty('touch-action', 'pan-x pan-y', 'important');
         });
+        
+        // Only restore vertical scroll when nav is NOT open
+        if (!body.classList.contains('nav-open')) {
+            [docEl, body].forEach((el) => {
+                if (!el) return;
+                el.style.setProperty('overflow', 'auto', 'important');
+                el.style.setProperty('overflow-y', 'auto', 'important');
+            });
+        }
+        
         // Avoid smooth scroll on html which may delay initial touch scroll on some iOS builds
         docEl.style.setProperty('scroll-behavior', 'auto', 'important');
     } catch (_) {}
@@ -120,6 +129,10 @@ document.addEventListener('DOMContentLoaded', function() {
             toggle.setAttribute('aria-expanded', 'false');
             nav.setAttribute('aria-hidden', 'true');
             isOpen = false;
+            
+            // Restore scroll immediately after closing menu
+            setTimeout(ensureScrollEnabled, 0);
+            setTimeout(ensureScrollEnabled, 100);
         }
         
         function openMenu() {
@@ -1041,13 +1054,8 @@ function showCookieConsent() {
     } catch (_) {}
     
     // NEVER BLOCK SCROLL ON MOBILE - ALWAYS ALLOW SCROLLING
-    // Force enable scrolling on mobile
-    if (window.innerWidth <= 768) {
-        document.body.style.overflow = 'auto';
-        document.body.style.overflowY = 'auto';
-        document.body.style.webkitOverflowScrolling = 'touch';
-        document.body.style.touchAction = 'pan-x pan-y';
-    }
+    // Use our central scroll function instead of manual override
+    ensureScrollEnabled();
 }
 
 function showGDPRInfo() {
@@ -1112,21 +1120,16 @@ function showGDPRInfo() {
     } catch (_) {}
     
     // NEVER BLOCK SCROLL ON MOBILE - ALWAYS ALLOW SCROLLING
-    // Force enable scrolling on mobile
-    if (window.innerWidth <= 768) {
-        document.body.style.overflow = 'auto';
-        document.body.style.overflowY = 'auto';
-        document.body.style.webkitOverflowScrolling = 'touch';
-        document.body.style.touchAction = 'pan-x pan-y';
-    }
+    // Use our central scroll function instead of manual override
+    ensureScrollEnabled();
 }
 
 function closeGDPRModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
         modal.style.display = 'none';
-        // Always restore scroll
-        document.body.style.overflow = '';
+        // Always restore scroll using our central function
+        ensureScrollEnabled();
     }
 }
 

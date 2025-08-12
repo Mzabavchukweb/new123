@@ -4989,7 +4989,18 @@ body.subpage .stats-section.section-with-image .section-image-overlay {
     background: rgba(255,255,255,0.2);
     transform: scale(1.1);
   }
-  body.nav-open { overflow: hidden; }
+  body.nav-open { 
+    overflow: hidden;
+    /* But on mobile, only lock vertical scroll, allow horizontal */
+  }
+  
+  @media (max-width: 768px) {
+    body.nav-open { 
+      overflow-x: auto !important; 
+      overflow-y: hidden;
+      position: static !important;
+    }
+  }
   
   /* Fix hero section scrolling */
   .hero {
