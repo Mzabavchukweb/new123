@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initSmoothTransitions();
 
     // Proactively ensure scroll is enabled on mobile (now and after async UI mounts)
-    const reenableDelays = [0, 300, 800, 1600, 3000, 8000];
+    const reenableDelays = [0, 100, 300, 800, 1600, 3000, 5000, 8000, 12000];
     reenableDelays.forEach((ms) => setTimeout(ensureScrollEnabled, ms));
 
     // Keep CSS var with header height updated for fixed mobile menu
@@ -1174,7 +1174,7 @@ function showCookieBannerNotification(message) {
     }, 3000);
 }
 
-// Add GDPR modal styles
+    // Add GDPR modal styles
 const gdprStyles = document.createElement('style');
 gdprStyles.textContent = `
     .gdpr-modal {
@@ -1189,6 +1189,7 @@ gdprStyles.textContent = `
         align-items: center;
         z-index: 10000;
         backdrop-filter: blur(5px);
+        overscroll-behavior: contain; /* prevent page scroll chaining */
     }
     
     .gdpr-modal-content {
@@ -1197,7 +1198,7 @@ gdprStyles.textContent = `
         border-radius: 12px;
         max-width: 600px;
         width: 90%;
-        max-height: 80vh;
+        max-height: 80dvh;
         overflow-y: auto;
         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
     }
@@ -1422,8 +1423,8 @@ function hideCookieBanner() {
 }
 
     // Add cookie banner styles (non-blocking, never lock scroll)
-const cookieBannerStyles = document.createElement('style');
-cookieBannerStyles.textContent = `
+    const cookieBannerStyles = document.createElement('style');
+    cookieBannerStyles.textContent = `
     .cookie-banner {
         position: fixed;
         bottom: 0;
@@ -1434,8 +1435,12 @@ cookieBannerStyles.textContent = `
         z-index: 9999;
         animation: slideUp 0.5s ease;
         box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
-        pointer-events: auto;
+        /* Do not intercept page scroll; only buttons are interactive */
+        pointer-events: none;
         touch-action: pan-x pan-y;
+    }
+    .cookie-banner *, .cookie-banner .cookie-banner-content, .cookie-banner .cookie-btn {
+        pointer-events: auto;
     }
     
     .cookie-banner-content {

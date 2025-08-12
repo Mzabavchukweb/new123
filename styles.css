@@ -51,6 +51,7 @@
     display: flex !important;
     background: var(--dark-navy);
     border-bottom: 1px solid rgba(255,255,255,0.1);
+    will-change: transform;
   }
   .top-header-content {
     flex-direction: column;
