@@ -4922,7 +4922,8 @@ body.subpage .stats-section.section-with-image .section-image-overlay {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
+    /* Avoid horizontal overflow from 100vw on mobile due to scrollbars */
+    width: 100%;
     /* Use dynamic viewport height to avoid iOS address bar resize issues */
     height: 100dvh;
     background: rgba(13,27,42,0.98);
