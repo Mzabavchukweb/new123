@@ -22,16 +22,54 @@
   
   /* Ensure hero is scrollable */
   .hero {
-    min-height: 50vh;
-    height: auto;
+    min-height: 60vh !important;
+    height: auto !important;
+    overflow: visible !important;
+    position: relative !important;
+    padding: 40px 0;
+  }
+  .hero .container {
+    overflow: visible !important;
+  }
+  .hero h1 {
+    font-size: clamp(1.8rem, 4.5vw, 2.5rem);
+    line-height: 1.3;
+    margin-bottom: 20px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
   }
 
   /* Header: oszczędność miejsca bez zmiany desktopu */
-  .opening-hours { display: none; }
-  .contact-info-top { gap: 8px; }
-  .contact-info-top a[href^="mailto"] { display: none; }
   .logo-text .logo-sub { display: none; }
   .logo-text .logo-main { font-size: 14px; letter-spacing: 0.5px; }
+  
+  /* Top header mobile layout */
+  .top-header {
+    display: flex !important;
+    background: var(--dark-navy);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .top-header-content {
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+  }
+  .contact-info-top {
+    flex-direction: row;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .contact-link-top {
+    font-size: 11px;
+    padding: 2px 0;
+    white-space: nowrap;
+  }
+  .opening-hours {
+    font-size: 11px;
+    margin-top: 4px;
+  }
 
   /* Dotykowe pola – zapobiega auto-zoom i poprawia UX */
   input, select, textarea { font-size: 16px; }
@@ -961,7 +999,10 @@ body:not(.subpage) .hero {
 
 /* Typewriter effect (more natural) */
 .typewriter {
-    white-space: nowrap;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
 }
 
 /* caret removed for more natural typing */
