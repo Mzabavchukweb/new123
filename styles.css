@@ -4943,6 +4943,7 @@ body.subpage .stats-section.section-with-image .section-image-overlay {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
+    overflow-y: auto; /* ensure internal scroll if needed */
   }
   .nav-list { 
     flex-direction: column; 

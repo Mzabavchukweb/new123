@@ -116,6 +116,8 @@ document.addEventListener('DOMContentLoaded', function() {
             nav.classList.remove('open');
             toggle.classList.remove('active');
             document.body.classList.remove('nav-open');
+            toggle.setAttribute('aria-expanded', 'false');
+            nav.setAttribute('aria-hidden', 'true');
             isOpen = false;
         }
         
@@ -123,6 +125,9 @@ document.addEventListener('DOMContentLoaded', function() {
             nav.classList.add('open');
             toggle.classList.add('active');
             document.body.classList.add('nav-open');
+            toggle.setAttribute('aria-expanded', 'true');
+            nav.setAttribute('aria-hidden', 'false');
+            nav.setAttribute('role', 'dialog');
             isOpen = true;
             
             // Add close button if it doesn't exist
@@ -144,6 +149,12 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Toggle button
         toggle.addEventListener('click', toggleMenu);
+        toggle.addEventListener('keydown', (e) => {
+            if ((e.key === 'Enter' || e.key === ' ') ) {
+                e.preventDefault();
+                toggleMenu(e);
+            }
+        });
         
         // Close on link click
         nav.querySelectorAll('a').forEach(link => {
