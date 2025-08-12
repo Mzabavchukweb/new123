@@ -71,8 +71,25 @@ document.addEventListener('DOMContentLoaded', function() {
     initSmoothTransitions();
 
     // Proactively ensure scroll is enabled on mobile (now and after async UI mounts)
-    const reenableDelays = [0, 50, 100, 200, 300, 500, 800, 1200, 1600, 2500, 3000, 4000, 5000, 8000, 12000];
+    const reenableDelays = [0, 100, 300, 800, 1600, 3000, 5000];
     reenableDelays.forEach((ms) => setTimeout(ensureScrollEnabled, ms));
+    
+    // Dodaj prostą naprawkę scrollowania co 3 sekundy na mobile
+    if (window.innerWidth <= 768) {
+        setInterval(() => {
+            // Sprawdź czy scrollowanie jest zablokowane
+            const body = document.body;
+            const html = document.documentElement;
+            
+            if (body.style.overflow === 'hidden' || html.style.overflow === 'hidden') {
+                console.log('🔧 Fixing blocked scroll...');
+                body.style.setProperty('overflow-y', 'scroll', 'important');
+                html.style.setProperty('overflow-y', 'scroll', 'important');
+                body.style.setProperty('-webkit-overflow-scrolling', 'touch', 'important');
+                html.style.setProperty('-webkit-overflow-scrolling', 'touch', 'important');
+            }
+        }, 3000);
+    }
     
     // Dodatkowe sprawdzenie przy resize i orientacji
     window.addEventListener('resize', ensureScrollEnabled);

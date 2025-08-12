@@ -5005,12 +5005,12 @@ body.subpage .stats-section.section-with-image .section-image-overlay {
   }
   
   @media (max-width: 768px) {
-    body.nav-open { 
-      /* ZAWSZE pozwalaj na scrollowanie na mobile */
-      overflow: auto !important; 
-      overflow-x: auto !important;
-      overflow-y: auto !important;
-      position: static !important;
+      body.nav-open { 
+    /* ZAWSZE pozwalaj na scrollowanie na mobile - DELIKATNIE */
+    overflow: visible !important; 
+    overflow-x: visible !important;
+    overflow-y: visible !important;
+    position: static !important;
     }
   }
   
@@ -6643,6 +6643,26 @@ body {
     color: var(--white-80);
     line-height: 1.5;
     margin: 0;
+}
+
+/* DELIKATNA NAPRAWKA SCROLLOWANIA MOBILE */
+@media (max-width: 768px) {
+  /* Upewnij się że podstawowe scrollowanie działa */
+  html {
+    overflow-y: scroll !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  
+  body {
+    overflow-y: scroll !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  
+  /* Gdy menu jest otwarte - nadal pozwól na scroll */
+  body.nav-open {
+    overflow-y: scroll !important;
+    position: static !important;
+  }
 }
 
 /* Requirements Section */
