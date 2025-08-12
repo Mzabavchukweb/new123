@@ -1242,7 +1242,7 @@ gdprStyles.textContent = `
         align-items: center;
         z-index: 10000;
         backdrop-filter: blur(5px);
-        overscroll-behavior: contain; /* prevent page scroll chaining */
+        /* USUŃ overscroll-behavior: contain - blokuje scroll na mobile */
     }
     
     .gdpr-modal-content {
@@ -1392,23 +1392,51 @@ gdprStyles.textContent = `
 `;
 document.head.appendChild(gdprStyles);
 
-// Initialize Cookie Consent Banner
+// Initialize Cookie Consent Banner - NAPRAWIONE
 function initializeCookieConsent() {
     // Check if user has already made a choice
     const cookieSettings = localStorage.getItem('cookieSettings');
-    if (cookieSettings) return; // User has already made a choice
+    if (cookieSettings) {
+        console.log('🍪 Cookies already accepted, not showing banner');
+        return; // User has already made a choice
+    }
+    
+    console.log('🍪 Showing cookie banner...');
     
     // Show cookie consent banner quickly but non-blocking
     setTimeout(() => {
         showCookieConsentBanner();
-        // Ensure banner never blocks scroll or covers the menu toggle on small screens
+        // ENSURE banner NEVER blocks scroll
         try {
             const banner = document.getElementById('cookieConsentBanner');
             if (banner) {
-                banner.style.pointerEvents = 'auto';
-                banner.style.touchAction = 'manipulation';
+                banner.style.pointerEvents = 'none';
+                banner.style.touchAction = 'pan-x pan-y';
+                // Make only buttons interactive
+                const buttons = banner.querySelectorAll('button, a');
+                buttons.forEach(btn => {
+                    btn.style.pointerEvents = 'auto';
+                    btn.style.touchAction = 'manipulation';
+                });
             }
         } catch (_) {}
+        
+        // Force scroll to work even with banner
+        ensureScrollEnabled();
+        
+        // EMERGENCY: Auto-accept cookies after 5 seconds on mobile if scroll is blocked
+        if (window.innerWidth <= 768) {
+            setTimeout(() => {
+                const canScroll = document.documentElement.scrollHeight > window.innerHeight;
+                const bodyOverflow = getComputedStyle(document.body).overflow;
+                const htmlOverflow = getComputedStyle(document.documentElement).overflow;
+                
+                if (canScroll && (bodyOverflow === 'hidden' || htmlOverflow === 'hidden')) {
+                    console.warn('🚨 Cookies blocking scroll - auto-accepting...');
+                    acceptAllCookiesBanner();
+                }
+            }, 5000);
+        }
     }, 300);
 }
 
