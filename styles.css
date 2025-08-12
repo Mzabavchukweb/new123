@@ -48,14 +48,7 @@
   }
 }
 
-/* HARD MOBILE SCROLL SAFEGUARD */
-@media (max-width: 768px) {
-  html, body {
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
-    position: static !important;
-  }
-}
+/* Mobile scroll fix - removed problematic overflow restrictions */
 
 /* Global Styles & Branding - Enhanced Design System */
 :root {
@@ -4841,9 +4834,11 @@ body.subpage .stats-section.section-with-image .section-image-overlay {
   .menu-toggle { display: inline-block; }
   header { position: sticky; top: 0; z-index: 100000; background: var(--dark-navy-95); border-bottom: 1px solid rgba(255,255,255,0.06); }
   .top-header { 
-    display: block !important; 
+    display: flex !important; 
     padding: 8px 0;
     font-size: 12px;
+    background: var(--dark-navy);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
   }
   .top-header-content {
     flex-direction: column;
@@ -4942,6 +4937,10 @@ body.subpage .stats-section.section-with-image .section-image-overlay {
     height: auto !important;
     overflow: visible !important;
     position: relative !important;
+    padding: 40px 0;
+  }
+  .hero .container {
+    overflow: visible !important;
   }
   .hero-content {
     padding: 40px 20px;
