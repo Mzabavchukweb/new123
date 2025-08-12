@@ -29,15 +29,16 @@ function ensureScrollEnabled() {
         // Remove any accidental locks
         [docEl, document.body].forEach((el) => {
             if (!el) return;
-            el.style.overflow = 'auto';
-            el.style.overflowY = 'auto';
-            el.style.overflowX = 'auto';
-            el.style.position = 'static';
-            el.style.webkitOverflowScrolling = 'touch';
-            el.style.touchAction = 'pan-x pan-y';
+            // Force with !important to beat accidental CSS rules
+            el.style.setProperty('overflow', 'auto', 'important');
+            el.style.setProperty('overflow-y', 'auto', 'important');
+            el.style.setProperty('overflow-x', 'auto', 'important');
+            el.style.setProperty('position', 'static');
+            el.style.setProperty('-webkit-overflow-scrolling', 'touch');
+            el.style.setProperty('touch-action', 'pan-x pan-y', 'important');
         });
         // Avoid smooth scroll on html which may delay initial touch scroll on some iOS builds
-        docEl.style.scrollBehavior = 'auto';
+        docEl.style.setProperty('scroll-behavior', 'auto', 'important');
     } catch (_) {}
 }
 

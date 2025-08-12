@@ -3,11 +3,12 @@
   html, body { 
     width: 100%; 
     max-width: 100%;
-    height: auto;
     min-height: 100dvh;
+    height: auto;
     position: static;
     -webkit-overflow-scrolling: touch;
     touch-action: pan-x pan-y;
+    overscroll-behavior-y: contain; /* avoid pull-to-refresh lock */
   }
   
   * { 
@@ -243,6 +244,7 @@ body {
     /* Avoid global smooth behavior to prevent iOS scroll stalls */
     scroll-behavior: auto;
     -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: auto;
     /* Hide scrollbar */
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* Internet Explorer 10+ */
