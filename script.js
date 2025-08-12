@@ -31,10 +31,10 @@ function ensureScrollEnabled() {
             if (!el) return;
             el.style.overflow = 'auto';
             el.style.overflowY = 'auto';
-            el.style.overflowX = 'hidden';
+            el.style.overflowX = 'auto';
             el.style.position = 'static';
             el.style.webkitOverflowScrolling = 'touch';
-            el.style.touchAction = 'pan-y';
+            el.style.touchAction = 'pan-x pan-y';
         });
         // Avoid smooth scroll on html which may delay initial touch scroll on some iOS builds
         docEl.style.scrollBehavior = 'auto';
@@ -1027,7 +1027,7 @@ function showCookieConsent() {
         document.body.style.overflow = 'auto';
         document.body.style.overflowY = 'auto';
         document.body.style.webkitOverflowScrolling = 'touch';
-        document.body.style.touchAction = 'pan-y';
+        document.body.style.touchAction = 'pan-x pan-y';
     }
 }
 
@@ -1090,7 +1090,7 @@ function showGDPRInfo() {
         document.body.style.overflow = 'auto';
         document.body.style.overflowY = 'auto';
         document.body.style.webkitOverflowScrolling = 'touch';
-        document.body.style.touchAction = 'pan-y';
+        document.body.style.touchAction = 'pan-x pan-y';
     }
 }
 
