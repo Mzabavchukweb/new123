@@ -128,6 +128,7 @@ document.addEventListener('DOMContentLoaded', function() {
             nav.classList.remove('open');
             toggle.classList.remove('active');
             document.body.classList.remove('nav-open');
+            ensureScrollEnabled();
             isOpen = false;
         }
         
@@ -135,6 +136,9 @@ document.addEventListener('DOMContentLoaded', function() {
             nav.classList.add('open');
             toggle.classList.add('active');
             document.body.classList.add('nav-open');
+            // Lock only vertical page scroll; menu itself can scroll internally
+            document.body.style.overflowY = 'hidden';
+            document.body.style.overflowX = 'auto';
             isOpen = true;
             
             // Add close button if it doesn't exist
@@ -155,11 +159,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         // Toggle button
-        toggle.addEventListener('click', toggleMenu);
+        toggle.addEventListener('click', toggleMenu, { passive: true });
         
-        // Close on link click
+        // Close on link click (after navigation tick)
         nav.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', closeMenu);
+            link.addEventListener('click', () => setTimeout(closeMenu, 0), { passive: true });
         });
         
         // Close on ESC

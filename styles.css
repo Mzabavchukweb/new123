@@ -4921,12 +4921,7 @@ body.subpage .stats-section.section-with-image .section-image-overlay {
   /* Simple full-screen mobile menu */
   .main-nav {
     position: fixed;
-    top: 0;
-    left: 0;
-    /* Avoid horizontal overflow from 100vw on mobile due to scrollbars */
-    width: 100%;
-    /* Use dynamic viewport height to avoid iOS address bar resize issues */
-    height: 100dvh;
+    inset: 0; /* top:0 right:0 bottom:0 left:0 */
     background: rgba(13,27,42,0.98);
     display: flex;
     flex-direction: column;
@@ -4939,6 +4934,10 @@ body.subpage .stats-section.section-with-image .section-image-overlay {
     pointer-events: none;
     transition: opacity 0.3s ease, visibility 0.3s ease;
     backdrop-filter: blur(10px);
+    overflow-y: auto; /* internal scroll when content larger */
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    touch-action: pan-y;
   }
   .main-nav.open {
     opacity: 1;
