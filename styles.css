@@ -6,9 +6,10 @@
     min-height: 100dvh;
     height: auto;
     position: static;
-    -webkit-overflow-scrolling: touch;
-    touch-action: pan-x pan-y;
-    overscroll-behavior-y: contain; /* avoid pull-to-refresh lock */
+    -webkit-overflow-scrolling: touch !important;
+    touch-action: pan-x pan-y !important;
+    overscroll-behavior: auto !important;
+    overflow: auto !important;
   }
   
   * { 
@@ -227,6 +228,12 @@
 html {
     /* Avoid global smooth behavior to prevent iOS scroll stalls */
     scroll-behavior: auto;
+    overflow: auto;
+    overflow-x: auto;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x pan-y;
+    overscroll-behavior: auto;
 }
 
 body {
@@ -235,7 +242,9 @@ body {
     background-color: var(--dark-navy);
     color: #FFFFFF;
     line-height: 1.6;
+    overflow: auto;
     overflow-x: auto;
+    overflow-y: auto;
     font-feature-settings: 'cv11', 'ss01', 'liga' 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -244,7 +253,8 @@ body {
     /* Avoid global smooth behavior to prevent iOS scroll stalls */
     scroll-behavior: auto;
     -webkit-overflow-scrolling: touch;
-    overscroll-behavior-y: auto;
+    overscroll-behavior: auto;
+    touch-action: pan-x pan-y;
     /* Hide scrollbar */
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* Internet Explorer 10+ */
@@ -4990,14 +5000,16 @@ body.subpage .stats-section.section-with-image .section-image-overlay {
     transform: scale(1.1);
   }
   body.nav-open { 
-    overflow: hidden;
-    /* But on mobile, only lock vertical scroll, allow horizontal */
+    /* Nie blokuj scroll na desktop */
+    overflow: auto;
   }
   
   @media (max-width: 768px) {
     body.nav-open { 
-      overflow-x: auto !important; 
-      overflow-y: hidden;
+      /* ZAWSZE pozwalaj na scrollowanie na mobile */
+      overflow: auto !important; 
+      overflow-x: auto !important;
+      overflow-y: auto !important;
       position: static !important;
     }
   }

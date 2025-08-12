@@ -18,7 +18,7 @@ function initSmoothTransitions() {
     // Intentionally no global scroll-behavior on html to avoid iOS scroll glitches
 }
 
-// Last-resort guard against accidental scroll lock on mobile Safari
+// Naprawiona funkcja zapewniająca scrollowanie na mobile
 function ensureScrollEnabled() {
     try {
         const isMobile = window.innerWidth <= 768;
@@ -27,28 +27,39 @@ function ensureScrollEnabled() {
         const docEl = document.documentElement;
         const body = document.body;
         
-        // ALWAYS ensure horizontal scroll is enabled, even when nav is open
+        // ZAWSZE pozwalaj na scrollowanie w obu kierunkach na mobile
         [docEl, body].forEach((el) => {
             if (!el) return;
-            // Force horizontal scroll always
+            // Usuń wszystkie blokady scrollowania
+            el.style.removeProperty('overflow');
+            el.style.removeProperty('overflow-x');
+            el.style.removeProperty('overflow-y');
+            el.style.removeProperty('position');
+            el.style.removeProperty('height');
+            el.style.removeProperty('max-height');
+            
+            // Ustaw poprawne właściwości dla mobile scroll
+            el.style.setProperty('overflow', 'auto', 'important');
             el.style.setProperty('overflow-x', 'auto', 'important');
+            el.style.setProperty('overflow-y', 'auto', 'important');
             el.style.setProperty('position', 'static', 'important');
-            el.style.setProperty('-webkit-overflow-scrolling', 'touch');
+            el.style.setProperty('-webkit-overflow-scrolling', 'touch', 'important');
             el.style.setProperty('touch-action', 'pan-x pan-y', 'important');
+            el.style.setProperty('overscroll-behavior', 'auto', 'important');
         });
         
-        // Only restore vertical scroll when nav is NOT open
-        if (!body.classList.contains('nav-open')) {
-            [docEl, body].forEach((el) => {
-                if (!el) return;
-                el.style.setProperty('overflow', 'auto', 'important');
-                el.style.setProperty('overflow-y', 'auto', 'important');
-            });
+        // Ustaw smooth scroll behavior na auto dla lepszej wydajności na iOS
+        docEl.style.setProperty('scroll-behavior', 'auto', 'important');
+        
+        // Usuń potencjalne blokady z innych elementów
+        const viewport = document.querySelector('meta[name="viewport"]');
+        if (viewport) {
+            viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, user-scalable=yes');
         }
         
-        // Avoid smooth scroll on html which may delay initial touch scroll on some iOS builds
-        docEl.style.setProperty('scroll-behavior', 'auto', 'important');
-    } catch (_) {}
+    } catch (error) {
+        console.warn('ensureScrollEnabled error:', error);
+    }
 }
 
 // Enhanced DOM Content Loaded with Better Performance
@@ -60,8 +71,15 @@ document.addEventListener('DOMContentLoaded', function() {
     initSmoothTransitions();
 
     // Proactively ensure scroll is enabled on mobile (now and after async UI mounts)
-    const reenableDelays = [0, 100, 300, 800, 1600, 3000, 5000, 8000, 12000];
+    const reenableDelays = [0, 50, 100, 200, 300, 500, 800, 1200, 1600, 2500, 3000, 4000, 5000, 8000, 12000];
     reenableDelays.forEach((ms) => setTimeout(ensureScrollEnabled, ms));
+    
+    // Dodatkowe sprawdzenie przy resize i orientacji
+    window.addEventListener('resize', ensureScrollEnabled);
+    window.addEventListener('orientationchange', () => {
+        setTimeout(ensureScrollEnabled, 100);
+        setTimeout(ensureScrollEnabled, 500);
+    });
 
     // Keep CSS var with header height updated for fixed mobile menu
     function updateHeaderHeight() {
@@ -130,8 +148,10 @@ document.addEventListener('DOMContentLoaded', function() {
             nav.setAttribute('aria-hidden', 'true');
             isOpen = false;
             
-            // Restore scroll immediately after closing menu
+            // Natychmiast przywróć scrollowanie na mobile
+            ensureScrollEnabled();
             setTimeout(ensureScrollEnabled, 0);
+            setTimeout(ensureScrollEnabled, 50);
             setTimeout(ensureScrollEnabled, 100);
         }
         
@@ -143,6 +163,9 @@ document.addEventListener('DOMContentLoaded', function() {
             nav.setAttribute('aria-hidden', 'false');
             nav.setAttribute('role', 'dialog');
             isOpen = true;
+            
+            // Upewnij się, że scrollowanie działa nawet gdy menu jest otwarte
+            ensureScrollEnabled();
             
             // Add close button if it doesn't exist
             if (!nav.querySelector('.mobile-close')) {
@@ -1053,8 +1076,7 @@ function showCookieConsent() {
         }
     } catch (_) {}
     
-    // NEVER BLOCK SCROLL ON MOBILE - ALWAYS ALLOW SCROLLING
-    // Use our central scroll function instead of manual override
+    // ZAWSZE pozwalaj na scrollowanie na mobile
     ensureScrollEnabled();
 }
 
@@ -1119,8 +1141,7 @@ function showGDPRInfo() {
         }
     } catch (_) {}
     
-    // NEVER BLOCK SCROLL ON MOBILE - ALWAYS ALLOW SCROLLING
-    // Use our central scroll function instead of manual override
+    // ZAWSZE pozwalaj na scrollowanie na mobile
     ensureScrollEnabled();
 }
 
