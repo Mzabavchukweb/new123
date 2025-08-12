@@ -7,7 +7,8 @@
     min-height: 100dvh;
     position: static;
     -webkit-overflow-scrolling: touch;
-    touch-action: pan-x pan-y;
+    touch-action: manipulation; /* allow browser to determine best gestures */
+    overscroll-behavior-y: contain; /* prevent pull-to-refresh from locking */
   }
   
   * { 
@@ -4986,7 +4987,8 @@ body.subpage .stats-section.section-with-image .section-image-overlay {
     background: rgba(255,255,255,0.2);
     transform: scale(1.1);
   }
-  body.nav-open { overflow: hidden; }
+/* Lock only vertical scroll when menu open, never horizontal to avoid iOS jitter */
+body.nav-open { overflow-y: hidden; overflow-x: auto; }
   
   /* Fix hero section scrolling */
   .hero {

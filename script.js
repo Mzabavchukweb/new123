@@ -50,8 +50,20 @@ document.addEventListener('DOMContentLoaded', function() {
     initSmoothTransitions();
 
     // Proactively ensure scroll is enabled on mobile (now and after async UI mounts)
-    const reenableDelays = [0, 100, 300, 800, 1600, 3000, 5000, 8000, 12000];
+    const reenableDelays = [0, 50, 100, 200, 300, 600, 1200, 2000, 3000, 5000, 8000, 12000];
     reenableDelays.forEach((ms) => setTimeout(ensureScrollEnabled, ms));
+
+    // Attach runtime guards to restore scroll if anything tries to lock it
+    function attachScrollGuards() {
+        const passive = { passive: true };
+        ['touchstart','touchmove','wheel','pointerdown','scroll','resize','orientationchange'].forEach(evt => {
+            window.addEventListener(evt, ensureScrollEnabled, passive);
+        });
+        window.addEventListener('pageshow', ensureScrollEnabled, passive);
+        document.addEventListener('visibilitychange', ensureScrollEnabled, passive);
+        window.addEventListener('focus', ensureScrollEnabled, passive);
+    }
+    attachScrollGuards();
 
     // Keep CSS var with header height updated for fixed mobile menu
     function updateHeaderHeight() {
