@@ -50,10 +50,8 @@ document.addEventListener('DOMContentLoaded', function() {
     initSmoothTransitions();
 
     // Proactively ensure scroll is enabled on mobile (now and after async UI mounts)
-    ensureScrollEnabled();
-    setTimeout(ensureScrollEnabled, 600);
-    setTimeout(ensureScrollEnabled, 3000);
-    setTimeout(ensureScrollEnabled, 8000);
+    const reenableDelays = [0, 300, 800, 1600, 3000, 8000];
+    reenableDelays.forEach((ms) => setTimeout(ensureScrollEnabled, ms));
 
     // Keep CSS var with header height updated for fixed mobile menu
     function updateHeaderHeight() {
@@ -1020,6 +1018,15 @@ function showCookieConsent() {
         document.body.insertAdjacentHTML('beforeend', consentHtml);
     }
     document.getElementById('cookieConsentModal').style.display = 'flex';
+    // Ensure the modal itself scrolls on overflow, not the page
+    try {
+        const modal = document.querySelector('#cookieConsentModal .gdpr-modal-content');
+        if (modal) {
+            modal.style.maxHeight = '80dvh';
+            modal.style.overflowY = 'auto';
+            modal.style.webkitOverflowScrolling = 'touch';
+        }
+    } catch (_) {}
     
     // NEVER BLOCK SCROLL ON MOBILE - ALWAYS ALLOW SCROLLING
     // Force enable scrolling on mobile
@@ -1083,6 +1090,14 @@ function showGDPRInfo() {
         document.body.insertAdjacentHTML('beforeend', gdprHtml);
     }
     document.getElementById('gdprInfoModal').style.display = 'flex';
+    try {
+        const modal = document.querySelector('#gdprInfoModal .gdpr-modal-content');
+        if (modal) {
+            modal.style.maxHeight = '80dvh';
+            modal.style.overflowY = 'auto';
+            modal.style.webkitOverflowScrolling = 'touch';
+        }
+    } catch (_) {}
     
     // NEVER BLOCK SCROLL ON MOBILE - ALWAYS ALLOW SCROLLING
     // Force enable scrolling on mobile
@@ -1406,7 +1421,7 @@ function hideCookieBanner() {
     }
 }
 
-// Add cookie banner styles
+    // Add cookie banner styles (non-blocking, never lock scroll)
 const cookieBannerStyles = document.createElement('style');
 cookieBannerStyles.textContent = `
     .cookie-banner {
@@ -1420,7 +1435,7 @@ cookieBannerStyles.textContent = `
         animation: slideUp 0.5s ease;
         box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
         pointer-events: auto;
-        touch-action: manipulation;
+        touch-action: pan-x pan-y;
     }
     
     .cookie-banner-content {

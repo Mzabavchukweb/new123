@@ -223,7 +223,8 @@
 }
 
 html {
-    scroll-behavior: smooth;
+    /* Avoid global smooth behavior to prevent iOS scroll stalls */
+    scroll-behavior: auto;
 }
 
 body {
@@ -238,7 +239,8 @@ body {
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     position: relative;
-    scroll-behavior: smooth;
+    /* Avoid global smooth behavior to prevent iOS scroll stalls */
+    scroll-behavior: auto;
     -webkit-overflow-scrolling: touch;
     /* Hide scrollbar */
     scrollbar-width: none; /* Firefox */
@@ -4920,7 +4922,8 @@ body.subpage .stats-section.section-with-image .section-image-overlay {
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    /* Use dynamic viewport height to avoid iOS address bar resize issues */
+    height: 100dvh;
     background: rgba(13,27,42,0.98);
     display: flex;
     flex-direction: column;
