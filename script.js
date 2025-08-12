@@ -15,11 +15,30 @@ function initMobileOptimizations() {
 
 // Smooth scrolling for anchor links only
 function initSmoothTransitions() {
-    // Respect prefers-reduced-motion
-    const noReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
-    if (noReducedMotion) {
-        document.documentElement.style.scrollBehavior = 'smooth';
-    }
+    // Intentionally no global scroll-behavior on html to avoid iOS scroll glitches
+}
+
+// Last-resort guard against accidental scroll lock on mobile Safari
+function ensureScrollEnabled() {
+    try {
+        const isMobile = window.innerWidth <= 768;
+        if (!isMobile) return;
+        // Do not override when mobile nav is intentionally open
+        if (document.body.classList.contains('nav-open')) return;
+        const docEl = document.documentElement;
+        // Remove any accidental locks
+        [docEl, document.body].forEach((el) => {
+            if (!el) return;
+            el.style.overflow = 'auto';
+            el.style.overflowY = 'auto';
+            el.style.overflowX = 'hidden';
+            el.style.position = 'static';
+            el.style.webkitOverflowScrolling = 'touch';
+            el.style.touchAction = 'pan-y';
+        });
+        // Avoid smooth scroll on html which may delay initial touch scroll on some iOS builds
+        docEl.style.scrollBehavior = 'auto';
+    } catch (_) {}
 }
 
 // Enhanced DOM Content Loaded with Better Performance
@@ -27,9 +46,35 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize mobile optimizations
     initMobileOptimizations();
     
-    // Initialize smooth page transitions
+    // Initialize smooth page transitions (safe)
     initSmoothTransitions();
+
+    // Proactively ensure scroll is enabled on mobile (now and after async UI mounts)
+    ensureScrollEnabled();
+    setTimeout(ensureScrollEnabled, 600);
+    setTimeout(ensureScrollEnabled, 3000);
+    setTimeout(ensureScrollEnabled, 8000);
+
+    // Keep CSS var with header height updated for fixed mobile menu
+    function updateHeaderHeight() {
+        try {
+            const header = document.querySelector('header');
+            if (header) {
+                const h = header.offsetHeight || 56;
+                document.documentElement.style.setProperty('--header-h', `${h}px`);
+            }
+        } catch (_) {}
+    }
+    updateHeaderHeight();
+    window.addEventListener('resize', updateHeaderHeight);
     
+    // Compute scrollbar width for layout compensation
+    function updateScrollbarWidthVar() {
+        const sbw = window.innerWidth - document.documentElement.clientWidth;
+        document.documentElement.style.setProperty('--sbw', sbw > 0 ? `${sbw}px` : '0px');
+    }
+    updateScrollbarWidthVar();
+    window.addEventListener('resize', updateScrollbarWidthVar);
 
     
     // Performance-optimized animations
@@ -54,39 +99,70 @@ document.addEventListener('DOMContentLoaded', function() {
         initializeCounterAnimations();
         initializeCookieConsent();
     });
-    // Mobile menu toggle
-    try {
-        const toggles = document.querySelectorAll('.menu-toggle');
-        toggles.forEach((toggle) => {
-            const navId = toggle.getAttribute('aria-controls') || 'main-nav';
-            const nav = document.getElementById(navId);
-            if (!nav) return;
-
-            const closeMenu = () => {
-                nav.classList.remove('open');
-                toggle.classList.remove('active');
-                toggle.setAttribute('aria-expanded', 'false');
-            };
-            const openMenu = () => {
-                nav.classList.add('open');
-                toggle.classList.add('active');
-                toggle.setAttribute('aria-expanded', 'true');
-            };
-            const toggleMenu = (e) => {
-                if (e) e.preventDefault();
-                const isOpen = nav.classList.contains('open');
-                isOpen ? closeMenu() : openMenu();
-            };
-
-            ['click','touchstart','pointerup'].forEach(evt => toggle.addEventListener(evt, toggleMenu, {passive:false}));
-
-            nav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
-            document.addEventListener('click', (e) => {
-                if (!nav.contains(e.target) && !toggle.contains(e.target)) closeMenu();
-            });
-            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+    
+    // Simple mobile menu
+    function initMobileMenu() {
+        const toggle = document.querySelector('.menu-toggle');
+        const nav = document.getElementById('main-nav');
+        
+        if (!toggle || !nav) return;
+        
+        let isOpen = false;
+        
+        function closeMenu() {
+            nav.classList.remove('open');
+            toggle.classList.remove('active');
+            document.body.classList.remove('nav-open');
+            isOpen = false;
+        }
+        
+        function openMenu() {
+            nav.classList.add('open');
+            toggle.classList.add('active');
+            document.body.classList.add('nav-open');
+            isOpen = true;
+            
+            // Add close button if it doesn't exist
+            if (!nav.querySelector('.mobile-close')) {
+                const closeBtn = document.createElement('button');
+                closeBtn.className = 'mobile-close';
+                closeBtn.innerHTML = '×';
+                closeBtn.setAttribute('aria-label', 'Zamknij menu');
+                closeBtn.addEventListener('click', closeMenu);
+                nav.appendChild(closeBtn);
+            }
+        }
+        
+        function toggleMenu(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            isOpen ? closeMenu() : openMenu();
+        }
+        
+        // Toggle button
+        toggle.addEventListener('click', toggleMenu);
+        
+        // Close on link click
+        nav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', closeMenu);
         });
-    } catch (_) {}
+        
+        // Close on ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && isOpen) closeMenu();
+        });
+        
+        // Close on outside click
+        document.addEventListener('click', (e) => {
+            if (isOpen && !nav.contains(e.target) && !toggle.contains(e.target)) {
+                closeMenu();
+            }
+        });
+    }
+    
+    // Initialize mobile menu
+    initMobileMenu();
+    
     // Typewriter effect for hero title (homepage only)
     const heroTitle = document.getElementById('hero-title');
     if (heroTitle) {
@@ -105,7 +181,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const type = () => {
             if (index >= fullText.length) return;
 
-            // Czasem wpisuj 2 znaki naraz, jak naturalny „flow”
+            // Czasem wpisuj 2 znaki naraz, jak naturalny „flow"
             const chunkSize = Math.random() < 0.25 ? 2 : 1;
             const nextIndex = Math.min(index + chunkSize, fullText.length);
             const chunk = fullText.slice(index, nextIndex);
@@ -1248,10 +1324,18 @@ function initializeCookieConsent() {
     const cookieSettings = localStorage.getItem('cookieSettings');
     if (cookieSettings) return; // User has already made a choice
     
-    // Show cookie consent banner after 2 seconds
+    // Show cookie consent banner quickly but non-blocking
     setTimeout(() => {
         showCookieConsentBanner();
-    }, 2000);
+        // Ensure banner never blocks scroll or covers the menu toggle on small screens
+        try {
+            const banner = document.getElementById('cookieConsentBanner');
+            if (banner) {
+                banner.style.pointerEvents = 'auto';
+                banner.style.touchAction = 'manipulation';
+            }
+        } catch (_) {}
+    }, 300);
 }
 
 function showCookieConsentBanner() {
@@ -1330,6 +1414,8 @@ cookieBannerStyles.textContent = `
         z-index: 9999;
         animation: slideUp 0.5s ease;
         box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+        pointer-events: auto;
+        touch-action: manipulation;
     }
     
     .cookie-banner-content {
