@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=5.0, viewport-fit=cover">
+    <title>Test Scrollowania - Elite Capital Management</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: #0D1B2A;
+            color: white;
+            line-height: 1.6;
+            overflow-x: auto;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            touch-action: manipulation;
+        }
+        
+        .test-header {
+            background: #142C44;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 2px solid #D4AF37;
+        }
+        
+        .test-section {
+            margin: 20px;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .test-item {
+            background: rgba(255,255,255,0.05);
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #D4AF37;
+        }
+        
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        
+        .status.pass {
+            background: #28a745;
+            color: white;
+        }
+        
+        .status.fail {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .status.warning {
+            background: #ffc107;
+            color: black;
+        }
+        
+        .scroll-indicator {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.8);
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 1000;
+        }
+        
+        .test-content {
+            height: 200vh;
+            background: linear-gradient(45deg, #0D1B2A, #142C44);
+        }
+        
+        .scroll-test-area {
+            height: 150vh;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.05) 10px,
+                rgba(255,255,255,0.05) 20px
+            );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            text-align: center;
+        }
+        
+        .horizontal-test {
+            width: 200vw;
+            height: 100vh;
+            background: linear-gradient(90deg, #0D1B2A, #142C44, #0A141F);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+            overflow-x: auto;
+        }
+        
+        .test-button {
+            background: #D4AF37;
+            color: #0D1B2A;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin: 5px;
+            cursor: pointer;
+        }
+        
+        .test-button:hover {
+            background: #B8941F;
+        }
+        
+        .log {
+            background: rgba(0,0,0,0.8);
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll-indicator" id="scrollIndicator">
+        Scroll: 0px
+    </div>
+    
+    <div class="test-header">
+        <h1>🧪 Test Scrollowania - Elite Capital Management</h1>
+        <p>Test rzeczywisty dla tej witryny na urządzeniach mobilnych</p>
+    </div>
+    
+    <div class="test-section">
+        <h2>📱 Testy Automatyczne</h2>
+        
+        <div class="test-item">
+            <strong>1. Viewport i Responsywność</strong>
+            <span class="status" id="viewportTest">Sprawdzam...</span>
+            <div id="viewportInfo"></div>
+        </div>
+        
+        <div class="test-item">
+            <strong>2. Scrollowanie Pionowe</strong>
+            <span class="status" id="verticalScrollTest">Sprawdzam...</span>
+            <div id="verticalScrollInfo"></div>
+        </div>
+        
+        <div class="test-item">
+            <strong>3. Scrollowanie Poziome</strong>
+            <span class="status" id="horizontalScrollTest">Sprawdzam...</span>
+            <div id="horizontalScrollInfo"></div>
+        </div>
+        
+        <div class="test-item">
+            <strong>4. Touch Events</strong>
+            <span class="status" id="touchTest">Sprawdzam...</span>
+            <div id="touchInfo"></div>
+        </div>
+        
+        <div class="test-item">
+            <strong>5. Overflow Properties</strong>
+            <span class="status" id="overflowTest">Sprawdzam...</span>
+            <div id="overflowInfo"></div>
+        </div>
+        
+        <div class="test-item">
+            <strong>6. Performance</strong>
+            <span class="status" id="performanceTest">Sprawdzam...</span>
+            <div id="performanceInfo"></div>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>🎯 Testy Manualne</h2>
+        <p>Wykonaj te testy ręcznie na telefonie:</p>
+        
+        <div class="test-item">
+            <strong>Test 1:</strong> Przewiń stronę w dół i w górę - czy jest płynnie?
+            <button class="test-button" onclick="markManualTest(1, 'pass')">✅ Działa</button>
+            <button class="test-button" onclick="markManualTest(1, 'fail')">❌ Problem</button>
+        </div>
+        
+        <div class="test-item">
+            <strong>Test 2:</strong> Przewiń w poziomie (jeśli możliwe) - czy działa?
+            <button class="test-button" onclick="markManualTest(2, 'pass')">✅ Działa</button>
+            <button class="test-button" onclick="markManualTest(2, 'fail')">❌ Problem</button>
+        </div>
+        
+        <div class="test-item">
+            <strong>Test 3:</strong> Dotknij i przeciągnij - czy scroll reaguje na dotyk?
+            <button class="test-button" onclick="markManualTest(3, 'pass')">✅ Działa</button>
+            <button class="test-button" onclick="markManualTest(3, 'fail')">❌ Problem</button>
+        </div>
+        
+        <div class="test-item">
+            <strong>Test 4:</strong> Czy scroll nie "przykleja się" ani nie blokuje?
+            <button class="test-button" onclick="markManualTest(4, 'pass')">✅ Działa</button>
+            <button class="test-button" onclick="markManualTest(4, 'fail')">❌ Problem</button>
+        </div>
+        
+        <div class="test-item">
+            <strong>Test 5:</strong> Czy scroll działa w obu kierunkach (góra/dół)?
+            <button class="test-button" onclick="markManualTest(5, 'pass')">✅ Działa</button>
+            <button class="test-button" onclick="markManualTest(5, 'fail')">❌ Problem</button>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>📊 Wyniki Testów</h2>
+        <div id="testResults"></div>
+        <div class="log" id="testLog"></div>
+    </div>
+    
+    <div class="scroll-test-area">
+        <div>
+            <h2>Test Scrollowania Pionowego</h2>
+            <p>Przewiń w dół i w górę, aby przetestować scrollowanie</p>
+            <p>Pozycja scroll: <span id="scrollPosition">0</span>px</p>
+        </div>
+    </div>
+    
+    <div class="horizontal-test">
+        <div>
+            <h2>Test Scrollowania Poziomego</h2>
+            <p>Przewiń w lewo i prawo, aby przetestować scrollowanie poziome</p>
+            <p>Pozycja X: <span id="scrollX">0</span>px</p>
+        </div>
+    </div>
+    
+    <div class="scroll-test-area">
+        <div>
+            <h2>Koniec Testu</h2>
+            <p>Przewiń z powrotem na górę, aby zobaczyć wyniki</p>
+        </div>
+    </div>
+
+    <script>
+        // Log function
+        function log(message) {
+            const logElement = document.getElementById('testLog');
+            const timestamp = new Date().toLocaleTimeString();
+            logElement.innerHTML += `[${timestamp}] ${message}<br>`;
+            logElement.scrollTop = logElement.scrollHeight;
+            console.log(`[${timestamp}] ${message}`);
+        }
+        
+        // Test results storage
+        const testResults = {
+            automatic: {},
+            manual: {}
+        };
+        
+        // Update scroll indicator
+        function updateScrollIndicator() {
+            const indicator = document.getElementById('scrollIndicator');
+            const scrollY = window.scrollY;
+            const scrollX = window.scrollX;
+            indicator.textContent = `Scroll: ${scrollY}px (X: ${scrollX}px)`;
+            
+            document.getElementById('scrollPosition').textContent = scrollY;
+            document.getElementById('scrollX').textContent = scrollX;
+        }
+        
+        // Test 1: Viewport
+        function testViewport() {
+            const viewportTest = document.getElementById('viewportTest');
+            const viewportInfo = document.getElementById('viewportInfo');
+            
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+            const devicePixelRatio = window.devicePixelRatio;
+            const userAgent = navigator.userAgent;
+            
+            let result = 'pass';
+            let info = `Szerokość: ${viewportWidth}px, Wysokość: ${viewportHeight}px<br>`;
+            info += `Pixel Ratio: ${devicePixelRatio}<br>`;
+            info += `User Agent: ${userAgent.substring(0, 50)}...`;
+            
+            if (viewportWidth < 320) {
+                result = 'warning';
+                info += '<br>⚠️ Bardzo mały viewport';
+            }
+            
+            viewportTest.className = `status ${result}`;
+            viewportTest.textContent = result === 'pass' ? '✅ OK' : result === 'warning' ? '⚠️ Ostrzeżenie' : '❌ Błąd';
+            viewportInfo.innerHTML = info;
+            
+            testResults.automatic.viewport = { result, info };
+            log(`Viewport test: ${result}`);
+        }
+        
+        // Test 2: Vertical Scroll
+        function testVerticalScroll() {
+            const verticalTest = document.getElementById('verticalScrollTest');
+            const verticalInfo = document.getElementById('verticalScrollInfo');
+            
+            const documentHeight = document.documentElement.scrollHeight;
+            const viewportHeight = window.innerHeight;
+            const canScrollVertically = documentHeight > viewportHeight;
+            
+            let result = 'pass';
+            let info = `Wysokość dokumentu: ${documentHeight}px<br>`;
+            info += `Wysokość viewport: ${viewportHeight}px<br>`;
+            info += `Można przewijać: ${canScrollVertically ? 'Tak' : 'Nie'}`;
+            
+            if (!canScrollVertically) {
+                result = 'fail';
+                info += '<br>❌ Brak możliwości scrollowania pionowego';
+            }
+            
+            verticalTest.className = `status ${result}`;
+            verticalTest.textContent = result === 'pass' ? '✅ OK' : '❌ Błąd';
+            verticalInfo.innerHTML = info;
+            
+            testResults.automatic.verticalScroll = { result, info };
+            log(`Vertical scroll test: ${result}`);
+        }
+        
+        // Test 3: Horizontal Scroll
+        function testHorizontalScroll() {
+            const horizontalTest = document.getElementById('horizontalScrollTest');
+            const horizontalInfo = document.getElementById('horizontalScrollInfo');
+            
+            const documentWidth = document.documentElement.scrollWidth;
+            const viewportWidth = window.innerWidth;
+            const canScrollHorizontally = documentWidth > viewportWidth;
+            
+            let result = 'pass';
+            let info = `Szerokość dokumentu: ${documentWidth}px<br>`;
+            info += `Szerokość viewport: ${viewportWidth}px<br>`;
+            info += `Można przewijać poziomo: ${canScrollHorizontally ? 'Tak' : 'Nie'}`;
+            
+            if (canScrollHorizontally) {
+                info += '<br>ℹ️ Poziome scrollowanie dostępne';
+            }
+            
+            horizontalTest.className = `status ${result}`;
+            horizontalTest.textContent = '✅ OK';
+            horizontalInfo.innerHTML = info;
+            
+            testResults.automatic.horizontalScroll = { result, info };
+            log(`Horizontal scroll test: ${result}`);
+        }
+        
+        // Test 4: Touch Events
+        function testTouchEvents() {
+            const touchTest = document.getElementById('touchTest');
+            const touchInfo = document.getElementById('touchInfo');
+            
+            const hasTouchSupport = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            const touchPoints = navigator.maxTouchPoints;
+            
+            let result = 'pass';
+            let info = `Wsparcie dotyku: ${hasTouchSupport ? 'Tak' : 'Nie'}<br>`;
+            info += `Maksymalne punkty dotyku: ${touchPoints}`;
+            
+            if (!hasTouchSupport) {
+                result = 'warning';
+                info += '<br>⚠️ Brak wsparcia dotyku (może być desktop)';
+            }
+            
+            touchTest.className = `status ${result}`;
+            touchTest.textContent = result === 'pass' ? '✅ OK' : '⚠️ Ostrzeżenie';
+            touchInfo.innerHTML = info;
+            
+            testResults.automatic.touchEvents = { result, info };
+            log(`Touch events test: ${result}`);
+        }
+        
+        // Test 5: Overflow Properties
+        function testOverflowProperties() {
+            const overflowTest = document.getElementById('overflowTest');
+            const overflowInfo = document.getElementById('overflowInfo');
+            
+            const bodyStyle = getComputedStyle(document.body);
+            const htmlStyle = getComputedStyle(document.documentElement);
+            
+            const bodyOverflow = bodyStyle.overflow;
+            const htmlOverflow = htmlStyle.overflow;
+            const bodyOverflowX = bodyStyle.overflowX;
+            const htmlOverflowX = htmlStyle.overflowX;
+            const bodyOverflowY = bodyStyle.overflowY;
+            const htmlOverflowY = htmlStyle.overflowY;
+            
+            let result = 'pass';
+            let info = `Body overflow: ${bodyOverflow}<br>`;
+            info += `HTML overflow: ${htmlOverflow}<br>`;
+            info += `Body overflow-x: ${bodyOverflowX}<br>`;
+            info += `HTML overflow-x: ${htmlOverflowX}<br>`;
+            info += `Body overflow-y: ${bodyOverflowY}<br>`;
+            info += `HTML overflow-y: ${htmlOverflowY}`;
+            
+            if (bodyOverflow === 'hidden' || htmlOverflow === 'hidden') {
+                result = 'fail';
+                info += '<br>❌ Scroll może być zablokowany';
+            }
+            
+            overflowTest.className = `status ${result}`;
+            overflowTest.textContent = result === 'pass' ? '✅ OK' : '❌ Błąd';
+            overflowInfo.innerHTML = info;
+            
+            testResults.automatic.overflowProperties = { result, info };
+            log(`Overflow properties test: ${result}`);
+        }
+        
+        // Test 6: Performance
+        function testPerformance() {
+            const performanceTest = document.getElementById('performanceTest');
+            const performanceInfo = document.getElementById('performanceInfo');
+            
+            const startTime = performance.now();
+            
+            // Simulate scroll performance test
+            setTimeout(() => {
+                const endTime = performance.now();
+                const duration = endTime - startTime;
+                
+                let result = 'pass';
+                let info = `Czas testu: ${duration.toFixed(2)}ms<br>`;
+                info += `FPS: ${(1000 / duration).toFixed(1)}`;
+                
+                if (duration > 100) {
+                    result = 'warning';
+                    info += '<br>⚠️ Wolne renderowanie';
+                }
+                
+                performanceTest.className = `status ${result}`;
+                performanceTest.textContent = result === 'pass' ? '✅ OK' : '⚠️ Ostrzeżenie';
+                performanceInfo.innerHTML = info;
+                
+                testResults.automatic.performance = { result, info };
+                log(`Performance test: ${result} (${duration.toFixed(2)}ms)`);
+            }, 50);
+        }
+        
+        // Manual test marking
+        function markManualTest(testNumber, result) {
+            const status = result === 'pass' ? '✅ OK' : '❌ Problem';
+            testResults.manual[`test${testNumber}`] = result;
+            
+            log(`Manual test ${testNumber}: ${result}`);
+            updateTestResults();
+        }
+        
+        // Update test results
+        function updateTestResults() {
+            const resultsElement = document.getElementById('testResults');
+            
+            let automaticPassed = 0;
+            let automaticTotal = 0;
+            let manualPassed = 0;
+            let manualTotal = 0;
+            
+            for (const test in testResults.automatic) {
+                automaticTotal++;
+                if (testResults.automatic[test].result === 'pass') {
+                    automaticPassed++;
+                }
+            }
+            
+            for (const test in testResults.manual) {
+                manualTotal++;
+                if (testResults.manual[test] === 'pass') {
+                    manualPassed++;
+                }
+            }
+            
+            const automaticPercent = automaticTotal > 0 ? Math.round((automaticPassed / automaticTotal) * 100) : 0;
+            const manualPercent = manualTotal > 0 ? Math.round((manualPassed / manualTotal) * 100) : 0;
+            
+            resultsElement.innerHTML = `
+                <h3>Podsumowanie Testów</h3>
+                <p><strong>Testy automatyczne:</strong> ${automaticPassed}/${automaticTotal} (${automaticPercent}%)</p>
+                <p><strong>Testy manualne:</strong> ${manualPassed}/${manualTotal} (${manualPercent}%)</p>
+                <p><strong>Ogólny wynik:</strong> ${automaticPercent >= 80 && manualPercent >= 80 ? '✅ Wszystko OK' : '⚠️ Wymaga uwagi'}</p>
+            `;
+        }
+        
+        // Initialize tests
+        function initializeTests() {
+            log('🧪 Rozpoczęcie testów scrollowania');
+            
+            // Run automatic tests
+            setTimeout(testViewport, 100);
+            setTimeout(testVerticalScroll, 200);
+            setTimeout(testHorizontalScroll, 300);
+            setTimeout(testTouchEvents, 400);
+            setTimeout(testOverflowProperties, 500);
+            setTimeout(testPerformance, 600);
+            
+            // Update scroll indicator
+            window.addEventListener('scroll', updateScrollIndicator);
+            window.addEventListener('resize', () => {
+                setTimeout(testViewport, 100);
+                setTimeout(testVerticalScroll, 200);
+            });
+            
+            // Initial update
+            updateScrollIndicator();
+            
+            log('✅ Testy zainicjalizowane');
+        }
+        
+        // Start tests when page loads
+        document.addEventListener('DOMContentLoaded', initializeTests);
+        
+        // Log page load
+        log('📱 Strona załadowana - test scrollowania gotowy');
+    </script>
+</body>
+</html>

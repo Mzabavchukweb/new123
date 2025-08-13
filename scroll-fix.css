@@ -1,0 +1,265 @@
+/* ========================================
+   NAPRAWA PROBLEMÓW ZE SCROLLOWANIEM
+   ======================================== */
+
+/* 1. NAPRAWA: Particles background blokuje scroll na mobile */
+@media (max-width: 768px) {
+    .particles-background {
+        display: none !important;
+        position: absolute !important;
+        z-index: -999 !important;
+    }
+}
+
+/* 2. NAPRAWA: Wymuszenie scrollowania na mobile */
+@media (max-width: 768px) {
+    html, body {
+        overflow-x: auto !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        touch-action: manipulation !important;
+        overscroll-behavior-x: auto !important;
+        overscroll-behavior-y: auto !important;
+        scroll-behavior: auto !important;
+        position: static !important;
+        height: auto !important;
+        min-height: 100vh !important;
+    }
+    
+    /* Usuń wszystkie elementy fixed które mogą blokować */
+    *[style*="position: fixed"] {
+        position: absolute !important;
+    }
+    
+    /* Napraw modale które mogą blokować scroll */
+    .modal, .gdpr-modal, .cookie-modal, #cookieConsentModal, #gdprInfoModal {
+        position: absolute !important;
+        top: 0 !important;
+        z-index: 9999 !important;
+    }
+}
+
+/* 3. NAPRAWA: Usuń overflow hidden z elementów które mogą blokować */
+@media (max-width: 768px) {
+    .container, .section, .hero, .calculator-section, .stats-section, 
+    .featured-services, .faq-section, .header, .footer {
+        overflow: visible !important;
+    }
+    
+    /* Napraw karty i elementy które mogą mieć overflow hidden */
+    .service-card, .faq-item, .calculator-container, .result-card {
+        overflow: visible !important;
+    }
+}
+
+/* 4. NAPRAWA: Touch events na mobile */
+@media (max-width: 768px) {
+    * {
+        touch-action: manipulation !important;
+    }
+    
+    /* Pozwól na scrollowanie na elementach które mogą go blokować */
+    .nav-list, .faq-question, .service-link, .cta-button {
+        touch-action: manipulation !important;
+        -webkit-tap-highlight-color: transparent !important;
+    }
+}
+
+/* 5. NAPRAWA: Z-index stacking context */
+@media (max-width: 768px) {
+    .header {
+        z-index: 1000 !important;
+    }
+    
+    .particles-background {
+        z-index: -999 !important;
+    }
+    
+    .modal, .gdpr-modal, .cookie-modal {
+        z-index: 9999 !important;
+    }
+}
+
+/* 6. NAPRAWA: Transform i stacking context */
+@media (max-width: 768px) {
+    /* Usuń transformy które mogą tworzyć stacking context */
+    .logo:hover, .service-card:hover, .faq-item:hover {
+        transform: none !important;
+    }
+    
+    /* Napraw elementy z transform */
+    *[style*="transform"] {
+        transform: none !important;
+    }
+}
+
+/* 7. NAPRAWA: Event listeners które mogą blokować scroll */
+@media (max-width: 768px) {
+    /* Wymuszenie scrollowania co 1 sekundę */
+    body::after {
+        content: '';
+        display: none;
+    }
+}
+
+/* 8. NAPRAWA: Viewport i meta tag */
+@media (max-width: 768px) {
+    /* Wymuszenie prawidłowego viewport */
+    html {
+        width: 100% !important;
+        height: auto !important;
+        overflow-x: auto !important;
+        overflow-y: auto !important;
+    }
+    
+    body {
+        width: 100% !important;
+        height: auto !important;
+        overflow-x: auto !important;
+        overflow-y: auto !important;
+        position: relative !important;
+    }
+}
+
+/* 9. NAPRAWA: Scroll behavior */
+@media (max-width: 768px) {
+    html {
+        scroll-behavior: auto !important;
+    }
+    
+    body {
+        scroll-behavior: auto !important;
+    }
+    
+    /* Usuń smooth scroll na mobile */
+    * {
+        scroll-behavior: auto !important;
+    }
+}
+
+/* 10. NAPRAWA: Emergency scroll fix */
+@media (max-width: 768px) {
+    /* Emergency fix dla wszystkich elementów */
+    * {
+        overflow: visible !important;
+    }
+    
+    /* Tylko dla elementów które muszą mieć overflow hidden */
+    .modal-content, .dropdown-menu {
+        overflow: hidden !important;
+    }
+    
+    /* Wymuszenie scrollowania na głównych kontenerach */
+    .main-content, #main-content, main {
+        overflow: visible !important;
+        height: auto !important;
+        min-height: 100vh !important;
+    }
+}
+
+/* ========================================
+   DODATKOWE NAPRAWY DLA SPECYFICZNYCH PROBLEMÓW
+   ======================================== */
+
+/* Naprawa dla iOS Safari */
+@supports (-webkit-touch-callout: none) {
+    @media (max-width: 768px) {
+        html, body {
+            -webkit-overflow-scrolling: touch !important;
+            overflow-x: auto !important;
+            overflow-y: auto !important;
+            position: static !important;
+            height: auto !important;
+        }
+        
+        /* Usuń wszystkie fixed elementy na iOS */
+        *[style*="position: fixed"] {
+            position: absolute !important;
+        }
+    }
+}
+
+/* Naprawa dla Android Chrome */
+@media (max-width: 768px) and (-webkit-min-device-pixel-ratio: 1) {
+    html, body {
+        overflow-x: auto !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        touch-action: manipulation !important;
+    }
+}
+
+/* ========================================
+   NAPRAWA JAVASCRIPT PROBLEMS
+   ======================================== */
+
+/* Naprawa dla event listeners które mogą blokować scroll */
+@media (max-width: 768px) {
+    /* Wymuszenie scrollowania na wszystkich elementach */
+    * {
+        pointer-events: auto !important;
+    }
+    
+    /* Naprawa dla elementów które mogą blokować touch */
+    .nav-link, .service-link, .cta-button, .faq-question {
+        pointer-events: auto !important;
+        touch-action: manipulation !important;
+    }
+}
+
+/* ========================================
+   FINALNA NAPRAWA - EMERGENCY FIX
+   ======================================== */
+
+/* Emergency fix dla wszystkich problemów ze scrollowaniem */
+@media (max-width: 768px) {
+    /* Reset wszystkich problematycznych właściwości */
+    html, body {
+        /* Wymuszenie scrollowania */
+        overflow-x: auto !important;
+        overflow-y: auto !important;
+        
+        /* Touch scrolling */
+        -webkit-overflow-scrolling: touch !important;
+        touch-action: manipulation !important;
+        
+        /* Usuń smooth scroll */
+        scroll-behavior: auto !important;
+        
+        /* Napraw viewport */
+        width: 100% !important;
+        height: auto !important;
+        min-height: 100vh !important;
+        
+        /* Usuń fixed positioning */
+        position: static !important;
+        
+        /* Napraw stacking context */
+        z-index: auto !important;
+        
+        /* Usuń transformy */
+        transform: none !important;
+        
+        /* Napraw pointer events */
+        pointer-events: auto !important;
+    }
+    
+    /* Usuń wszystkie elementy które mogą blokować scroll */
+    .particles-background,
+    *[style*="position: fixed"],
+    *[style*="overflow: hidden"] {
+        display: none !important;
+        position: absolute !important;
+        z-index: -999 !important;
+        overflow: visible !important;
+    }
+    
+    /* Wymuszenie scrollowania na głównych sekcjach */
+    .hero, .calculator-section, .stats-section, 
+    .featured-services, .faq-section, .footer {
+        overflow: visible !important;
+        height: auto !important;
+        min-height: auto !important;
+        position: relative !important;
+    }
+}
