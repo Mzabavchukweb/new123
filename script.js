@@ -18,7 +18,7 @@ function initSmoothTransitions() {
     // Intentionally no global scroll-behavior on html to avoid iOS scroll glitches
 }
 
-// Naprawiona funkcja zapewniająca scrollowanie na mobile - TYLKO PIONOWE
+// Funkcja zapewniająca tylko PIONOWE scrollowanie na mobile - BLOKADA POZIOMEGO
 function ensureScrollEnabled() {
     try {
         const isMobile = window.innerWidth <= 768;
@@ -27,7 +27,7 @@ function ensureScrollEnabled() {
         const docEl = document.documentElement;
         const body = document.body;
         
-        // TYLKO pionowe przewijanie na mobile - blokuj poziome
+        // TYLKO pionowe scrollowanie na mobile
         [docEl, body].forEach((el) => {
             if (!el) return;
             
@@ -39,19 +39,25 @@ function ensureScrollEnabled() {
             el.style.removeProperty('height');
             el.style.removeProperty('max-height');
             
-            // Ustaw właściwości które pozwalają TYLKO na pionowe przewijanie
-            el.style.setProperty('overflow-x', 'hidden', 'important'); // BLOKUJ poziome
-            el.style.setProperty('overflow-y', 'auto', 'important');   // POZWÓL pionowe
+            // Ustaw właściwości które blokują przewijanie poziome
+            el.style.setProperty('overflow-x', 'hidden', 'important');
+            el.style.setProperty('overflow-y', 'auto', 'important');
+            el.style.setProperty('max-width', '100vw', 'important');
             el.style.setProperty('position', 'static', 'important');
             el.style.setProperty('-webkit-overflow-scrolling', 'touch', 'important');
-            // KLUCZOWE: pozwól tylko na pionowe gesty dotykowe
             el.style.setProperty('touch-action', 'pan-y', 'important');
-            el.style.setProperty('overscroll-behavior-x', 'none', 'important'); // BLOKUJ poziome
+            el.style.setProperty('overscroll-behavior-x', 'contain', 'important');
             el.style.setProperty('overscroll-behavior-y', 'auto', 'important');
         });
         
         // Ustaw smooth scroll behavior na auto dla lepszej wydajności na iOS
         docEl.style.setProperty('scroll-behavior', 'auto', 'important');
+        
+        // Upewnij się że viewport nie pozwala na scrollowanie poziome
+        const viewport = document.querySelector('meta[name="viewport"]');
+        if (viewport) {
+            viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, viewport-fit=cover');
+        }
         
     } catch (error) {
         console.warn('ensureScrollEnabled error:', error);
@@ -70,19 +76,23 @@ document.addEventListener('DOMContentLoaded', function() {
     const reenableDelays = [0, 100, 300, 800, 1600, 3000, 5000];
     reenableDelays.forEach((ms) => setTimeout(ensureScrollEnabled, ms));
     
-    // Dodaj prostą naprawkę scrollowania co 3 sekundy na mobile - TYLKO PIONOWE
+    // Dodaj prostą naprawkę scrollowania co 3 sekundy na mobile - BLOKADA POZIOMEGO
     if (window.innerWidth <= 768) {
         setInterval(() => {
-            // Sprawdź czy pionowe scrollowanie jest zablokowane
+            // Sprawdź czy scrollowanie poziome nie zostało przypadkowo włączone
             const body = document.body;
             const html = document.documentElement;
             
+            const bodyOverflowX = getComputedStyle(body).overflowX;
+            const htmlOverflowX = getComputedStyle(html).overflowX;
             const bodyOverflowY = getComputedStyle(body).overflowY;
             const htmlOverflowY = getComputedStyle(html).overflowY;
             
-            if (bodyOverflowY === 'hidden' || htmlOverflowY === 'hidden') {
-                console.log('🔧 Fixing blocked vertical scroll...');
-                // Przywróć TYLKO pionowe przewijanie, blokuj poziome
+            // Jeśli scrollowanie pionowe jest zablokowane lub poziome włączone - napraw
+            if (bodyOverflowY === 'hidden' || htmlOverflowY === 'hidden' || 
+                bodyOverflowX !== 'hidden' || htmlOverflowX !== 'hidden') {
+                console.log('🔧 Fixing scroll - blocking horizontal, enabling vertical...');
+                // ZAWSZE blokuj poziome, pozwól na pionowe
                 body.style.setProperty('overflow-x', 'hidden', 'important');
                 body.style.setProperty('overflow-y', 'auto', 'important');
                 html.style.setProperty('overflow-x', 'hidden', 'important');
@@ -91,8 +101,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 html.style.setProperty('-webkit-overflow-scrolling', 'touch', 'important');
                 body.style.setProperty('touch-action', 'pan-y', 'important');
                 html.style.setProperty('touch-action', 'pan-y', 'important');
-                body.style.setProperty('overscroll-behavior-x', 'none', 'important');
-                html.style.setProperty('overscroll-behavior-x', 'none', 'important');
+                body.style.setProperty('max-width', '100vw', 'important');
+                html.style.setProperty('max-width', '100vw', 'important');
             }
         }, 3000);
     }
@@ -159,26 +169,17 @@ document.addEventListener('DOMContentLoaded', function() {
         const toggle = document.querySelector('.menu-toggle');
         const nav = document.getElementById('main-nav');
         
-        console.log('🔍 Menu elements:', { toggle, nav });
-        
-        if (!toggle || !nav) {
-            console.warn('❌ Menu elements not found!', { toggle: !!toggle, nav: !!nav });
-            return;
-        }
-        
-        console.log('✅ Mobile menu initialized');
+        if (!toggle || !nav) return;
         
         let isOpen = false;
         
         function closeMenu() {
-            console.log('📁 Closing menu...');
             nav.classList.remove('open');
             toggle.classList.remove('active');
             document.body.classList.remove('nav-open');
             toggle.setAttribute('aria-expanded', 'false');
             nav.setAttribute('aria-hidden', 'true');
             isOpen = false;
-            console.log('📁 Menu closed, classes:', nav.className);
             
             // Natychmiast przywróć scrollowanie na mobile
             ensureScrollEnabled();
@@ -188,7 +189,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         function openMenu() {
-            console.log('📂 Opening menu...');
             nav.classList.add('open');
             toggle.classList.add('active');
             document.body.classList.add('nav-open');
@@ -196,7 +196,6 @@ document.addEventListener('DOMContentLoaded', function() {
             nav.setAttribute('aria-hidden', 'false');
             nav.setAttribute('role', 'dialog');
             isOpen = true;
-            console.log('📂 Menu opened, classes:', nav.className);
             
             // Upewnij się, że scrollowanie działa nawet gdy menu jest otwarte
             ensureScrollEnabled();
@@ -213,7 +212,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         function toggleMenu(e) {
-            console.log('🍔 Menu toggle clicked!', { isOpen });
             e.preventDefault();
             e.stopPropagation();
             isOpen ? closeMenu() : openMenu();
@@ -1113,8 +1111,6 @@ function showCookieConsent() {
     
     // ZAWSZE pozwalaj na scrollowanie na mobile
     ensureScrollEnabled();
-    // Dodatkowe zabezpieczenie po otwarciu modala cookies
-    setTimeout(ensureScrollEnabled, 100);
 }
 
 function showGDPRInfo() {
@@ -1180,8 +1176,6 @@ function showGDPRInfo() {
     
     // ZAWSZE pozwalaj na scrollowanie na mobile
     ensureScrollEnabled();
-    // Dodatkowe zabezpieczenie po otwarciu modala GDPR
-    setTimeout(ensureScrollEnabled, 100);
 }
 
 function closeGDPRModal(modalId) {
@@ -1445,20 +1439,19 @@ function initializeCookieConsent() {
         
         // Force scroll to work even with banner
         ensureScrollEnabled();
-        setTimeout(ensureScrollEnabled, 100);
         
-        // EMERGENCY: Auto-accept cookies after 3 seconds on mobile if vertical scroll is blocked
+        // EMERGENCY: Auto-accept cookies after 5 seconds on mobile if scroll is blocked
         if (window.innerWidth <= 768) {
             setTimeout(() => {
                 const canScroll = document.documentElement.scrollHeight > window.innerHeight;
-                const bodyOverflowY = getComputedStyle(document.body).overflowY;
-                const htmlOverflowY = getComputedStyle(document.documentElement).overflowY;
+                const bodyOverflow = getComputedStyle(document.body).overflow;
+                const htmlOverflow = getComputedStyle(document.documentElement).overflow;
                 
-                if (canScroll && (bodyOverflowY === 'hidden' || htmlOverflowY === 'hidden')) {
-                    console.warn('🚨 Cookies blocking vertical scroll - auto-accepting...');
+                if (canScroll && (bodyOverflow === 'hidden' || htmlOverflow === 'hidden')) {
+                    console.warn('🚨 Cookies blocking scroll - auto-accepting...');
                     acceptAllCookiesBanner();
                 }
-            }, 3000);
+            }, 5000);
         }
     }, 300);
 }

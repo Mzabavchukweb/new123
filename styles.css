@@ -1,21 +1,28 @@
-/* MOBILE OPTIMIZATIONS */
+/* MOBILE OPTIMIZATIONS - BLOKADA PRZEWIJANIA POZIOMEGO */
 @media (max-width: 768px) {
   html, body { 
     width: 100%; 
-    max-width: 100%;
+    max-width: 100vw;
     min-height: 100dvh;
     height: auto;
     position: static;
     -webkit-overflow-scrolling: touch !important;
-    touch-action: pan-y !important;
-    overscroll-behavior-x: none !important;
+    touch-action: manipulation !important;
+    overscroll-behavior-x: contain !important;
     overscroll-behavior-y: auto !important;
     overflow-x: hidden !important;
     overflow-y: auto !important;
   }
   
   * { 
-    box-sizing: border-box; 
+    box-sizing: border-box;
+    max-width: 100vw !important;
+  }
+  
+  /* Zapobiegnij przewijaniu poziomemu dla wszystkich elementów */
+  .container, section, div, header, footer, main {
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
   }
   
   /* Ograniczaj szerokość tylko dla elementów tekstowych i mediów, nie dla wszystkich */
@@ -237,9 +244,10 @@ html {
     scroll-behavior: auto;
     overflow-x: hidden;
     overflow-y: auto;
+    max-width: 100vw;
     -webkit-overflow-scrolling: touch;
-    touch-action: pan-y;
-    overscroll-behavior-x: none;
+    touch-action: manipulation;
+    overscroll-behavior-x: auto;
     overscroll-behavior-y: auto;
 }
 
@@ -251,6 +259,7 @@ body {
     line-height: 1.6;
     overflow-x: hidden;
     overflow-y: auto;
+    max-width: 100vw;
     font-feature-settings: 'cv11', 'ss01', 'liga' 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -259,9 +268,9 @@ body {
     /* Avoid global smooth behavior to prevent iOS scroll stalls */
     scroll-behavior: auto;
     -webkit-overflow-scrolling: touch;
-    overscroll-behavior-x: none;
+    overscroll-behavior-x: auto;
     overscroll-behavior-y: auto;
-    touch-action: pan-y;
+    touch-action: manipulation;
     /* Hide scrollbar */
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* Internet Explorer 10+ */
@@ -448,55 +457,14 @@ body.subpage section { opacity: 1; transform: none; }
 @media (max-width: 768px) {
   .particles-background { display: none !important; }
   
-  /* FORCE MOBILE SCROLL - TYLKO PIONOWE, BLOKUJ POZIOME */
+  /* FORCE MOBILE SCROLL - OVERRIDE EVERYTHING - POPRAWIONE DLA POZIOMEGO */
   body, html {
     -webkit-overflow-scrolling: touch;
-    overflow-x: hidden !important;
+    overflow-x: auto !important;
     overflow-y: auto !important;
-    touch-action: pan-y !important;
-    overscroll-behavior-x: none !important;
-    overscroll-behavior-y: auto !important;
-  }
-  
-  /* Zapobiegaj poziomemu przewijaniu na mobile */
-  * {
-    word-wrap: break-word !important;
-    overflow-wrap: break-word !important;
-    hyphens: auto !important;
-    max-width: 100vw !important;
-    box-sizing: border-box !important;
-  }
-  
-  /* Przywróć touch-action dla elementów interaktywnych */
-  button, .menu-toggle, .nav-link, a, input, textarea, select, .btn, .cta-button {
     touch-action: manipulation !important;
-  }
-  
-  /* Wymuś zawijanie tekstu dla elementów z nowrap */
-  .top-header-content span, .opening-hours {
-    white-space: normal !important;
-  }
-  
-  /* Kontener i sekcje nie mogą przekroczyć viewport */
-  .container, section, header, footer, main, div {
-    max-width: 100vw !important;
-    overflow-x: hidden !important;
-  }
-  
-  /* Wyjątki dla menu mobilnego */
-  .main-nav, .main-nav.open, .menu-toggle {
-    max-width: none !important;
-    overflow-x: visible !important;
-  }
-  
-  /* Upewnij się że menu mobilne ma priorytet */
-  @media (max-width: 768px) {
-    .main-nav.open {
-      opacity: 1 !important;
-      visibility: visible !important;
-      pointer-events: auto !important;
-      display: flex !important;
-    }
+    overscroll-behavior-x: auto !important;
+    overscroll-behavior-y: auto !important;
   }
   
   /* Kill any fixed positioning that might interfere */
@@ -571,6 +539,7 @@ body.subpage section { opacity: 1; transform: none; }
     margin: 0 auto;
     padding: 0 var(--container-padding);
     width: 100%;
+    overflow-x: hidden;
 }
 
 /* Grid System */
@@ -5026,14 +4995,13 @@ body.subpage .stats-section.section-with-image .section-image-overlay {
     overflow-y: auto; /* ensure internal scroll if needed */
   }
   
-  /* Ensure body can still scroll when menu is open - TYLKO PIONOWE */
+  /* Ensure body can still scroll when menu is open */
   body.nav-open {
-    overflow-x: hidden !important;
-    overflow-y: auto !important;
+    overflow: auto !important;
     position: static !important;
     height: auto !important;
     -webkit-overflow-scrolling: touch !important;
-    touch-action: pan-y !important;
+    touch-action: manipulation !important;
   }
   .nav-list { 
     flex-direction: column; 
@@ -5078,9 +5046,8 @@ body.subpage .stats-section.section-with-image .section-image-overlay {
     transform: scale(1.1);
   }
   body.nav-open { 
-    /* Nie blokuj scroll na desktop - tylko pionowe */
-    overflow-x: hidden;
-    overflow-y: auto;
+    /* Nie blokuj scroll na desktop */
+    overflow: auto;
   }
   
 
@@ -6278,6 +6245,22 @@ body {
     display: none;
 }
 
+/* GLOBALNA BLOKADA PRZEWIJANIA POZIOMEGO */
+* {
+    max-width: 100vw;
+    box-sizing: border-box;
+}
+
+section, div, header, footer, main, article, aside, nav {
+    overflow-x: hidden !important;
+}
+
+/* Zapobiegnij wystającym elementom */
+img, video, iframe, canvas, svg {
+    max-width: 100% !important;
+    height: auto;
+}
+
 /* Enhanced Performance Optimizations */
 @media (prefers-reduced-motion: reduce) {
     *,
@@ -6695,19 +6678,19 @@ body {
   }
   
   body {
-    overflow-x: hidden !important;
+    overflow-x: auto !important;
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch !important;
-    touch-action: pan-y !important;
-    overscroll-behavior-x: none !important;
+    touch-action: manipulation !important;
+    overscroll-behavior-x: auto !important;
     overscroll-behavior-y: auto !important;
   }
   
-  /* Gdy menu jest otwarte - nadal pozwól na pionowe scroll, blokuj poziome */
+  /* Gdy menu jest otwarte - nadal pozwól na scroll W OBIE STRONY */
   body.nav-open {
-    overflow-x: hidden !important;
+    overflow-x: auto !important;
     overflow-y: auto !important;
-    touch-action: pan-y !important;
+    touch-action: manipulation !important;
     position: static !important;
   }
 }
