@@ -3337,6 +3337,21 @@ body:not(.subpage) .hero {
     transition: all 0.4s ease;
 }
 
+/* Fix horizontal scroll issue on mobile */
+@media (max-width: 480px) {
+    .process-step {
+        min-width: calc(100vw - 60px);
+        max-width: calc(100vw - 60px);
+        flex: none;
+        margin: 0 auto;
+    }
+    .process-steps {
+        flex-direction: column;
+        gap: var(--space-lg);
+        padding: 0 20px;
+    }
+}
+
 .process-step:hover {
     transform: translateY(-4px);
     border-color: rgba(212, 175, 55, 0.3);
@@ -4969,6 +4984,15 @@ body.subpage .stats-section.section-with-image .section-image-overlay {
     pointer-events: auto;
     overflow-y: auto; /* ensure internal scroll if needed */
   }
+  
+  /* Ensure body can still scroll when menu is open */
+  body.nav-open {
+    overflow: auto !important;
+    position: static !important;
+    height: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    touch-action: manipulation !important;
+  }
   .nav-list { 
     flex-direction: column; 
     gap: 20px; 
@@ -5016,39 +5040,9 @@ body.subpage .stats-section.section-with-image .section-image-overlay {
     overflow: auto;
   }
   
-  @media (max-width: 768px) {
-      body.nav-open { 
-    /* ZAWSZE pozwalaj na scrollowanie na mobile - DELIKATNIE */
-    overflow: visible !important; 
-    overflow-x: visible !important;
-    overflow-y: visible !important;
-    position: static !important;
-    }
-  }
+
   
-  /* Fix hero section scrolling */
-  .hero {
-    min-height: 60vh !important;
-    height: auto !important;
-    overflow: visible !important;
-    position: relative !important;
-    padding: 40px 0;
-  }
-  .hero .container {
-    overflow: visible !important;
-  }
-  .hero-content {
-    padding: 40px 20px;
-    text-align: center;
-  }
-  .hero h1 {
-    font-size: clamp(1.8rem, 4.5vw, 2.5rem);
-    line-height: 1.3;
-    margin-bottom: 20px;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    hyphens: auto;
-  }
+
   .hero-subtitle {
     font-size: clamp(1rem, 3vw, 1.2rem);
     margin-bottom: 30px;
@@ -5059,10 +5053,7 @@ body.subpage .stats-section.section-with-image .section-image-overlay {
 
 /* Close button inside mobile menu - REMOVED - using toggle button instead */
 
-/* Mobile scroll overrides to avoid accidental locks */
-@media (max-width: 768px) {
-  section, .container, .hero, .services-section, .stats-section, .featured-services, .faq-section, .premium-properties { overflow: visible !important; }
-}
+
 
   @keyframes fadeIn {
     from {
