@@ -467,6 +467,11 @@ body.subpage section { opacity: 1; transform: none; }
     box-sizing: border-box !important;
   }
   
+  /* Przywróć touch-action dla elementów interaktywnych */
+  button, .menu-toggle, .nav-link, a, input, textarea, select, .btn, .cta-button {
+    touch-action: manipulation !important;
+  }
+  
   /* Wymuś zawijanie tekstu dla elementów z nowrap */
   .top-header-content span, .opening-hours {
     white-space: normal !important;
@@ -476,6 +481,11 @@ body.subpage section { opacity: 1; transform: none; }
   .container, section, header, footer, main, div {
     max-width: 100vw !important;
     overflow-x: hidden !important;
+  }
+  
+  /* Wyjątki dla menu mobilnego */
+  .main-nav, .main-nav.open, .menu-toggle {
+    max-width: none !important;
   }
   
   /* Kill any fixed positioning that might interfere */

@@ -159,7 +159,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const toggle = document.querySelector('.menu-toggle');
         const nav = document.getElementById('main-nav');
         
-        if (!toggle || !nav) return;
+        console.log('🔍 Menu elements:', { toggle, nav });
+        
+        if (!toggle || !nav) {
+            console.warn('❌ Menu elements not found!', { toggle: !!toggle, nav: !!nav });
+            return;
+        }
+        
+        console.log('✅ Mobile menu initialized');
         
         let isOpen = false;
         
@@ -202,6 +209,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         function toggleMenu(e) {
+            console.log('🍔 Menu toggle clicked!', { isOpen });
             e.preventDefault();
             e.stopPropagation();
             isOpen ? closeMenu() : openMenu();
