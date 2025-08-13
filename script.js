@@ -18,25 +18,27 @@ function initSmoothTransitions() {
     // Intentionally no global scroll-behavior on html to avoid iOS scroll glitches
 }
 
-// Simple scroll fix for mobile - minimal intervention
+// Aggressive scroll fix - force scroll to work
 function ensureScrollEnabled() {
     try {
-        const isMobile = window.innerWidth <= 768;
-        if (!isMobile) return;
-        
         const docEl = document.documentElement;
         const body = document.body;
         
-        // Only fix if scroll is actually blocked
-        const bodyOverflow = getComputedStyle(body).overflow;
-        const htmlOverflow = getComputedStyle(docEl).overflow;
-        
-        if (bodyOverflow === 'hidden' || htmlOverflow === 'hidden') {
-            body.style.overflow = 'auto';
-            docEl.style.overflow = 'auto';
-            body.style.webkitOverflowScrolling = 'touch';
-            docEl.style.webkitOverflowScrolling = 'touch';
-        }
+        // Force scroll properties on both desktop and mobile
+        [docEl, body].forEach(el => {
+            if (el) {
+                el.style.setProperty('overflow', 'auto', 'important');
+                el.style.setProperty('overflow-x', 'auto', 'important');
+                el.style.setProperty('overflow-y', 'auto', 'important');
+                el.style.setProperty('-webkit-overflow-scrolling', 'touch', 'important');
+                el.style.setProperty('touch-action', 'manipulation', 'important');
+                el.style.setProperty('overscroll-behavior-x', 'auto', 'important');
+                el.style.setProperty('overscroll-behavior-y', 'auto', 'important');
+                el.style.setProperty('position', 'static', 'important');
+                el.style.setProperty('height', 'auto', 'important');
+                el.style.setProperty('max-height', 'none', 'important');
+            }
+        });
         
     } catch (error) {
         console.warn('ensureScrollEnabled error:', error);
@@ -51,11 +53,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize smooth page transitions (safe)
     initSmoothTransitions();
 
-    // Simple scroll check on mobile
-    if (window.innerWidth <= 768) {
-        ensureScrollEnabled();
-        setTimeout(ensureScrollEnabled, 100);
-    }
+    // Continuous scroll fix - check every second
+    ensureScrollEnabled();
+    setTimeout(ensureScrollEnabled, 100);
+    setTimeout(ensureScrollEnabled, 500);
+    
+    // Keep checking scroll every second
+    setInterval(ensureScrollEnabled, 1000);
     
     // Dodatkowe sprawdzenie przy resize i orientacji
     window.addEventListener('resize', ensureScrollEnabled);
@@ -550,8 +554,11 @@ function showNotification(message, type = 'info') {
 
 // (duplicate smooth-scroll handler removed; enhanced version kept below)
 
-// Add scroll effect to header
+// Add scroll effect to header - with scroll fix
 window.addEventListener('scroll', function() {
+    // Ensure scroll is working
+    ensureScrollEnabled();
+    
     const header = document.querySelector('header');
     if (header) {
         if (window.scrollY > 100) {

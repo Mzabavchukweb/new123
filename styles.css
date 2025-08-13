@@ -95,12 +95,15 @@
 
 /* Global scroll fix - ensure proper scrolling */
 html, body {
-    overflow-x: auto;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    touch-action: manipulation;
-    overscroll-behavior-x: auto;
-    overscroll-behavior-y: auto;
+    overflow-x: auto !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    touch-action: manipulation !important;
+    overscroll-behavior-x: auto !important;
+    overscroll-behavior-y: auto !important;
+    position: static !important;
+    height: auto !important;
+    max-height: none !important;
 }
 
 /* Global Styles & Branding - Enhanced Design System */
@@ -5044,7 +5047,21 @@ body.subpage .stats-section.section-with-image .section-image-overlay {
 
 /* Mobile scroll overrides to avoid accidental locks */
 @media (max-width: 768px) {
-  section, .container, .hero, .services-section, .stats-section, .featured-services, .faq-section, .premium-properties { overflow: visible; }
+  section, .container, .hero, .services-section, .stats-section, .featured-services, .faq-section, .premium-properties { 
+    overflow: visible !important; 
+    position: static !important;
+    height: auto !important;
+  }
+  
+  /* Force all elements to allow scroll */
+  * {
+    overflow: visible !important;
+  }
+  
+  /* But keep specific elements that need hidden overflow */
+  .particles-background, .modal-content, .dropdown-menu {
+    overflow: hidden !important;
+  }
 }
 
   @keyframes fadeIn {
