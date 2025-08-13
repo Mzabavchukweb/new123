@@ -18,26 +18,29 @@ function initSmoothTransitions() {
     // Intentionally no global scroll-behavior on html to avoid iOS scroll glitches
 }
 
-// Aggressive scroll fix - force scroll to work
+// Force horizontal scroll to work everywhere
 function ensureScrollEnabled() {
     try {
         const docEl = document.documentElement;
         const body = document.body;
         
-        // Force scroll properties on both desktop and mobile
-        [docEl, body].forEach(el => {
-            if (el) {
-                el.style.setProperty('overflow', 'auto', 'important');
-                el.style.setProperty('overflow-x', 'auto', 'important');
-                el.style.setProperty('overflow-y', 'auto', 'important');
-                el.style.setProperty('-webkit-overflow-scrolling', 'touch', 'important');
-                el.style.setProperty('touch-action', 'manipulation', 'important');
-                el.style.setProperty('overscroll-behavior-x', 'auto', 'important');
-                el.style.setProperty('overscroll-behavior-y', 'auto', 'important');
-                el.style.setProperty('position', 'static', 'important');
-                el.style.setProperty('height', 'auto', 'important');
-                el.style.setProperty('max-height', 'none', 'important');
-            }
+        // Force horizontal scroll on all elements
+        [docEl, body].forEach((el) => {
+            if (!el) return;
+            
+            el.style.setProperty('overflow-x', 'auto', 'important');
+            el.style.setProperty('overflow-y', 'auto', 'important');
+            el.style.setProperty('max-width', 'none', 'important');
+            el.style.setProperty('width', 'auto', 'important');
+            el.style.setProperty('-webkit-overflow-scrolling', 'touch', 'important');
+        });
+        
+        // Force all containers to allow horizontal scroll
+        const containers = document.querySelectorAll('div, section, article, main, aside, header, footer, nav');
+        containers.forEach((container) => {
+            container.style.setProperty('overflow-x', 'auto', 'important');
+            container.style.setProperty('max-width', 'none', 'important');
+            container.style.setProperty('width', 'auto', 'important');
         });
         
     } catch (error) {
@@ -53,13 +56,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize smooth page transitions (safe)
     initSmoothTransitions();
 
-    // Continuous scroll fix - check every second
+    // Force horizontal scroll everywhere
     ensureScrollEnabled();
     setTimeout(ensureScrollEnabled, 100);
     setTimeout(ensureScrollEnabled, 500);
+    setTimeout(ensureScrollEnabled, 1000);
     
-    // Keep checking scroll every second
-    setInterval(ensureScrollEnabled, 1000);
+    // Keep checking for horizontal scroll
+    setInterval(ensureScrollEnabled, 2000);
     
     // Dodatkowe sprawdzenie przy resize i orientacji
     window.addEventListener('resize', ensureScrollEnabled);
@@ -554,11 +558,8 @@ function showNotification(message, type = 'info') {
 
 // (duplicate smooth-scroll handler removed; enhanced version kept below)
 
-// Add scroll effect to header - with scroll fix
+// Add scroll effect to header
 window.addEventListener('scroll', function() {
-    // Ensure scroll is working
-    ensureScrollEnabled();
-    
     const header = document.querySelector('header');
     if (header) {
         if (window.scrollY > 100) {
