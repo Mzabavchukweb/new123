@@ -18,7 +18,7 @@ function initSmoothTransitions() {
     // Intentionally no global scroll-behavior on html to avoid iOS scroll glitches
 }
 
-// Naprawiona funkcja zapewniająca scrollowanie na mobile
+// SUPER AGRESYWNA funkcja naprawiająca scrollowanie na mobile
 function ensureScrollEnabled() {
     try {
         const isMobile = window.innerWidth <= 768;
@@ -27,35 +27,53 @@ function ensureScrollEnabled() {
         const docEl = document.documentElement;
         const body = document.body;
         
-        // ZAWSZE pozwalaj na scrollowanie w obu kierunkach na mobile
+        console.log('🔧 Forcing mobile scroll to work...');
+        
+        // AGRESYWNIE usuń wszystkie blokady scrollowania
         [docEl, body].forEach((el) => {
             if (!el) return;
-            // Usuń wszystkie blokady scrollowania
-            el.style.removeProperty('overflow');
-            el.style.removeProperty('overflow-x');
-            el.style.removeProperty('overflow-y');
-            el.style.removeProperty('position');
-            el.style.removeProperty('height');
-            el.style.removeProperty('max-height');
             
-            // Ustaw poprawne właściwości dla mobile scroll
+            // Usuń WSZYSTKIE style które mogą blokować scroll
+            const propsToRemove = [
+                'overflow', 'overflow-x', 'overflow-y', 'position', 'height', 
+                'max-height', 'min-height', 'transform', 'will-change'
+            ];
+            propsToRemove.forEach(prop => el.style.removeProperty(prop));
+            
+            // FORCE właściwości scrollowania
             el.style.setProperty('overflow', 'auto', 'important');
             el.style.setProperty('overflow-x', 'auto', 'important');
             el.style.setProperty('overflow-y', 'auto', 'important');
             el.style.setProperty('position', 'static', 'important');
+            el.style.setProperty('height', 'auto', 'important');
+            el.style.setProperty('max-height', 'none', 'important');
             el.style.setProperty('-webkit-overflow-scrolling', 'touch', 'important');
             el.style.setProperty('touch-action', 'pan-x pan-y', 'important');
             el.style.setProperty('overscroll-behavior', 'auto', 'important');
+            
+            // Usuń klasy które mogą blokować scroll
+            el.classList.remove('no-scroll', 'overflow-hidden', 'fixed');
         });
         
-        // Ustaw smooth scroll behavior na auto dla lepszej wydajności na iOS
+        // FORCE scroll behavior
         docEl.style.setProperty('scroll-behavior', 'auto', 'important');
         
-        // Usuń potencjalne blokady z innych elementów
+        // Napraw viewport meta tag
         const viewport = document.querySelector('meta[name="viewport"]');
         if (viewport) {
-            viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, user-scalable=yes');
+            viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=5.0');
         }
+        
+        // Usuń potencjalne blokady z modali i overlay
+        const problematicElements = document.querySelectorAll('.modal, .overlay, .gdpr-modal, .cookie-banner');
+        problematicElements.forEach(el => {
+            if (el && el.style) {
+                el.style.setProperty('touch-action', 'pan-x pan-y', 'important');
+                el.style.setProperty('overscroll-behavior', 'auto', 'important');
+            }
+        });
+        
+        console.log('✅ Mobile scroll should now work');
         
     } catch (error) {
         console.warn('ensureScrollEnabled error:', error);
@@ -74,21 +92,48 @@ document.addEventListener('DOMContentLoaded', function() {
     const reenableDelays = [0, 100, 300, 800, 1600, 3000, 5000];
     reenableDelays.forEach((ms) => setTimeout(ensureScrollEnabled, ms));
     
-    // Dodaj prostą naprawkę scrollowania co 3 sekundy na mobile
+    // AGRESYWNY monitoring i naprawa scrollowania na mobile
     if (window.innerWidth <= 768) {
+        console.log('📱 Starting aggressive mobile scroll monitoring...');
+        
+        // Szybki monitoring co 1 sekundę
         setInterval(() => {
-            // Sprawdź czy scrollowanie jest zablokowane
             const body = document.body;
             const html = document.documentElement;
             
-            if (body.style.overflow === 'hidden' || html.style.overflow === 'hidden') {
-                console.log('🔧 Fixing blocked scroll...');
-                body.style.setProperty('overflow-y', 'scroll', 'important');
-                html.style.setProperty('overflow-y', 'scroll', 'important');
-                body.style.setProperty('-webkit-overflow-scrolling', 'touch', 'important');
-                html.style.setProperty('-webkit-overflow-scrolling', 'touch', 'important');
+            // Sprawdź różne problemy ze scrollowaniem
+            const bodyOverflow = getComputedStyle(body).overflow;
+            const htmlOverflow = getComputedStyle(html).overflow;
+            const bodyPosition = getComputedStyle(body).position;
+            const htmlPosition = getComputedStyle(html).position;
+            
+            let needsFix = false;
+            
+            if (bodyOverflow === 'hidden' || htmlOverflow === 'hidden') {
+                console.log('🚨 Detected hidden overflow - fixing...');
+                needsFix = true;
             }
-        }, 3000);
+            
+            if (bodyPosition === 'fixed' || htmlPosition === 'fixed') {
+                console.log('🚨 Detected fixed positioning - fixing...');
+                needsFix = true;
+            }
+            
+            if (needsFix) {
+                ensureScrollEnabled();
+            }
+        }, 1000);
+        
+        // Bardzo szybki monitoring co 200ms przez pierwsze 10 sekund
+        let quickCheckCount = 0;
+        const quickCheck = setInterval(() => {
+            ensureScrollEnabled();
+            quickCheckCount++;
+            if (quickCheckCount >= 50) { // 50 * 200ms = 10 sekund
+                clearInterval(quickCheck);
+                console.log('✅ Quick scroll monitoring completed');
+            }
+        }, 200);
     }
     
     // Dodatkowe sprawdzenie przy resize i orientacji
@@ -181,8 +226,13 @@ document.addEventListener('DOMContentLoaded', function() {
             nav.setAttribute('role', 'dialog');
             isOpen = true;
             
-            // Upewnij się, że scrollowanie działa nawet gdy menu jest otwarte
+            // CRITICAL: ALWAYS ensure scrolling works when menu opens
             ensureScrollEnabled();
+            // Force scroll immediately and repeatedly
+            setTimeout(ensureScrollEnabled, 0);
+            setTimeout(ensureScrollEnabled, 10);
+            setTimeout(ensureScrollEnabled, 50);
+            setTimeout(ensureScrollEnabled, 100);
             
             // Add close button if it doesn't exist
             if (!nav.querySelector('.mobile-close')) {
@@ -1093,8 +1143,12 @@ function showCookieConsent() {
         }
     } catch (_) {}
     
-    // ZAWSZE pozwalaj na scrollowanie na mobile
+    // ZAWSZE pozwalaj na scrollowanie na mobile - FORCE IT!
     ensureScrollEnabled();
+    // Triple-force it for stubborn cases
+    setTimeout(ensureScrollEnabled, 0);
+    setTimeout(ensureScrollEnabled, 50);
+    setTimeout(ensureScrollEnabled, 200);
 }
 
 function showGDPRInfo() {
@@ -1158,8 +1212,12 @@ function showGDPRInfo() {
         }
     } catch (_) {}
     
-    // ZAWSZE pozwalaj na scrollowanie na mobile
+    // ZAWSZE pozwalaj na scrollowanie na mobile - FORCE IT!
     ensureScrollEnabled();
+    // Triple-force it for stubborn cases
+    setTimeout(ensureScrollEnabled, 0);
+    setTimeout(ensureScrollEnabled, 50);
+    setTimeout(ensureScrollEnabled, 200);
 }
 
 function closeGDPRModal(modalId) {

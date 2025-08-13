@@ -260,9 +260,11 @@ body {
     -ms-overflow-style: none; /* Internet Explorer 10+ */
 }
 
-/* Hide scrollbar for WebKit browsers */
-body::-webkit-scrollbar {
-    display: none;
+/* Hide scrollbar for WebKit browsers - ONLY on desktop */
+@media (min-width: 769px) {
+    body::-webkit-scrollbar {
+        display: none;
+    }
 }
 
 /* Unified Typography System */
@@ -438,12 +440,39 @@ body.subpage section { opacity: 1; transform: none; }
     overflow: hidden;
 }
 
+/* Mobile: Use absolute positioning for particles to avoid scroll conflicts */
+@media (max-width: 768px) {
+    .particles-background {
+        position: absolute;
+        height: 200vh; /* Cover more area for scrolling */
+    }
+}
+
 @media (max-width: 768px) {
   .particles-background { display: none !important; }
   
   /* FORCE MOBILE SCROLL - OVERRIDE EVERYTHING */
   body, html {
-    -webkit-overflow-scrolling: touch;
+    -webkit-overflow-scrolling: touch !important;
+    overflow: auto !important;
+    overflow-y: auto !important;
+    overflow-x: auto !important;
+    position: static !important;
+    height: auto !important;
+    max-height: none !important;
+    touch-action: pan-x pan-y !important;
+    overscroll-behavior: auto !important;
+  }
+  
+  /* Ensure scrollbars are visible on mobile for debugging */
+  body::-webkit-scrollbar {
+    display: block !important;
+    width: 8px;
+  }
+  
+  body::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
   }
   
   /* Kill any fixed positioning that might interfere */
@@ -4929,14 +4958,12 @@ body.subpage .stats-section.section-with-image .section-image-overlay {
   }
   .header-content { padding: 8px 16px; }
   .header-right { gap: 8px; }
-  /* Simple full-screen mobile menu */
+  /* Simple full-screen mobile menu - SCROLL SAFE */
   .main-nav {
     position: fixed;
     top: 0;
     left: 0;
-    /* Avoid horizontal overflow from 100vw on mobile due to scrollbars */
     width: 100%;
-    /* Use dynamic viewport height to avoid iOS address bar resize issues */
     height: 100dvh;
     background: rgba(13,27,42,0.98);
     display: flex;
@@ -4950,6 +4977,9 @@ body.subpage .stats-section.section-with-image .section-image-overlay {
     pointer-events: none;
     transition: opacity 0.3s ease, visibility 0.3s ease;
     backdrop-filter: blur(10px);
+    /* CRITICAL: Don't interfere with page scroll */
+    touch-action: pan-x pan-y;
+    overscroll-behavior: contain;
   }
   .main-nav.open {
     opacity: 1;
@@ -5000,17 +5030,25 @@ body.subpage .stats-section.section-with-image .section-image-overlay {
     transform: scale(1.1);
   }
   body.nav-open { 
-    /* Nie blokuj scroll na desktop */
-    overflow: auto;
+    /* NEVER block scroll - critical for mobile */
+    overflow: auto !important;
+    overflow-x: auto !important;
+    overflow-y: auto !important;
+    position: static !important;
+    height: auto !important;
+    max-height: none !important;
   }
   
   @media (max-width: 768px) {
       body.nav-open { 
-    /* ZAWSZE pozwalaj na scrollowanie na mobile - DELIKATNIE */
-    overflow: visible !important; 
-    overflow-x: visible !important;
-    overflow-y: visible !important;
+    /* FORCE scroll to work on mobile when menu is open */
+    overflow: auto !important; 
+    overflow-x: auto !important;
+    overflow-y: auto !important;
     position: static !important;
+    -webkit-overflow-scrolling: touch !important;
+    touch-action: pan-x pan-y !important;
+    overscroll-behavior: auto !important;
     }
   }
   
