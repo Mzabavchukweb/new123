@@ -7,10 +7,10 @@
     height: auto;
     position: static;
     -webkit-overflow-scrolling: touch !important;
-    touch-action: manipulation !important;
-    overscroll-behavior-x: auto !important;
+    touch-action: pan-y !important;
+    overscroll-behavior-x: none !important;
     overscroll-behavior-y: auto !important;
-    overflow-x: auto !important;
+    overflow-x: hidden !important;
     overflow-y: auto !important;
   }
   
@@ -235,11 +235,11 @@
 html {
     /* Avoid global smooth behavior to prevent iOS scroll stalls */
     scroll-behavior: auto;
-    overflow-x: auto;
+    overflow-x: hidden;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    touch-action: manipulation;
-    overscroll-behavior-x: auto;
+    touch-action: pan-y;
+    overscroll-behavior-x: none;
     overscroll-behavior-y: auto;
 }
 
@@ -249,7 +249,7 @@ body {
     background-color: var(--dark-navy);
     color: #FFFFFF;
     line-height: 1.6;
-    overflow-x: auto;
+    overflow-x: hidden;
     overflow-y: auto;
     font-feature-settings: 'cv11', 'ss01', 'liga' 1;
     -webkit-font-smoothing: antialiased;
@@ -259,9 +259,9 @@ body {
     /* Avoid global smooth behavior to prevent iOS scroll stalls */
     scroll-behavior: auto;
     -webkit-overflow-scrolling: touch;
-    overscroll-behavior-x: auto;
+    overscroll-behavior-x: none;
     overscroll-behavior-y: auto;
-    touch-action: manipulation;
+    touch-action: pan-y;
     /* Hide scrollbar */
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* Internet Explorer 10+ */
@@ -448,14 +448,34 @@ body.subpage section { opacity: 1; transform: none; }
 @media (max-width: 768px) {
   .particles-background { display: none !important; }
   
-  /* FORCE MOBILE SCROLL - OVERRIDE EVERYTHING - POPRAWIONE DLA POZIOMEGO */
+  /* FORCE MOBILE SCROLL - TYLKO PIONOWE, BLOKUJ POZIOME */
   body, html {
     -webkit-overflow-scrolling: touch;
-    overflow-x: auto !important;
+    overflow-x: hidden !important;
     overflow-y: auto !important;
-    touch-action: manipulation !important;
-    overscroll-behavior-x: auto !important;
+    touch-action: pan-y !important;
+    overscroll-behavior-x: none !important;
     overscroll-behavior-y: auto !important;
+  }
+  
+  /* Zapobiegaj poziomemu przewijaniu na mobile */
+  * {
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    hyphens: auto !important;
+    max-width: 100vw !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* Wymuś zawijanie tekstu dla elementów z nowrap */
+  .top-header-content span, .opening-hours {
+    white-space: normal !important;
+  }
+  
+  /* Kontener i sekcje nie mogą przekroczyć viewport */
+  .container, section, header, footer, main, div {
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
   }
   
   /* Kill any fixed positioning that might interfere */
@@ -4985,13 +5005,14 @@ body.subpage .stats-section.section-with-image .section-image-overlay {
     overflow-y: auto; /* ensure internal scroll if needed */
   }
   
-  /* Ensure body can still scroll when menu is open */
+  /* Ensure body can still scroll when menu is open - TYLKO PIONOWE */
   body.nav-open {
-    overflow: auto !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
     position: static !important;
     height: auto !important;
     -webkit-overflow-scrolling: touch !important;
-    touch-action: manipulation !important;
+    touch-action: pan-y !important;
   }
   .nav-list { 
     flex-direction: column; 
@@ -5036,8 +5057,9 @@ body.subpage .stats-section.section-with-image .section-image-overlay {
     transform: scale(1.1);
   }
   body.nav-open { 
-    /* Nie blokuj scroll na desktop */
-    overflow: auto;
+    /* Nie blokuj scroll na desktop - tylko pionowe */
+    overflow-x: hidden;
+    overflow-y: auto;
   }
   
 
@@ -6652,19 +6674,19 @@ body {
   }
   
   body {
-    overflow-x: auto !important;
+    overflow-x: hidden !important;
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch !important;
-    touch-action: manipulation !important;
-    overscroll-behavior-x: auto !important;
+    touch-action: pan-y !important;
+    overscroll-behavior-x: none !important;
     overscroll-behavior-y: auto !important;
   }
   
-  /* Gdy menu jest otwarte - nadal pozwól na scroll W OBIE STRONY */
+  /* Gdy menu jest otwarte - nadal pozwól na pionowe scroll, blokuj poziome */
   body.nav-open {
-    overflow-x: auto !important;
+    overflow-x: hidden !important;
     overflow-y: auto !important;
-    touch-action: manipulation !important;
+    touch-action: pan-y !important;
     position: static !important;
   }
 }
