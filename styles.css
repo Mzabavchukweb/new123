@@ -15,8 +15,13 @@
   }
   
   * { 
-    max-width: 100%; 
     box-sizing: border-box; 
+  }
+  
+  /* Ograniczaj szerokość tylko dla elementów tekstowych i mediów, nie dla wszystkich */
+  img, video, canvas, svg, iframe {
+    max-width: 100%; 
+    height: auto;
   }
   
   /* Disable particles on mobile */
@@ -43,7 +48,7 @@
     overflow-wrap: break-word !important;
     hyphens: auto !important;
     white-space: normal !important;
-    max-width: 100% !important;
+    /* max-width removed - was blocking horizontal scroll */
   }
 
   /* Header: oszczędność miejsca bez zmiany desktopu */
@@ -1027,7 +1032,7 @@ body:not(.subpage) .hero {
     word-wrap: break-word !important;
     overflow-wrap: break-word !important;
     hyphens: auto !important;
-    max-width: 100% !important;
+    /* max-width removed - was blocking horizontal scroll */
 }
 
 /* caret removed for more natural typing */
@@ -5387,16 +5392,7 @@ footer {
     box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.3);
 }
 
-/* Global responsive media */
-img, video, canvas, svg {
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
-
-iframe {
-    max-width: 100%;
-}
+/* Global responsive media - consolidated above in mobile section */
 
 /* Ensure background images scale nicely */
 .section-with-image .section-image-overlay {
