@@ -171,12 +171,14 @@ document.addEventListener('DOMContentLoaded', function() {
         let isOpen = false;
         
         function closeMenu() {
+            console.log('📁 Closing menu...');
             nav.classList.remove('open');
             toggle.classList.remove('active');
             document.body.classList.remove('nav-open');
             toggle.setAttribute('aria-expanded', 'false');
             nav.setAttribute('aria-hidden', 'true');
             isOpen = false;
+            console.log('📁 Menu closed, classes:', nav.className);
             
             // Natychmiast przywróć scrollowanie na mobile
             ensureScrollEnabled();
@@ -186,6 +188,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         function openMenu() {
+            console.log('📂 Opening menu...');
             nav.classList.add('open');
             toggle.classList.add('active');
             document.body.classList.add('nav-open');
@@ -193,6 +196,7 @@ document.addEventListener('DOMContentLoaded', function() {
             nav.setAttribute('aria-hidden', 'false');
             nav.setAttribute('role', 'dialog');
             isOpen = true;
+            console.log('📂 Menu opened, classes:', nav.className);
             
             // Upewnij się, że scrollowanie działa nawet gdy menu jest otwarte
             ensureScrollEnabled();

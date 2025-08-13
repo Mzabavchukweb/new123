@@ -486,6 +486,17 @@ body.subpage section { opacity: 1; transform: none; }
   /* Wyjątki dla menu mobilnego */
   .main-nav, .main-nav.open, .menu-toggle {
     max-width: none !important;
+    overflow-x: visible !important;
+  }
+  
+  /* Upewnij się że menu mobilne ma priorytet */
+  @media (max-width: 768px) {
+    .main-nav.open {
+      opacity: 1 !important;
+      visibility: visible !important;
+      pointer-events: auto !important;
+      display: flex !important;
+    }
   }
   
   /* Kill any fixed positioning that might interfere */
