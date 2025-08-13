@@ -2,9 +2,16 @@
 @media (max-width: 768px) {
   html, body { 
     width: 100%; 
+    max-width: 100%;
     min-height: 100dvh;
     height: auto;
     position: static;
+    -webkit-overflow-scrolling: touch !important;
+    touch-action: manipulation !important;
+    overscroll-behavior-x: auto !important;
+    overscroll-behavior-y: auto !important;
+    overflow-x: auto !important;
+    overflow-y: auto !important;
   }
   
   * { 
@@ -24,23 +31,23 @@
   
   /* Ensure hero is scrollable */
   .hero {
-    min-height: 60vh;
-    height: auto;
-    overflow: visible;
-    position: relative;
+    min-height: 60vh !important;
+    height: auto !important;
+    overflow: visible !important;
+    position: relative !important;
     padding: 40px 0;
   }
   .hero .container {
-    overflow: visible;
+    overflow: visible !important;
   }
   .hero h1 {
     font-size: clamp(1.8rem, 4.5vw, 2.5rem);
     line-height: 1.3;
     margin-bottom: 20px;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    hyphens: auto;
-    white-space: normal;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    hyphens: auto !important;
+    white-space: normal !important;
     /* max-width removed - was blocking horizontal scroll */
   }
 
@@ -50,7 +57,7 @@
   
   /* Top header mobile layout */
   .top-header {
-    display: flex;
+    display: flex !important;
     background: var(--dark-navy);
     border-bottom: 1px solid rgba(255,255,255,0.1);
     will-change: transform;
@@ -92,50 +99,6 @@
 }
 
 /* Mobile scroll fix - removed problematic overflow restrictions */
-
-/* Global scroll fix - ensure proper scrolling */
-html, body {
-    overflow-x: auto !important;
-    overflow-y: auto !important;
-    -webkit-overflow-scrolling: touch;
-    touch-action: manipulation;
-    overscroll-behavior-x: auto;
-    overscroll-behavior-y: auto;
-    max-width: none !important;
-    width: auto !important;
-}
-
-/* Force horizontal scroll to work everywhere */
-* {
-    max-width: none !important;
-}
-
-/* Allow horizontal scroll on all containers */
-.container, .hero, .section, .content, .wrapper {
-    overflow-x: auto !important;
-    max-width: none !important;
-}
-
-/* Force horizontal scroll to work - OVERRIDE EVERYTHING */
-html, body, div, section, article, main, aside, header, footer, nav {
-    overflow-x: auto !important;
-    max-width: none !important;
-    width: auto !important;
-}
-
-/* Ensure no element blocks horizontal scroll */
-* {
-    max-width: none !important;
-}
-
-/* Mobile specific - force horizontal scroll */
-@media (max-width: 768px) {
-    html, body, div, section, article, main, aside, header, footer, nav {
-        overflow-x: auto !important;
-        max-width: none !important;
-        width: auto !important;
-    }
-}
 
 /* Global Styles & Branding - Enhanced Design System */
 :root {
@@ -270,7 +233,14 @@ html, body, div, section, article, main, aside, header, footer, nav {
 }
 
 html {
+    /* Avoid global smooth behavior to prevent iOS scroll stalls */
     scroll-behavior: auto;
+    overflow-x: auto;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    touch-action: manipulation;
+    overscroll-behavior-x: auto;
+    overscroll-behavior-y: auto;
 }
 
 body {
@@ -279,11 +249,19 @@ body {
     background-color: var(--dark-navy);
     color: #FFFFFF;
     line-height: 1.6;
+    overflow-x: auto;
+    overflow-y: auto;
     font-feature-settings: 'cv11', 'ss01', 'liga' 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     position: relative;
+    /* Avoid global smooth behavior to prevent iOS scroll stalls */
+    scroll-behavior: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: auto;
+    overscroll-behavior-y: auto;
+    touch-action: manipulation;
     /* Hide scrollbar */
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* Internet Explorer 10+ */
@@ -468,17 +446,22 @@ body.subpage section { opacity: 1; transform: none; }
 }
 
 @media (max-width: 768px) {
-  .particles-background { display: none; }
+  .particles-background { display: none !important; }
   
-  /* Mobile scroll - simplified */
+  /* FORCE MOBILE SCROLL - OVERRIDE EVERYTHING - POPRAWIONE DLA POZIOMEGO */
   body, html {
-    /* Scroll properties handled globally */
+    -webkit-overflow-scrolling: touch;
+    overflow-x: auto !important;
+    overflow-y: auto !important;
+    touch-action: manipulation !important;
+    overscroll-behavior-x: auto !important;
+    overscroll-behavior-y: auto !important;
   }
   
-  /* Modal positioning fix */
+  /* Kill any fixed positioning that might interfere */
   .gdpr-modal, .cookie-modal, #cookieConsentModal, #gdprInfoModal {
-    position: absolute;
-    top: 0;
+    position: absolute !important;
+    top: 0 !important;
   }
 }
 
@@ -543,10 +526,10 @@ body.subpage section { opacity: 1; transform: none; }
 
 /* Unified Layout System */
 .container {
-    max-width: none;
+    max-width: var(--container-max-width);
     margin: 0 auto;
     padding: 0 var(--container-padding);
-    width: auto;
+    width: 100%;
 }
 
 /* Grid System */
@@ -740,7 +723,7 @@ header {
     justify-content: center;
     box-shadow: var(--shadow-gold);
     position: relative;
-    overflow: visible;
+    overflow: hidden;
     transition: var(--transition-normal);
     will-change: transform, box-shadow;
 }
@@ -5035,24 +5018,24 @@ body.subpage .stats-section.section-with-image .section-image-overlay {
   
   @media (max-width: 768px) {
       body.nav-open { 
-    /* Always allow scrolling on mobile - gently */
-    overflow: visible; 
-    overflow-x: visible;
-    overflow-y: visible;
-    position: static;
+    /* ZAWSZE pozwalaj na scrollowanie na mobile - DELIKATNIE */
+    overflow: visible !important; 
+    overflow-x: visible !important;
+    overflow-y: visible !important;
+    position: static !important;
     }
   }
   
   /* Fix hero section scrolling */
   .hero {
-    min-height: 60vh;
-    height: auto;
-    overflow: visible;
-    position: relative;
+    min-height: 60vh !important;
+    height: auto !important;
+    overflow: visible !important;
+    position: relative !important;
     padding: 40px 0;
   }
   .hero .container {
-    overflow: visible;
+    overflow: visible !important;
   }
   .hero-content {
     padding: 40px 20px;
@@ -5078,7 +5061,7 @@ body.subpage .stats-section.section-with-image .section-image-overlay {
 
 /* Mobile scroll overrides to avoid accidental locks */
 @media (max-width: 768px) {
-  section, .container, .hero, .services-section, .stats-section, .featured-services, .faq-section, .premium-properties { overflow: visible; }
+  section, .container, .hero, .services-section, .stats-section, .featured-services, .faq-section, .premium-properties { overflow: visible !important; }
 }
 
   @keyframes fadeIn {
@@ -6667,9 +6650,31 @@ body {
 
 /* DELIKATNA NAPRAWKA SCROLLOWANIA MOBILE - POPRAWIONA DLA POZIOMEGO */
 @media (max-width: 768px) {
-  /* Mobile scroll - basic settings */
+  /* Upewnij się że podstawowe scrollowanie działa W OBIE STRONY */
+  html {
+    overflow-x: auto !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    touch-action: manipulation !important;
+    overscroll-behavior-x: auto !important;
+    overscroll-behavior-y: auto !important;
+  }
+  
+  body {
+    overflow-x: auto !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    touch-action: manipulation !important;
+    overscroll-behavior-x: auto !important;
+    overscroll-behavior-y: auto !important;
+  }
+  
+  /* Gdy menu jest otwarte - nadal pozwól na scroll W OBIE STRONY */
   body.nav-open {
-    position: static;
+    overflow-x: auto !important;
+    overflow-y: auto !important;
+    touch-action: manipulation !important;
+    position: static !important;
   }
 }
 
